@@ -30,11 +30,4 @@
 | Responsive Design | Each page should have a specific format for desktop users **AND** a specific format for mobile & tablet users. |
 | Demo Accounts | There should be demonstration accounts for each role. |
 | Demo account data | There should be data generated for exclusive use with the demonstration accounts. |
-| --- | --- |
-| --- | --- |
-| --- | --- |
-| --- | --- |
-| --- | --- |
-| --- | --- |
-| --- | --- |
-| --- | --- |
+| Notifications | A user should be notified of actions they take. These notifications should appear in the bottom right of the screen. |

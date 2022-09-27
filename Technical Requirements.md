@@ -15,8 +15,8 @@
 | Assign Criticality to Bug Report | Prepare SQL schema and table for criticality levels |
 | | Create dropdown field in bug report to assign criticality. |
 | | Code to record criticality level. |
-| | --- |
-| | --- |
+| Create new bug report | create page for creating new bug report. |
+| | Page in the format of a popup card. |
 | | --- |
 | | --- |
 | | --- |

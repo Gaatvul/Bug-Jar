@@ -36,251 +36,40 @@
 | User Account roles | Prepare SQL schema and table for roles. |
 | | Populate table with Administrator, manager, developer and tester roles. |
 | | Research how to implement permissions and roles in software |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| | --- |
-| Save bug report changes | Java code to save changes to bug report |
-| | Create SQL Schema and table to save data. |
+| Administrator Role | Implement permissions code for administrator role |
+| | Create schema and table for SQL database. |
+| | Create Administrator role class. |
+| Manager Role | Implement permissions code for Manager role |
+| | Create schema and table for SQL database. |
+| | Create Manager role class. |
+| Developer/Tester Role | Implement permissions code for Developer/Tester role |
+| | Create schema and table for SQL database. |
+| | Create Developer/Tester role class. |
+| User landing page | Create user landing page. |
+| | Add criticality pie chart widget. |
+| | Add priority pie chart widget. |
+| | Add category pie chart widget. |
+| | Add assigned bug reports widget. |
+| | Add code to populate widgets with relevant data. |
+| Navigation Menu | Create navigation menu on left of screen. |
+| | Add code to change options for admin, manager, dev and test roles. |
+| | Add menu entry and link to dashboard. |
+| | Add menu entry and link to bug report search. |
+| | Add menu entry and link to new bug report. |
+| | Add menu entry and link to account management. |
+| | Add menu entry and link to log out. |
+| | Add menu entry and link to Administrator Management Page. |
+| Responsive Design | Add viewports for desktop, tablet and phone. |
+| | Change navigation menu from permanent to hamburger menu for tablet and phone views. |
+| Demo Accounts | Create demonstration accounts for each of the roles. |
+| | Add button and link to demo account selection page. |
+| Demo Account data | Populate database with data for demonstration account. |
+| Notifications | Create popup notification layout. |
+| | Code to trigger notification. |
+| | Code to ensure any changes made by a demo account are NOT saved. |
+| Assign Categories to bug report | Prepare SQL schema and table for categories. |
+| | Create dropdown field in bug report to assign category. |
+| Assign Priority to bug report | Prepare SQL schema and table for priority level. |
+| | Create dropdown field in bug report to assign priority level. |
+| Assign Status to bug report | Prepare SQL schema and table for status'. |
+| | Create dropdown field in bug report to assign status. |

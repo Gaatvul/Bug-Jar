@@ -64,9 +64,9 @@
 | Demo Accounts | Create demonstration accounts for each of the roles. |
 | | Add button and link to demo account selection page. |
 | Demo Account data | Populate database with data for demonstration account. |
+| | Code to ensure any changes made by a demo account are NOT saved. |
 | Notifications | Create popup notification layout. |
 | | Code to trigger notification. |
-| | Code to ensure any changes made by a demo account are NOT saved. |
 | Assign Categories to bug report | Prepare SQL schema and table for categories. |
 | | Create dropdown field in bug report to assign category. |
 | Assign Priority to bug report | Prepare SQL schema and table for priority level. |

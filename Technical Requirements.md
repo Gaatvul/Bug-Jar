@@ -36,15 +36,6 @@
 | User Account roles | Prepare SQL schema and table for roles. |
 | | Populate table with Administrator, manager, developer and tester roles. |
 | | Research how to implement permissions and roles in software |
-| Administrator Role | Implement permissions code for administrator role |
-| | Create schema and table for SQL database. |
-| | Create Administrator role class. |
-| Manager Role | Implement permissions code for Manager role |
-| | Create schema and table for SQL database. |
-| | Create Manager role class. |
-| Developer/Tester Role | Implement permissions code for Developer/Tester role |
-| | Create schema and table for SQL database. |
-| | Create Developer/Tester role class. |
 | User landing page | Create user landing page. |
 | | Add criticality pie chart widget. |
 | | Add priority pie chart widget. |

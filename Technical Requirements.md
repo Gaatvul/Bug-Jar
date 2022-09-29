@@ -54,9 +54,9 @@
 | Bug Report Search | Create page for searching bug reports. |
 | | Code to search ticket by name or id. |
 | Account Management Page | Create page for managing account. |
-| | Add field to change password. |
-| | Add field to change email. |
-| | Add field to change profile picture. |
+| | Add field & code to change password. |
+| | Add field & code to change email. |
+| | Add field & code to change profile picture. |
 | Administrator Management page | Create page for adminstrators |
 | | Add section to create new account. |
 | | Add section to view existing accounts |

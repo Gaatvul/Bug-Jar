@@ -53,6 +53,20 @@
 | | Add menu entry and link to Administrator Management Page. |
 | Bug Report Search | Create page for searching bug reports. |
 | | Code to search ticket by name or id. |
+| Account Management Page | Create page for managing account. |
+| | Add field to change password. |
+| | Add field to change email. |
+| | Add field to change profile picture. |
+| Administrator Management page | Create page for adminstrators |
+| | Add section to create new account. |
+| | Add section to view existing accounts |
+| | Add section to edit an account |
+| | Add section to create a new project. |
+| | Add section to view existing projects. |
+| Manager Management page | Create page for managers |
+| | Add section to view existing accounts |
+| | Add section to create a new project. |
+| | Add section to view existing projects. |
 | Responsive Design | Add viewports for desktop, tablet and phone. |
 | | Change navigation menu from permanent to hamburger menu for tablet and phone views. |
 | Demo Accounts | Create demonstration accounts for each of the roles. |

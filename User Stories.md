@@ -21,6 +21,7 @@
 | Bug Report Search | The bug report search page should contain a list of all bug reports that the user's account is authorised to access. | 20 |
 | Account Management Page | There should be an account management page where the user can change their password and email details and their profile picture. | 30 |
 | Administrator Management page | There should be a page for an administrator to create new accounts, view & edit existing accounts, assign users to projects, create new projects & delete existing ones | 20 |
+| Manager Management page | There should be a page for a manager to view existing accounts, assign users to projects, create new projects & delete existing ones | 30 |
 | Responsive Design | Each page should have a specific format for desktop users **AND** a specific format for mobile & tablet users. | 30 |
 | Demo Accounts | There should be demonstration accounts for each role. | 40 |
 | Demo account data | There should be data generated for exclusive use with the demonstration accounts. | 40 |

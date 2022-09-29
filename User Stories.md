@@ -18,7 +18,6 @@
 | Developer/Tester Role | This role should authorise full access to any modules concerned with the bug report(s) assigned to the account. The activies that this role is authorised to perform are: <ul> <li> Create a new report </li> <li> Comment, change the status, criticality and category, download and upload attachments and add a priority on a report </li> <li> View all projects and reports assigned to the account </li> </ul> | 20 |
 | User landing page | A user should have a landing page after logging in. This landing page should show which reports and projects are assigned to the user. | 20 |
 | Navigation menu | There should be a navigation menu for the whole site. The options available should depend on the role of the user's account. | 20 |
-| Bug Report Page | The bug report page should display all information that the user's account is authorised to see or edit. | 10 |
 | Bug Report Search | The bug report search page should contain a list of all bug reports that the user's account is authorised to access. | 20 |
 | Account Management Page | There should be an account management page where the user can change their password and email details and their profile picture. | 30 |
 | Administrator Management page | There should be a page for an administrator to create new accounts, view & edit existing accounts, assign users to projects, create new projects & delete existing ones | 20 |

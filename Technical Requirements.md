@@ -10,6 +10,7 @@
 | | SQL scripts to fetch data. |
 | | Code to request, receive, hold and send data to front end. |
 | | Add section for comments. |
+| | Add permissions for viewing and editing information fields based on account role.
 | Track bug lifecycle | Create 'History' section on bug report page. |
 | | Code to track changes to title, status, criticality, assignee and priority. |
 | | Prepare SQL schema and table for tracked changes. |
@@ -50,6 +51,8 @@
 | | Add menu entry and link to account management. |
 | | Add menu entry and link to log out. |
 | | Add menu entry and link to Administrator Management Page. |
+| Bug Report Search | Create page for searching bug reports. |
+| | Code to search ticket by name or id. |
 | Responsive Design | Add viewports for desktop, tablet and phone. |
 | | Change navigation menu from permanent to hamburger menu for tablet and phone views. |
 | Demo Accounts | Create demonstration accounts for each of the roles. |

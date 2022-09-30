@@ -81,3 +81,5 @@
 | | Create dropdown field in bug report to assign priority level. |
 | Assign Status to bug report | Prepare SQL schema and table for status'. |
 | | Create dropdown field in bug report to assign status. |
+| Log out of account | Create log out button on navigation menu. |
+| | Code to redirect user to log in page after logging out. |

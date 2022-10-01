@@ -30,3 +30,4 @@
 | Assign Priority to bug report | A bug report should be able to have a prority assigned to it. These priorities (in order of highest to lowest) should be urgent, high, medium and low. This feature is meant primarily for developers and testers to prioritise their workload. | 20 |
 | Assign Status to bug report | A bug report should be able to have a status assigned to it. These statuses should be open, in progress and done. A newly created bug report should have the 'open' status automatically assigned to it. | 20 |
 | Log out of account | A user should be able to log out of their account at any time. After being logged out, the user should be redirected to the log in page. | 20 |
+| Assign user to bug report | A bug report should be able to have a user assigned to it. This user should initially be a manager who then assigns the report to a developer. | 20 |

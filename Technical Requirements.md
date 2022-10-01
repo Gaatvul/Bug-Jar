@@ -18,7 +18,7 @@
 | | Create dropdown field in bug report to assign criticality. |
 | | Code to record criticality level. |
 | Create new bug report | Create popup card page for creating new bug report. |
-| | Add fields for title, description, project name, category, criticality and priority. |
+| | Add fields for title, description, project name, category, criticality, assignee and priority. |
 | | Add field to upload documents. |
 | | Add button to save changes. |
 | | Code to pass fields to bug report class and database. |
@@ -83,3 +83,5 @@
 | | Create dropdown field in bug report to assign status. |
 | Log out of account | Create log out button on navigation menu. |
 | | Code to redirect user to log in page after logging out. |
+| Assign user to bug report | Create popup card to search for users |
+| | Code to search through users |

@@ -31,4 +31,28 @@
 11. Assigned reports are sent to user's dashboard.
 12. Dashboard is populated with pie charts of tickets assigned to the account.
 
+### Create a New Bug Report
+1. User clicks a link to create a new bug report.
+2. User is redirected to the Create New Bug Report page.
+3. A new report view is created.
+4. All fields are empty.
+5. User fills in the reqired fields; title, description, criticality and category fields.
+   1. User adds to an optional field; attachments or comments.
+6. User presses 'Save' button.
+   1. Any of the required fields are not filled in.
+   2. Unfilled required fields are highlighted in red.
+   3. A popup is created requesting that the user fill in all fields.
+7. Report is sent to database.
+   1. Attachments are saved to a folder (named bug id + title).
+
 ### View Bug Report
+1. User clicks on link to view a report.
+2. Report data is sent to front end.
+   1. Report attachments are loaded.
+3. User is redirected to View Report page.
+4. Report fields are populated with selected report's data.
+
+### Edit an existing Bug Report
+1. User opens a report.
+2. User alters information in any of the report's fields.
+   1. User leaves

@@ -56,3 +56,11 @@
 1. User opens a report.
 2. User alters information in any of the report's fields.
    1. User leaves
+
+
+### Making changes
+1. User opens a report.
+2. User presses the 'edit report' button.
+3. User reassigns the report to another account.
+4. User presses the 'save' button.
+5. Change is recorded and sent to the database.

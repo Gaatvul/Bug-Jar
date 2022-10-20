@@ -14,8 +14,19 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>8</java.version>
+		<bootstrap.version>5.2.2</bootstrap.version>
+		<junit.version>4.13.2</junit.version>
+		<spring.boot.version>2.7.4</spring.boot.version>
 	</properties>
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${bootstrap.version}</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -26,14 +37,14 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
+			<version>${junit.version}</version>
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test</artifactId>
-			<version>2.7.4</version>
+			<version>${spring.boot.version}</version>
 		</dependency>
 
 		<dependency>

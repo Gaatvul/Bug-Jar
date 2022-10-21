@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
@@ -26,7 +25,7 @@ public class BugReportDAOImpl implements BugReportDAO {
 
         // retrieveAllBugReports.execute();
 
-        String sqlToRetrieveAllBugReports = "CALL retrieve_all_bug_reports()";
+        String sqlToRetrieveAllBugReports = "CALL retrieve_all_bug_reports();";
 
         listOfBugReportsInDatabase = jdbcTemplate.query(sqlToRetrieveAllBugReports, new BugReportRowMapper());
 

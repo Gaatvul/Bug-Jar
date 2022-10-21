@@ -18,10 +18,11 @@ public class BugReportController {
     
     @GetMapping("/bugReport")
     public String showListOfBugReports(Model model) {
+        
         List<BugReportEntity> listOfBugReports = bugReportService.loadListOfBugReports();
 
         model.addAttribute("listOfBugReports", listOfBugReports);
 
-        return "bugReports";
+        return "viewAllBugReports";
     }
 }

@@ -1,12 +1,12 @@
 package com.gaatvul.bugtracker.Entities;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class BugReportEntity {
 
     private int id;
     private String title, description, projectAssignedTo, assignee, reporter, criticality, category, priority, status;
-    private LocalDateTime createdOn;
+    private Timestamp createdOn;
 
     public int getId() {
         return id;
@@ -62,10 +62,10 @@ public class BugReportEntity {
     public void setPriority(String priority) {
         this.priority = priority;
     }
-    public LocalDateTime getCreatedOn() {
+    public Timestamp getCreatedOn() {
         return createdOn;
     }
-    public void setCreatedOn(LocalDateTime createdOn) {
+    public void setCreatedOn(Timestamp createdOn) {
         this.createdOn = createdOn;
     }
     public String getStatus() {

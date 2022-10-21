@@ -25,7 +25,7 @@
                 <th>Created On</th>
             </tr>
             <tr th:each="report:${listOfBugReports}">
-                <td th:text="${report.id}"></td>
+                <td class="text-center" th:text="${report.id}"></td>
                 <td th:text="${report.title}"></td>
                 <td th:text="${report.description}"></td>
                 <td th:text="${report.projectAssignedTo}"></td>

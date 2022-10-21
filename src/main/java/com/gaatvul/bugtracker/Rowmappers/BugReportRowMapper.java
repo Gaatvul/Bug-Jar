@@ -2,7 +2,7 @@ package com.gaatvul.bugtracker.Rowmappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
@@ -27,7 +27,7 @@ public class BugReportRowMapper implements RowMapper<BugReportEntity>  {
         bugReport.setCategory(rs.getString("category_name"));
         bugReport.setPriority(rs.getString("priority_name"));
         bugReport.setStatus(rs.getString("status_name"));
-        bugReport.setCreatedOn(rs.getObject("date_created", LocalDateTime.class));
+        bugReport.setCreatedOn(rs.getObject("date_created", Timestamp.class));
 
         return bugReport;
     }

@@ -14,11 +14,20 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>8</java.version>
+		<webjars.locator.version>0.45</webjars.locator.version>
 		<bootstrap.version>5.2.2</bootstrap.version>
 		<junit.version>4.13.2</junit.version>
 		<spring.boot.version>2.7.4</spring.boot.version>
 	</properties>
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>${webjars.locator.version}</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
 		<dependency>

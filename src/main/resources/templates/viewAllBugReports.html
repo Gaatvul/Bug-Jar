@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>A List of Bug Reports!</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <table class="table table-bordered">
+            <tr>
+                <th>Report ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Project</th>
+                <th>Assignee</th>
+                <th>Reporter</th>
+                <th>Criticality</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Created On</th>
+            </tr>
+            <tr th:each="report:${listOfBugReports}">
+                <td th:text="${report.id}"></td>
+                <td th:text="${report.title}"></td>
+                <td th:text="${report.description}"></td>
+                <td th:text="${report.projectAssignedTo}"></td>
+                <td th:text="${report.assignee}"></td>
+                <td th:text="${report.reporter}"></td>
+                <td th:text="${report.criticality}"></td>
+                <td th:text="${report.category}"></td>
+                <td th:text="${report.priority}"></td>
+                <td th:text="${report.status}"></td>
+                <td th:text="${report.createdOn}"></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <script src="/webjars/bootstrap/5.2.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

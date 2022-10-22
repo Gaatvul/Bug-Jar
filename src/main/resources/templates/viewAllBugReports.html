@@ -36,6 +36,7 @@
                 <td th:text="${report.priority}"></td>
                 <td th:text="${report.status}"></td>
                 <td th:text="${report.createdOn}"></td>
+                <td><a th:href="@{/bugReports/view/{id} (id=${report.id})}">View</a></td>
             </tr>
         </table>
     </div>

@@ -8,4 +8,6 @@ public interface BugReportDAO {
 
     List<BugReportEntity> loadListOfBugReports();
 
+    BugReportEntity getBugReportById(int id);
+
 }

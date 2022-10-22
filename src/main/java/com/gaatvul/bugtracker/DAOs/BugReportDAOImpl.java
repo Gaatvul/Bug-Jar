@@ -32,4 +32,20 @@ public class BugReportDAOImpl implements BugReportDAO {
         return listOfBugReportsInDatabase;
     }
 
+    @Override
+    public BugReportEntity getBugReportById(int id) {
+
+        BugReportEntity requestedBugReport = new BugReportEntity();
+
+        String sqlToFetchBugReportById = "CALL select_bug_report_by_id(?)";
+
+        System.out.println("Fetching bug report with ID: " + id);
+
+        requestedBugReport = jdbcTemplate.queryForObject(sqlToFetchBugReportById, new BugReportRowMapper(), id);
+
+        System.out.println("Found bug report:" + requestedBugReport.toString());
+
+        return requestedBugReport;
+    }
+
 }

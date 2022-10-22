@@ -19,5 +19,11 @@ public class BugReportServiceImpl implements BugReportService {
     
         return bugReportDAO.loadListOfBugReports();
     }
+
+    @Override
+    public BugReportEntity getBugReportById(int id) {
+
+        return bugReportDAO.getBugReportById(id);
+    }
     
 }

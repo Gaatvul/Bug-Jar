@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>A List of Bug Reports!</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <form th:action="@{/bugReports/view/{id} (id=${bugReport.id})}" th:object="${bugReport}" method="POST">
+            <div class="row g-3">
+                <div class="col">
+                    <h1>#<span th:text="*{id}"></span></h1>
+                    <h1 th:text="*{title}"></h1>
+                </div>
+
+            </div>
+            <div class="mb-3">
+                <label for="descriptionTextArea" class="form-label">Description</label>
+                <textarea class="form-control" th:text="*{description}" id="descriptionTextArea" rows="3"></textarea>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="/webjars/bootstrap/5.2.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -8,4 +8,6 @@ public interface BugReportService {
 
     List<BugReportEntity> loadListOfBugReports();
 
+    BugReportEntity getBugReportById(int id);
+
 }

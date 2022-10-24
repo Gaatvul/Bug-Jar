@@ -11,7 +11,7 @@
 
     <div class="container">
         <form th:action="@{/bugReports/view/{id} (id=${bugReport.id})}" th:object="${bugReport}" method="POST">
-            <div class="row g-3">
+            <div class="row">
                 <div class="col-md ">
                     <div class="row">
                         <div class="col">
@@ -110,12 +110,51 @@
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-comments" role="tabpanel"
-                            aria-labelledby="nav-comments-tab" tabindex="0">THIS IS THE COMMENTS SECTION</div>
+                            aria-labelledby="nav-comments-tab" tabindex="0">
+                            <div class="border rounded-0" th:each="comment:${reportComments}">
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p><span class="fw-bold" th:text="${comment.commenter_name}"></span>
+                                                    [<span class="fw-light fs-6" th:text="${comment.createdOn}"></span>]
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col gy-2 text-wrap" th:text="${comment.comment}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <form action="post">
+                                        <div class="row">
+                                            <div class="col">
+                                                <textarea class="form-control" placeholder="Add a commment..."
+                                                    id="addCommentTextArea" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col justify-content-end">
+                                                <button class="btn btn-primary" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
                         <div class="tab-pane fade show" id="nav-changes" role="tabpanel"
                             aria-labelledby="nav-changes-tab" tabindex="0">THIS IS THE CHANGES SECTION</div>
                     </div>
                 </div>
                 <div class="col-md"></div>
+            </div>
+            <div class="row">
+                <div class="col gy-4"></div>
             </div>
 
         </form>

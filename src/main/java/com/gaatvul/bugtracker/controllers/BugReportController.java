@@ -31,6 +31,7 @@ public class BugReportController {
     public String viewReport(@PathVariable int id, Model model) {
 
         model.addAttribute("bugReport", bugReportService.getBugReportById(id));
+        model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
 
         return "bugReportView";
     }

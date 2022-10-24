@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.gaatvul.bugtracker.DAOs.BugReportDAO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
+import com.gaatvul.bugtracker.Entities.CommentEntity;
 
 @Service
 public class BugReportServiceImpl implements BugReportService {
@@ -24,6 +25,12 @@ public class BugReportServiceImpl implements BugReportService {
     public BugReportEntity getBugReportById(int id) {
 
         return bugReportDAO.getBugReportById(id);
+    }
+
+    @Override
+    public List<CommentEntity> getBugReportCommentsWithId(int id) {
+        
+        return bugReportDAO.getBugReportCommentsWithId(id);
     }
     
 }

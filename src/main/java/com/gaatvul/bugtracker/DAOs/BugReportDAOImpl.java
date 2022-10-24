@@ -8,7 +8,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
+import com.gaatvul.bugtracker.Entities.CommentEntity;
 import com.gaatvul.bugtracker.Rowmappers.BugReportRowMapper;
+import com.gaatvul.bugtracker.Rowmappers.CommentRowMapper;
 
 @Repository
 public class BugReportDAOImpl implements BugReportDAO {
@@ -46,6 +48,20 @@ public class BugReportDAOImpl implements BugReportDAO {
         System.out.println("Found bug report:" + requestedBugReport.toString());
 
         return requestedBugReport;
+    }
+
+    @Override
+    public List<CommentEntity> getBugReportCommentsWithId(int id) {
+        
+        List<CommentEntity> listOfBugReportComments = new ArrayList<>();
+
+        String sqlToRetrieveAllBugReportComments = "call retrieve_all_bug_report_comments_with_id(?);";
+
+        listOfBugReportComments = jdbcTemplate.query(sqlToRetrieveAllBugReportComments, new CommentRowMapper(), id);
+
+        listOfBugReportComments.forEach(System.out::println);
+
+        return listOfBugReportComments;
     }
 
 }

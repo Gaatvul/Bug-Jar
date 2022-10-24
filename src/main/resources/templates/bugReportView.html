@@ -18,32 +18,31 @@
                             <h1>#<span th:text="*{id}"></span></h1>
                             <h1 th:text="*{title}"></h1>
                         </div>
-
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col gy-3">
                             <label for="descriptionTextArea" class="form-label">Description</label>
                             <textarea class="form-control" th:text="*{description}" id="descriptionTextArea"
-                                rows=""></textarea>
+                                rows="7"></textarea>
                         </div>
 
                     </div>
                 </div>
-                <div class="col-md">
+                <div class="col-md overflow-hidden">
                     <div class="row g-3">
-                        <div class="col-6 border-end border-dark">
+                        <div class="col-sm-6 border-end border-dark">
                             <label for="reporterTextBox">Reporter</label>
                             <input type="text" th:field="*{reporter}" id="reporterTextBox">
 
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-sm-6">
                             <label for="assigneeTextBox">Assignee</label>
                             <input type="text" th:field="*{assignee}" id="assigneeTextBox">
                         </div>
                         <div class="col-6">
                             <label for="ownerTextBox">Owner</label>
-                            <input type="text" th:field="*{assignee}" id="ownerTextBox">
+                            <input type="text" th:field="*{owner}" id="ownerTextBox">
                         </div>
 
                         <div class="col-6">
@@ -84,34 +83,39 @@
             </div>
 
             <div class="row">
-                <div class="col-6">
-                    <p>Attachments</p>
-                    <input type="file" id="attachments">
-                </div>
-                <div class="col-md"></div>
-            </div>
+                <div class="col-md gy-3">
 
-            <div class="row border border-dark">
-                <div class="col-6">
-                    <p>current files</p>
-                </div>
-                <div class="col-md"></div>
-            </div>
+                    <div class="row">
+                        <div class="col gy-3">
+                            <p>Attachments</p>
+                            <input type="file" id="attachments">
+                        </div>
+                    </div>
 
-            <div class="row">
-                <div class="col">
+                    <div class="row border border-dark">
+                        <div class="col">
+                            <p>current files</p>
+                        </div>
+                    </div>
                     Comments & Changes
                     <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-comments-tab" data-bs-toggle="tab" data-bs-target="#nav-comments" type="button" role="tab" aria-controls="nav-comments" aria-selected="true">Comments</button>
-                            <button class="nav-link" id="nav-changes-tab" data-bs-toggle="tab" data-bs-target="#nav-changes" type="button" role="tab" aria-controls="nav-changes" aria-selected="false">Changes</button>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-comments-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-comments" type="button" role="tab" aria-controls="nav-comments"
+                                aria-selected="true">Comments</button>
+                            <button class="nav-link" id="nav-changes-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-changes" type="button" role="tab" aria-controls="nav-changes"
+                                aria-selected="false">Changes</button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab" tabindex="0">THIS IS THE COMMENTS SECTION</div>
-                        <div class="tab-pane fade show" id="nav-changes" role="tabpanel" aria-labelledby="nav-changes-tab" tabindex="0">THIS IS THE CHANGES SECTION</div>
+                        <div class="tab-pane fade show active" id="nav-comments" role="tabpanel"
+                            aria-labelledby="nav-comments-tab" tabindex="0">THIS IS THE COMMENTS SECTION</div>
+                        <div class="tab-pane fade show" id="nav-changes" role="tabpanel"
+                            aria-labelledby="nav-changes-tab" tabindex="0">THIS IS THE CHANGES SECTION</div>
                     </div>
                 </div>
+                <div class="col-md"></div>
             </div>
 
         </form>

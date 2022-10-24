@@ -23,6 +23,7 @@ public class BugReportRowMapper implements RowMapper<BugReportEntity>  {
         bugReport.setProjectAssignedTo(rs.getString("project_name"));
         bugReport.setReporter(rs.getString("reporter"));
         bugReport.setAssignee(rs.getString("assignee"));
+        bugReport.setOwner(rs.getString("owner"));
         bugReport.setCriticality(rs.getString("criticality_name"));
         bugReport.setCategory(rs.getString("category_name"));
         bugReport.setPriority(rs.getString("priority_name"));

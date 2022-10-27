@@ -17,7 +17,7 @@ public class CommentRowMapper implements RowMapper<CommentEntity> {
         
         CommentEntity comment = new CommentEntity();
 
-        comment.setComment(rs.getString("comment"));
+        comment.setCommentText(rs.getString("comment"));
         comment.setCommenter_name(rs.getString("account"));
         comment.setCreatedOn(rs.getObject("date_created", Timestamp.class));
 

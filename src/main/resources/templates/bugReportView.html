@@ -123,17 +123,17 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col gy-2 text-wrap" th:text="${comment.comment}"></div>
+                                            <div class="col gy-2 text-wrap" th:text="${comment.commentText}"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <form action="post">
+                                    <form th:action="@{/bugReports/view/{id}/addComment (id=${bugReport.id})}" th:object="${newComment}" action="post">
                                         <div class="row">
                                             <div class="col">
-                                                <textarea class="form-control" placeholder="Add a commment..."
+                                                <textarea class="form-control"   placeholder="Add a commment..."
                                                     id="addCommentTextArea" rows="3"></textarea>
                                             </div>
                                         </div>

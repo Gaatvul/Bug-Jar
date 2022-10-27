@@ -11,6 +11,7 @@ import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
 import com.gaatvul.bugtracker.Rowmappers.BugReportRowMapper;
 import com.gaatvul.bugtracker.Rowmappers.CommentRowMapper;
+import com.gaatvul.bugtracker.Rowmappers.ProjectRowMapper;
 
 @Repository
 public class BugReportDAOImpl implements BugReportDAO {
@@ -55,13 +56,25 @@ public class BugReportDAOImpl implements BugReportDAO {
         
         List<CommentEntity> listOfBugReportComments = new ArrayList<>();
 
-        String sqlToRetrieveAllBugReportComments = "call retrieve_all_bug_report_comments_with_id(?);";
+        String sqlToRetrieveAllBugReportComments = "CALL retrieve_all_bug_report_comments_with_id(?);";
 
         listOfBugReportComments = jdbcTemplate.query(sqlToRetrieveAllBugReportComments, new CommentRowMapper(), id);
 
         listOfBugReportComments.forEach(System.out::println);
 
         return listOfBugReportComments;
+    }
+
+    @Override
+    public List<String> loadListOfAllProjects() {
+        
+        List<String> allProjects = new ArrayList<>();
+
+        String sqlToRetrieveAllProjects = "CALL retrieve_all_projects;";
+
+        allProjects = jdbcTemplate.query(sqlToRetrieveAllProjects, new ProjectRowMapper());
+
+        return allProjects;
     }
 
 }

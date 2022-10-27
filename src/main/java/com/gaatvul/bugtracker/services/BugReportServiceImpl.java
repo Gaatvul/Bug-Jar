@@ -32,5 +32,11 @@ public class BugReportServiceImpl implements BugReportService {
         
         return bugReportDAO.getBugReportCommentsWithId(id);
     }
+
+    @Override
+    public List<String> loadListOfAllProjects() {
+        
+        return bugReportDAO.loadListOfAllProjects();
+    }
     
 }

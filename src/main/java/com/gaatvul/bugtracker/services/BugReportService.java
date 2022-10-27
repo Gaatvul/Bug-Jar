@@ -13,4 +13,6 @@ public interface BugReportService {
 
     List<CommentEntity> getBugReportCommentsWithId(int id);
 
+    List<String> loadListOfAllProjects();
+
 }

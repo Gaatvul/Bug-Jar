@@ -13,4 +13,6 @@ public interface BugReportDAO {
 
     List<CommentEntity> getBugReportCommentsWithId(int id);
 
+    List<String> loadListOfAllProjects();
+
 }

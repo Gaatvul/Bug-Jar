@@ -14,7 +14,6 @@ import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
 import com.gaatvul.bugtracker.services.BugReportService;
 
-
 @Controller
 public class BugReportController {
 
@@ -32,7 +31,7 @@ public class BugReportController {
     }
 
     @GetMapping("/bugReports/view/{id}")
-    public String viewReport(@PathVariable int id, Model model) {
+    public String viewReport(@PathVariable int id, @ModelAttribute("newComment") CommentEntity comment, Model model) {
 
         model.addAttribute("bugReport", bugReportService.getBugReportById(id));
         model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
@@ -43,7 +42,9 @@ public class BugReportController {
     @PostMapping(value = "/bugReports/view/{id}/addComment")
     public String addNewCommentToReport(@PathVariable int id, @ModelAttribute("newComment") CommentEntity comment,
             Model model) {
-        
+
+        model.addAttribute("newComment", comment);
+
         CommentEntity addedComment = new CommentEntity();
         addedComment.setCommentText(comment.getCommentText());
         addedComment.setCommenter_name("TestAccount Owner");
@@ -51,17 +52,15 @@ public class BugReportController {
         return "redirect:/bugReports/view/{id}";
     }
 
-    @GetMapping(value="/bugReports/new")
+    @GetMapping(value = "/bugReports/new")
     public String createNewBugReport(Model model) {
-        
+
         BugReportEntity newBugReport = new BugReportEntity();
 
         model.addAttribute("newBugReport", newBugReport);
         model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
-        
-        
+
         return "newBugReport";
     }
-    
 
 }

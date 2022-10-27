@@ -46,8 +46,6 @@ public class BugReportDAOImpl implements BugReportDAO {
 
         requestedBugReport = jdbcTemplate.queryForObject(sqlToFetchBugReportById, new BugReportRowMapper(), id);
 
-        System.out.println("Found bug report:" + requestedBugReport.toString());
-
         return requestedBugReport;
     }
 
@@ -59,8 +57,6 @@ public class BugReportDAOImpl implements BugReportDAO {
         String sqlToRetrieveAllBugReportComments = "CALL retrieve_all_bug_report_comments_with_id(?);";
 
         listOfBugReportComments = jdbcTemplate.query(sqlToRetrieveAllBugReportComments, new CommentRowMapper(), id);
-
-        listOfBugReportComments.forEach(System.out::println);
 
         return listOfBugReportComments;
     }

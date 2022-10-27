@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 
 public class CommentEntity {
 
-    private String comment, commenter_name;
+    private String commentText, commenter_name;
     private Timestamp createdOn;
 
-    public String getComment() {
-        return comment;
+    public String getCommentText() {
+        return commentText;
     }
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCommentText(String commentText) {
+        this.commentText = commentText;
     }
     public String getCommenter_name() {
         return commenter_name;
@@ -28,7 +28,7 @@ public class CommentEntity {
 
     @Override
     public String toString() {
-        return "CommentEntity [comment=" + comment + ", commenter_name=" + commenter_name + ", createdOn="
+        return "CommentEntity [commentText=" + commentText + ", commenter_name=" + commenter_name + ", createdOn="
                 + createdOn + "]";
     }
 

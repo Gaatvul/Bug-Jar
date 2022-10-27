@@ -10,37 +10,50 @@
 <body>
 
     <div class="container">
-        <table class="table table-bordered">
-            <tr>
-                <th>Report ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Project</th>
-                <th>Assignee</th>
-                <th>Reporter</th>
-                <th>Owner</th>
-                <th>Criticality</th>
-                <th>Category</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Created On</th>
-            </tr>
-            <tr th:each="report:${listOfBugReports}">
-                <td class="text-center" th:text="${report.id}"></td>
-                <td th:text="${report.title}"></td>
-                <td th:text="${report.description}"></td>
-                <td th:text="${report.projectAssignedTo}"></td>
-                <td th:text="${report.assignee}"></td>
-                <td th:text="${report.reporter}"></td>
-                <td th:text="${report.owner}"></td>
-                <td th:text="${report.criticality}"></td>
-                <td th:text="${report.category}"></td>
-                <td th:text="${report.priority}"></td>
-                <td th:text="${report.status}"></td>
-                <td th:text="${report.createdOn}"></td>
-                <td><a th:href="@{/bugReports/view/{id} (id=${report.id})}">View</a></td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Report ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Project</th>
+                        <th>Assignee</th>
+                        <th>Reporter</th>
+                        <th>Owner</th>
+                        <th>Criticality</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Created On</th>
+                    </tr>
+                    <tr th:each="report:${listOfBugReports}">
+                        <td class="text-center" th:text="${report.id}"></td>
+                        <td th:text="${report.title}"></td>
+                        <td th:text="${report.description}"></td>
+                        <td th:text="${report.projectAssignedTo}"></td>
+                        <td th:text="${report.assignee}"></td>
+                        <td th:text="${report.reporter}"></td>
+                        <td th:text="${report.owner}"></td>
+                        <td th:text="${report.criticality}"></td>
+                        <td th:text="${report.category}"></td>
+                        <td th:text="${report.priority}"></td>
+                        <td th:text="${report.status}"></td>
+                        <td th:text="${report.createdOn}"></td>
+                        <td><a th:href="@{/bugReports/view/{id} (id=${report.id})}">View</a></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <form action="/bugReports/new" method="GET">
+                    <button class="btn btn-primary" type="submit">New Bug Report</button>
+                </form>
+
+            </div>
+        </div>
     </div>
 
 

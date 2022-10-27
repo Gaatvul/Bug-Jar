@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>A List of Bug Reports!</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col gy-5"></div>
+        </div>
+        <form th:action="@{/bugReports}" th:object="${newBugReport}" method="POST">
+            <div class="row">
+                <div class="col-md">
+                    <div class="row">
+                        <div class="col">
+                            <label for="newTitle">Title</label>
+                            <input type="text" th:field="*{title}" id="newTitle">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col gy-3">
+                            <label for="descriptionTextArea" class="form-label">Description</label>
+                            <textarea class="form-control" th:field="*{description}" id="descriptionTextArea"
+                                rows="7"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="reporterTextBox">Reporter</label>
+                            <input type="text" th:field="*{reporter}" id="reporterTextBox">
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="assigneeTextBox">Assignee</label>
+                            <input type="text" th:field="*{assignee}" id="assigneeTextBox">
+                        </div>
+                        <div class="col-6">
+                            <label for="ownerTextBox">Owner</label>
+                            <input type="text" th:field="*{owner}" id="ownerTextBox">
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="projectDropDown">Criticality</label>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <select name="project" th:field="*{projectAssignedTo}" id="projectDropDown">
+                                            <option th:each="project : ${allProjects}" th:value="${project}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="criticalityDropDown">Criticality</label>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <select name="CriticalityLevel" th:field="*{criticality}" id="criticalityDropDown">
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="High">High</option>
+                                            <option value="Severe">Severe</option>
+                                            <option value="Blocker">Blocker</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="categoryDropDown">Category</label>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <select name="category" id="categoryDropDown">
+                                            <option value="Functional">Functional</option>
+                                            <option value="Performance">Performance</option>
+                                            <option value="Security">Security</option>
+                                            <option value="Feature">Feature</option>
+                                            <option value="Usability">Usability</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="statusDropDown">Status</label>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <select name="status" id="statusDropDown">
+                                            <option value="Open">Open</option>
+                                            <option value="In-progress">In-progress</option>
+                                            <option value="Done">Done</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="priorityDropDown">Priority</label>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <select name="priority" id="priorityDropDown">
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="High">High</option>
+                                            <option value="Urgent">Urgent</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md gy-3">
+
+                    <div class="row">
+                        <div class="col gy-3">
+                            <p>Attachments</p>
+                            <input type="file" id="attachments">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md"></div>
+            </div>
+            <div class="row">
+                <div class="col gy-4"></div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        function setCriticalityFieldName(item) {
+            // const criticalityLevels = new Map([
+            //     [1, "Low"],
+            //     [2, "Medium"],
+            //     [3, "High"],
+            //     [4, "Severe"],
+            //     [5, "Blocker"]
+            // ])
+
+            document.getElementById("criticalityBtn").innerHTML = item.innerHTML;
+
+        }
+    </script>
+
+
+    <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

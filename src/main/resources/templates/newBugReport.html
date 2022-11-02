@@ -34,30 +34,67 @@
                 </div>
                 <div class="col-md">
                     <div class="row g-3">
-                        <div class="col-sm-6">
-                            <label for="reporterTextBox">Reporter</label>
-                            <input type="text" th:field="*{reporter}" id="reporterTextBox">
-
-                        </div>
-
-                        <div class="col-sm-6">
-                            <label for="assigneeTextBox">Assignee</label>
-                            <input type="text" th:field="*{assignee}" id="assigneeTextBox">
-                        </div>
                         <div class="col-6">
-                            <label for="ownerTextBox">Owner</label>
-                            <input type="text" th:field="*{owner}" id="ownerTextBox">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="reporterDropDown">Reporter</label>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <select name="reporter" th:field="*{reporter}" id="reporterDropDown">
+                                            <option th:each="user : ${existingUsers}" th:value="${user}"
+                                                th:text="${user}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-6">
                             <div class="row">
                                 <div class="col-4">
-                                    <label for="projectDropDown">Criticality</label>
+                                    <label for="assigneeDropDown">Assignee</label>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <select name="assignee" th:field="*{assignee}" id="assigneeDropDown">
+                                            <option th:each="user : ${existingUsers}" th:value="${user}"
+                                                th:text="${user}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="ownerDropDown">Owner</label>
+                                </div>
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <select name="owner" th:field="*{owner}" id="ownerDropDown">
+                                            <option th:each="user : ${existingUsers}" th:value="${user}"
+                                                th:text="${user}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="projectDropDown">Project</label>
                                 </div>
                                 <div class="col">
                                     <div class="dropdown">
                                         <select name="project" th:field="*{projectAssignedTo}" id="projectDropDown">
-                                            <option th:each="project : ${allProjects}" th:value="${project}"></option>
+                                            <option th:each="project : ${allProjects}" th:value="${project}"
+                                                th:text="${project}">
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -71,7 +108,8 @@
                                 </div>
                                 <div class="col">
                                     <div class="dropdown">
-                                        <select name="CriticalityLevel" th:field="*{criticality}" id="criticalityDropDown">
+                                        <select name="CriticalityLevel" th:field="*{criticality}"
+                                            id="criticalityDropDown">
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
                                             <option value="High">High</option>
@@ -152,7 +190,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md"></div>
+                <div class="col-md gy-3">
+                    <input class="btn btn-outline-primary" type="submit" value="Save"></input>
+                </div>
             </div>
             <div class="row">
                 <div class="col gy-4"></div>
@@ -162,18 +202,7 @@
     </div>
 
     <script>
-        function setCriticalityFieldName(item) {
-            // const criticalityLevels = new Map([
-            //     [1, "Low"],
-            //     [2, "Medium"],
-            //     [3, "High"],
-            //     [4, "Severe"],
-            //     [5, "Blocker"]
-            // ])
 
-            document.getElementById("criticalityBtn").innerHTML = item.innerHTML;
-
-        }
     </script>
 
 

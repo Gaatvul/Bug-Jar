@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gaatvul.bugtracker.DAOs.BugReportDAO;
+import com.gaatvul.bugtracker.DTOs.BugReportDTO;
+import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
 
@@ -37,6 +39,24 @@ public class BugReportServiceImpl implements BugReportService {
     public List<String> loadListOfAllProjects() {
         
         return bugReportDAO.loadListOfAllProjects();
+    }
+
+    @Override
+    public void saveNewCommentToDatabase(CommentDTO addedComment) {
+        bugReportDAO.saveNewCommentToDatabase(addedComment);
+        
+    }
+
+    @Override
+    public void saveNewBugReportToDatabase(BugReportDTO bugReportToBeSaved) {
+        bugReportDAO.saveNewBugReportToDatabase(bugReportToBeSaved);
+        
+    }
+
+    @Override
+    public List<String> loadListofExistingUsers() {
+        
+        return bugReportDAO.loadListofExistingUsers();
     }
     
 }

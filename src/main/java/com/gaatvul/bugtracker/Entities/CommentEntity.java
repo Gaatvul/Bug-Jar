@@ -16,7 +16,7 @@ public class CommentEntity {
     public String getCommenter_name() {
         return commenter_name;
     }
-    public void setCommenter_name(String commenter_name) {
+    public void setUserFullName(String commenter_name) {
         this.commenter_name = commenter_name;
     }
     public Timestamp getCreatedOn() {

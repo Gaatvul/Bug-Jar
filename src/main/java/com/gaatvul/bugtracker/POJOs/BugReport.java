@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BugReport {
 
-    private String title, description, projectAssignedTo, assignee, reporter, owner, criticality, category, status, priority;
+    private String title, description, projectAssignedTo, assignee, reporter, owner, criticality, category, status,
+            priority;
 
     public String getTitle() {
         return title;
@@ -87,8 +88,11 @@ public class BugReport {
         this.priority = priority;
     }
 
-    
-
-    
+    @Override
+    public String toString() {
+        return "BugReport [title=" + title + ", description=" + description + ", projectAssignedTo=" + projectAssignedTo
+                + ", assignee=" + assignee + ", reporter=" + reporter + ", owner=" + owner + ", criticality="
+                + criticality + ", category=" + category + ", status=" + status + ", priority=" + priority + "]";
+    }
 
 }

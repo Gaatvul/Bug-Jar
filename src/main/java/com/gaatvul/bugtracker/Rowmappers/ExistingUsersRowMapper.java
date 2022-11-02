@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 
-public class ProjectRowMapper implements RowMapper<String> {
+public class ExistingUsersRowMapper implements RowMapper<String> {
 
     @Override
     @Nullable
     public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-        return rs.getString("project_name");
+        
+        return rs.getString("existing_users");
     }
 
 }

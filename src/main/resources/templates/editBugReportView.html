@@ -14,15 +14,13 @@
         <div class="row">
             <div class="col gy-5"></div>
         </div>
-        <form th:action="@{/bugReports/new}" th:object="${newBugReport}" method="POST">
+        <form th:action="@{/bugReports}" th:object="${newBugReport}" method="POST">
             <div class="row">
                 <div class="col-md">
                     <div class="row">
                         <div class="col">
                             <label for="newTitle">Title</label>
                             <input type="text" th:field="*{title}" id="newTitle">
-                            <label class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('title')}"
-                                th:errors="*{title}"></label>
                         </div>
                     </div>
                     <div class="row">
@@ -30,8 +28,6 @@
                             <label for="descriptionTextArea" class="form-label">Description</label>
                             <textarea class="form-control" th:field="*{description}" id="descriptionTextArea"
                                 rows="7"></textarea>
-                            <label class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('description')}"
-                                th:errors="*{description}"></label>
                         </div>
 
                     </div>
@@ -112,8 +108,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="dropdown">
-                                        <select name="CriticalityLevel" th:field="*{criticality}"
-                                            id="criticalityDropDown">
+                                        <select name="CriticalityLevel" id="criticalityDropDown">
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
                                             <option value="High">High</option>
@@ -195,7 +190,7 @@
                     </div>
                 </div>
                 <div class="col-md gy-3">
-                    <input class="btn btn-outline-primary" type="submit" value="Save"></input>
+                    <input class="btn btn-outline-primary" type="submit" value="Save Changes"></input>
                 </div>
             </div>
             <div class="row">

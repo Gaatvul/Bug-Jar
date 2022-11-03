@@ -10,154 +10,168 @@
 <body>
 
     <div class="container">
-        <form th:action="@{/bugReports/view/{id} (id=${bugReport.id})}" th:object="${bugReport}" method="POST">
-            <div class="row">
-                <div class="col-md ">
-                    <div class="row">
-                        <div class="col">
-                            <h1>#<span th:text="*{id}"></span></h1>
-                            <h1 th:text="*{title}"></h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col gy-3">
-                            <label for="descriptionTextArea" class="form-label">Description</label>
-                            <textarea class="form-control" th:text="*{description}" id="descriptionTextArea"
-                                rows="7"></textarea>
-                        </div>
-
+        <form th:action="@{/bugReports/view/{id}/edit (id=${bugReport.id})}" th:object="${bugReport}" method="GET"
+            id="EditBugReport"></form>
+        <form th:action="@{/bugReports/view/{id} (id=${bugReport.id})}" th:object="${newComment}" method="POST"
+            id="SubmitComment"></form>
+        <div class="row">
+            <div class="col-md ">
+                <div class="row">
+                    <div class="col">
+                        <h1>#<span th:text="*{id}"></span></h1>
+                        <h1 th:text="*{title}" form="EditBugReport"></h1>
                     </div>
                 </div>
-                <div class="col-md overflow-hidden">
-                    <div class="row g-3">
-                        <div class="col-sm-6 border-end border-dark">
-                            <label for="reporterTextBox">Reporter</label>
-                            <input type="text" th:field="*{reporter}" id="reporterTextBox">
-
-                        </div>
-
-                        <div class="col-sm-6">
-                            <label for="assigneeTextBox">Assignee</label>
-                            <input type="text" th:field="*{assignee}" id="assigneeTextBox">
-                        </div>
-                        <div class="col-6">
-                            <label for="ownerTextBox">Owner</label>
-                            <input type="text" th:field="*{owner}" id="ownerTextBox">
-                        </div>
-
-                        <div class="col-6">
-                            <label for="projectTextBox">Project</label>
-                            <input type="text" th:field="*{projectAssignedTo}" id="projectTextBox">
-                        </div>
-                        <div class="col-6">
-                            <label for="criticalityTextBox">Criticality</label>
-                            <input type="text" th:field="*{criticality}" id="criticalityTextBox">
-                        </div>
-
-                        <div class="col-6">
-                            <label for="categoryTextBox">Category</label>
-                            <input type="text" th:field="*{category}" id="categoryTextBox">
-                        </div>
-                        <div class="col-6">
-                            <label for="statusTextBox">Status</label>
-                            <input type="text" th:field="*{status}" id="statusTextBox">
-                        </div>
-
-                        <div class="col-6">
-                            <label for="priorityTextBox">Priority</label>
-                            <input type="text" th:field="*{priority}" id="priorityTextBox">
-                        </div>
-                        <div class="col-6">
-                            <label for="createdOnTextBox">Date Created On</label>
-                            <p th:text="*{createdOn}" id="createdOnTextBox"></p>
-                        </div>
-
-                        <div class="col-6">
-                            <label for="lastChangeTextBox">Last Changed On</label>
-                            <p th:text="*{createdOn}" id="lastChangeTextBox"></p>
-                        </div>
+                <div class="row">
+                    <div class="col gy-3">
+                        <label for="descriptionTextArea" class="form-label">Description</label>
+                        <textarea class="form-control" form="EditBugReport" th:text="*{description}"
+                            id="descriptionTextArea" rows="7" disabled></textarea>
                     </div>
 
+                </div>
+            </div>
+            <div class="col-md overflow-hidden">
+                <div class="row g-3">
+                    <div class="col-sm-6 border-end border-dark">
+                        <label for="reporterTextBox">Reporter</label>
+                        <input type="text" form="EditBugReport" th:field="*{bugReport.reporter}" id="reporterTextBox"
+                            disabled>
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="assigneeTextBox">Assignee</label>
+                        <input type="text" form="EditBugReport" th:field="*{bugReport.assignee}" id="assigneeTextBox"
+                            disabled>
+                    </div>
+                    <div class="col-6">
+                        <label for="ownerTextBox">Owner</label>
+                        <input type="text" form="EditBugReport" th:field="*{bugReport.owner}" id="ownerTextBox"
+                            disabled>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="projectTextBox">Project</label>
+                        <input type="text" form="EditBugReport" th:field="*{bugReport.projectAssignedTo}"
+                            id="projectTextBox" disabled>
+                    </div>
+                    <div class="col-6">
+                        <label for="criticalityTextBox">Criticality</label>
+                        <input type="text" form="EditBugReport" th:field="*{bugReport.criticality}"
+                            id="criticalityTextBox" disabled>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="categoryTextBox">Category</label>
+                        <input type="text" form="EditBugReport" th:field="*{bugReport.category}" id="categoryTextBox"
+                            disabled>
+                    </div>
+                    <div class="col-6">
+                        <label for="statusTextBox">Status</label>
+                        <input type="text" form="EditBugReport" th:field="*{bugReport.status}" id="statusTextBox"
+                            disabled>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="priorityTextBox">Priority</label>
+                        <input type="text" form="EditBugReport" th:field="*{bugReport.priority}" id="priorityTextBox"
+                            disabled>
+                    </div>
+                    <div class="col-6">
+                        <label for="createdOnTextBox">Date Created On</label>
+                        <p th:text="*{bugReport.createdOn}" form="EditBugReport" id="createdOnTextBox" disabled></p>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="lastChangeTextBox">Last Changed On</label>
+                        <p th:text="*{bugReport.createdOn}" form="EditBugReport" id="lastChangeTextBox" disabled></p>
+                    </div>
                 </div>
 
             </div>
 
-            <div class="row">
-                <div class="col-md gy-3">
+        </div>
 
-                    <div class="row">
-                        <div class="col gy-3">
-                            <p>Attachments</p>
-                            <input type="file" id="attachments">
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-md gy-3">
 
-                    <div class="row border border-dark">
-                        <div class="col">
-                            <p>current files</p>
-                        </div>
+                <div class="row">
+                    <div class="col gy-3">
+                        <p>Attachments</p>
+                        <input type="file" id="attachments">
                     </div>
-                    Comments & Changes
-                    <nav>
-                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-comments-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-comments" type="button" role="tab" aria-controls="nav-comments"
-                                aria-selected="true">Comments</button>
-                            <button class="nav-link" id="nav-changes-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-changes" type="button" role="tab" aria-controls="nav-changes"
-                                aria-selected="false">Changes</button>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-comments" role="tabpanel"
-                            aria-labelledby="nav-comments-tab" tabindex="0">
-                            <div class="border rounded-0" th:each="comment:${reportComments}">
-                                <div class="row">
-                                    <div class="col-1"></div>
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col">
-                                                <p><span class="fw-bold" th:text="${comment.commenter_name}"></span>
-                                                    [<span class="fw-light fs-6" th:text="${comment.createdOn}"></span>]
-                                                </p>
-                                            </div>
+                </div>
+
+                <div class="row border border-dark">
+                    <div class="col">
+                        <p>current files</p>
+                    </div>
+                </div>
+                Comments & Changes
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-comments-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-comments" type="button" role="tab" aria-controls="nav-comments"
+                            aria-selected="true">Comments</button>
+                        <button class="nav-link" id="nav-changes-tab" data-bs-toggle="tab" data-bs-target="#nav-changes"
+                            type="button" role="tab" aria-controls="nav-changes" aria-selected="false">Changes</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-comments" role="tabpanel"
+                        aria-labelledby="nav-comments-tab" tabindex="0">
+                        <div class="border rounded-0" th:each="comment:${reportComments}">
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p><span class="fw-bold" th:text="${comment.commenter_name}"></span>
+                                                [<span class="fw-light fs-6" form="SubmitComment"
+                                                    th:text="${comment.createdOn}"></span>]
+                                            </p>
                                         </div>
-                                        <div class="row">
-                                            <div class="col gy-2 text-wrap" th:text="${comment.commentText}"></div>
-                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col gy-2 text-wrap" form="SubmitComment"
+                                            th:text="${comment.commentText}"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <form th:action="@{/bugReports/view/{id} (id=${bugReport.id})}" th:object="${newComment}" action="post">
-                                        <div class="row">
-                                            <div class="col">
-                                                <textarea class="form-control" placeholder="Add a commment..."
-                                                    id="addCommentTextArea" rows="3" th:field="*{commentText}"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col justify-content-end">
-                                                <button class="btn btn-primary" type="submit">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <textarea class="form-control" placeholder="Add a commment..."
+                                            id="addCommentTextArea" rows="3" th:field="*{newComment.commentText}"
+                                            form="SubmitComment"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col justify-content-end">
+                                        <p class="alert alert-danger" role="alert"
+                                            th:if="${#fields.hasErrors('newComment.commentText')}"
+                                            th:errors="*{newComment.commentText}"></p>
+                                        <input class="btn btn-primary" form="SubmitComment" value="Submit"
+                                            type="submit"></input>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="tab-pane fade show" id="nav-changes" role="tabpanel"
-                            aria-labelledby="nav-changes-tab" tabindex="0">THIS IS THE CHANGES SECTION</div>
                     </div>
+                    <div class="tab-pane fade show" id="nav-changes" role="tabpanel" aria-labelledby="nav-changes-tab"
+                        tabindex="0">THIS IS THE CHANGES SECTION</div>
                 </div>
-                <div class="col-md"></div>
             </div>
-            <div class="row">
-                <div class="col gy-4"></div>
-            </div>
+            <div class="col-md"></div>
+        </div>
+        <div class="row">
+            <div class="col gy-4"></div>
+        </div>
 
-        </form>
+
     </div>
 
 

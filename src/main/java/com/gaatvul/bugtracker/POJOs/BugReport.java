@@ -1,11 +1,19 @@
 package com.gaatvul.bugtracker.POJOs;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class BugReport {
+    
+    @NotEmpty(message = "Uh oh, looks like there is no title!")
+    private String title;
 
-    private String title, description, projectAssignedTo, assignee, reporter, owner, criticality, category, status,
+    @NotEmpty(message = "Uh oh, looks like there is no description!")
+    private String  description; 
+    
+    private String projectAssignedTo, assignee, reporter, owner, criticality, category, status,
             priority;
 
     public String getTitle() {

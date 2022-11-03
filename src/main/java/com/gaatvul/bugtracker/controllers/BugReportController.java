@@ -2,9 +2,12 @@ package com.gaatvul.bugtracker.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,17 +45,32 @@ public class BugReportController {
     }
 
     @PostMapping(value = "/bugReports/view/{id}")
-    public String addNewCommentToReport(@PathVariable int id, @ModelAttribute("newComment") CommentDTO comment,
-            Model model) {
+    public String addNewCommentToReport(@PathVariable int id, @Valid @ModelAttribute("newComment") CommentDTO comment,
+            BindingResult bindingResult, Model model) {
 
-        CommentDTO addedComment = new CommentDTO();
-        addedComment.setCommentText(comment.getCommentText());
-        addedComment.setUserFullName("TestAccount Developer");
-        addedComment.setReport_id(id);
+        if (bindingResult.hasErrors()) {
 
-        bugReportService.saveNewCommentToDatabase(addedComment);
+            model.addAttribute("bugReport", bugReportService.getBugReportById(id));
+            model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
 
-        return "redirect:/bugReports/view/{id}";
+            return "bugReportView";
+
+        } else {
+
+            bugReportService.saveNewCommentToDatabase(mapFormDataToCommentDTO(comment, id));
+            return "redirect:/bugReports/view/{id}";
+        }
+    }
+
+    private CommentDTO mapFormDataToCommentDTO(CommentDTO formData, int report_id) {
+
+        CommentDTO mappedComment = new CommentDTO();
+
+        mappedComment.setCommentText(formData.getCommentText());
+        mappedComment.setUserFullName("TestAccount Developer");
+        mappedComment.setReport_id(report_id);
+
+        return mappedComment;
     }
 
     @GetMapping(value = "/bugReports/new")
@@ -67,17 +85,21 @@ public class BugReportController {
         return "newBugReport";
     }
 
-    @PostMapping(value = "/bugReports")
-    public String saveNewBugReportToDatabase(@ModelAttribute("newBugReport") BugReportDTO bugReportFromModel) {
+    @PostMapping(value = "/bugReports/new")
+    public String saveNewBugReportToDatabase(@Valid @ModelAttribute("newBugReport") BugReportDTO bugReportFromModel,
+            BindingResult bindingResult, Model model) {
 
-        // BugReportDTO bugReportToBeSaved = new BugReportDTO();
+        if (bindingResult.hasErrors()) {
 
-        // bugReportToBeSaved = mapIncomingModelAttributeToDTO(bugReportFromModel); 
-        System.out.println(bugReportFromModel.toString());
+            model.addAttribute("newBugReport", bugReportFromModel);
+            model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
+            model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
+
+            return "newBugReport";
+        }
 
         bugReportService.saveNewBugReportToDatabase(bugReportFromModel);
 
         return "redirect:/bugReports";
     }
-
 }

@@ -1,13 +1,18 @@
 package com.gaatvul.bugtracker.DTOs;
 
+import javax.validation.constraints.NotEmpty;
+
 public class CommentDTO {
 
+    @NotEmpty(message = "Uh oh, looks like there is no text in the comment box!")
+    private String commentText;
+
     private int report_id;
-    private String userFullName, commentText;
+    private String userFullName;
     private String[] names;
 
     public int getReport_id() {
-        
+
         return report_id;
     }
 

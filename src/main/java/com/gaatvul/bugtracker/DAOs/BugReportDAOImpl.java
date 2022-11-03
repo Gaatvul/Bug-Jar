@@ -41,8 +41,6 @@ public class BugReportDAOImpl implements BugReportDAO {
 
         String sqlToFetchBugReportById = "CALL select_bug_report_by_id(?);";
 
-        System.out.println("Fetching bug report with ID: " + id);
-
         requestedBugReport = jdbcTemplate.queryForObject(sqlToFetchBugReportById, new BugReportRowMapper(), id);
 
         return requestedBugReport;
@@ -75,7 +73,8 @@ public class BugReportDAOImpl implements BugReportDAO {
     @Override
     public void saveNewCommentToDatabase(CommentDTO addedComment) {
 
-        String sqlToInsertNewCommentIntoDatabase = "INSERT INTO report_comments (comment, report_id, account_id, date_created) values ((?),(?),(SELECT (account_id) FROM user_accounts WHERE first_name=(?) AND last_name=(?)), current_time(0));";
+        String sqlToInsertNewCommentIntoDatabase = "INSERT INTO report_comments (comment, report_id, account_id, date_created) values"
+                + " ((?),(?),(SELECT (account_id) FROM user_accounts WHERE first_name=(?) AND last_name=(?)), current_time);";
 
         jdbcTemplate.update(sqlToInsertNewCommentIntoDatabase, extractArgumentsFromComment(addedComment));
     }
@@ -108,7 +107,7 @@ public class BugReportDAOImpl implements BugReportDAO {
 
     @Override
     public List<String> loadListofExistingUsers() {
-        
+
         List<String> existingUsers = new ArrayList<>();
 
         String sqlToRetrieveExistingUsers = "SELECT concat(first_name, \" \", last_name) as existing_users FROM user_accounts;";

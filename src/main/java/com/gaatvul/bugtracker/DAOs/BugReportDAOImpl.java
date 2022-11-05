@@ -11,6 +11,7 @@ import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
+import com.gaatvul.bugtracker.POJOs.Change;
 import com.gaatvul.bugtracker.Rowmappers.BugReportRowMapper;
 import com.gaatvul.bugtracker.Rowmappers.CommentRowMapper;
 import com.gaatvul.bugtracker.Rowmappers.ExistingUsersRowMapper;
@@ -115,6 +116,25 @@ public class BugReportDAOImpl implements BugReportDAO {
         existingUsers = jdbcTemplate.query(sqlToRetrieveExistingUsers, new ExistingUsersRowMapper());
 
         return existingUsers;
+    }
+
+    @Override
+    public void saveEditedBugReportToDatabase(BugReportEntity editedBugReport) {
+
+        String sqlToUpdateBugReportInDatabase = "UPDATE ";
+    }
+
+    @Override
+    public void saveChangesToDatabase(List<Change> attributeChanges) {
+
+        jdbcTemplate.update(createSQLStatement(attributeChanges));
+
+    }
+
+    private String createSQLStatement(List<Change> attributeChanges) {
+
+        String sqlToInsertReportChanges = "INSERT INTO report_changes (value_type, old_value, new_value, report_id, account_id)";
+        return null;
     }
 
 }

@@ -55,11 +55,11 @@ public class BugReportController {
 
             return "bugReportView";
 
-        } else {
-
-            bugReportService.saveNewCommentToDatabase(mapFormDataToCommentDTO(comment, id));
-            return "redirect:/bugReports/view/{id}";
         }
+
+        bugReportService.saveNewCommentToDatabase(mapFormDataToCommentDTO(comment, id));
+
+        return "redirect:/bugReports/view/{id}";
     }
 
     private CommentDTO mapFormDataToCommentDTO(CommentDTO formData, int report_id) {
@@ -102,4 +102,34 @@ public class BugReportController {
 
         return "redirect:/bugReports";
     }
+
+    @GetMapping(value = "/bugReports/edit/{id}")
+    public String loadEditPage(@PathVariable int id, Model model) {
+
+        model.addAttribute("editableBugReport", bugReportService.getBugReportById(id));
+        model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
+        model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
+
+        return "editBugReportView";
+    }
+
+    @PostMapping(value = "/bugReports/edit/{id}")
+    public String saveEdit(@PathVariable int id,
+            @Valid @ModelAttribute("editableBugReport") BugReportEntity editedBugReport, BindingResult bindingResult,
+            Model model) {
+
+            if (bindingResult.hasErrors()) {
+
+                model.addAttribute("editableBugReport", editedBugReport);
+                model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
+                model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
+
+                return "editBugReportView";
+            }
+        
+        bugReportService.saveEditedBugReportToDatabase(editedBugReport);
+
+        return "redirect:/bugReports/view/{id}";
+    }
+
 }

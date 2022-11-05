@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BugReport {
-    
+
     @NotEmpty(message = "Uh oh, looks like there is no title!")
     private String title;
 
     @NotEmpty(message = "Uh oh, looks like there is no description!")
-    private String  description; 
-    
+    private String description;
+
     private String projectAssignedTo, assignee, reporter, owner, criticality, category, status,
             priority;
 
@@ -102,5 +102,4 @@ public class BugReport {
                 + ", assignee=" + assignee + ", reporter=" + reporter + ", owner=" + owner + ", criticality="
                 + criticality + ", category=" + category + ", status=" + status + ", priority=" + priority + "]";
     }
-
 }

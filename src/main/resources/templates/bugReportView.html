@@ -10,7 +10,7 @@
 <body>
 
     <div class="container">
-        <form th:action="@{/bugReports/view/{id}/edit (id=${bugReport.id})}" th:object="${bugReport}" method="GET"
+        <form th:action="@{/bugReports/edit/{id} (id=${bugReport.id})}" th:object="${bugReport}" method="GET"
             id="EditBugReport"></form>
         <form th:action="@{/bugReports/view/{id} (id=${bugReport.id})}" th:object="${newComment}" method="POST"
             id="SubmitComment"></form>
@@ -19,13 +19,13 @@
                 <div class="row">
                     <div class="col">
                         <h1>#<span th:text="*{id}"></span></h1>
-                        <h1 th:text="*{title}" form="EditBugReport"></h1>
+                        <h1 th:text="${bugReport.title}" form="EditBugReport"></h1>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col gy-3">
                         <label for="descriptionTextArea" class="form-label">Description</label>
-                        <textarea class="form-control" form="EditBugReport" th:text="*{description}"
+                        <textarea class="form-control" form="EditBugReport" th:text="${bugReport.description}"
                             id="descriptionTextArea" rows="7" disabled></textarea>
                     </div>
 
@@ -35,57 +35,57 @@
                 <div class="row g-3">
                     <div class="col-sm-6 border-end border-dark">
                         <label for="reporterTextBox">Reporter</label>
-                        <input type="text" form="EditBugReport" th:field="*{bugReport.reporter}" id="reporterTextBox"
+                        <input type="text" form="EditBugReport" th:field="${bugReport.reporter}" id="reporterTextBox"
                             disabled>
 
                     </div>
 
                     <div class="col-sm-6">
                         <label for="assigneeTextBox">Assignee</label>
-                        <input type="text" form="EditBugReport" th:field="*{bugReport.assignee}" id="assigneeTextBox"
+                        <input type="text" form="EditBugReport" th:field="${bugReport.assignee}" id="assigneeTextBox"
                             disabled>
                     </div>
                     <div class="col-6">
                         <label for="ownerTextBox">Owner</label>
-                        <input type="text" form="EditBugReport" th:field="*{bugReport.owner}" id="ownerTextBox"
+                        <input type="text" form="EditBugReport" th:field="${bugReport.owner}" id="ownerTextBox"
                             disabled>
                     </div>
 
                     <div class="col-6">
                         <label for="projectTextBox">Project</label>
-                        <input type="text" form="EditBugReport" th:field="*{bugReport.projectAssignedTo}"
+                        <input type="text" form="EditBugReport" th:field="${bugReport.projectAssignedTo}"
                             id="projectTextBox" disabled>
                     </div>
                     <div class="col-6">
                         <label for="criticalityTextBox">Criticality</label>
-                        <input type="text" form="EditBugReport" th:field="*{bugReport.criticality}"
+                        <input type="text" form="EditBugReport" th:field="${bugReport.criticality}"
                             id="criticalityTextBox" disabled>
                     </div>
 
                     <div class="col-6">
                         <label for="categoryTextBox">Category</label>
-                        <input type="text" form="EditBugReport" th:field="*{bugReport.category}" id="categoryTextBox"
+                        <input type="text" form="EditBugReport" th:field="${bugReport.category}" id="categoryTextBox"
                             disabled>
                     </div>
                     <div class="col-6">
                         <label for="statusTextBox">Status</label>
-                        <input type="text" form="EditBugReport" th:field="*{bugReport.status}" id="statusTextBox"
+                        <input type="text" form="EditBugReport" th:field="${bugReport.status}" id="statusTextBox"
                             disabled>
                     </div>
 
                     <div class="col-6">
                         <label for="priorityTextBox">Priority</label>
-                        <input type="text" form="EditBugReport" th:field="*{bugReport.priority}" id="priorityTextBox"
+                        <input type="text" form="EditBugReport" th:field="${bugReport.priority}" id="priorityTextBox"
                             disabled>
                     </div>
                     <div class="col-6">
                         <label for="createdOnTextBox">Date Created On</label>
-                        <p th:text="*{bugReport.createdOn}" form="EditBugReport" id="createdOnTextBox" disabled></p>
+                        <p th:text="${bugReport.createdOn}" form="EditBugReport" id="createdOnTextBox" disabled></p>
                     </div>
 
                     <div class="col-6">
                         <label for="lastChangeTextBox">Last Changed On</label>
-                        <p th:text="*{bugReport.createdOn}" form="EditBugReport" id="lastChangeTextBox" disabled></p>
+                        <p th:text="${bugReport.createdOn}" form="EditBugReport" id="lastChangeTextBox" disabled></p>
                     </div>
                 </div>
 
@@ -165,7 +165,9 @@
                         tabindex="0">THIS IS THE CHANGES SECTION</div>
                 </div>
             </div>
-            <div class="col-md"></div>
+            <div class="col-md">
+                <button class="btn btn-outline-primary" type="submit" form="EditBugReport">Edit Report</button>
+            </div>
         </div>
         <div class="row">
             <div class="col gy-4"></div>

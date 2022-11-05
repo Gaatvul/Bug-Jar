@@ -23,4 +23,6 @@ public interface BugReportService {
 
     List<String> loadListofExistingUsers();
 
+    void saveEditedBugReportToDatabase(BugReportEntity editedBugReport);
+
 }

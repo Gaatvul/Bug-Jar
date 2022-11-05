@@ -14,20 +14,26 @@
         <div class="row">
             <div class="col gy-5"></div>
         </div>
-        <form th:action="@{/bugReports}" th:object="${newBugReport}" method="POST">
+        <form th:action="@{/bugReports/edit/{id} (id=${editableBugReport.id})}" th:object="${editableBugReport}"
+            method="POST">
             <div class="row">
                 <div class="col-md">
                     <div class="row">
                         <div class="col">
+                            <h1>#<span th:text="*{id}"></span></h1>
                             <label for="newTitle">Title</label>
-                            <input type="text" th:field="*{title}" id="newTitle">
+                            <input type="text" th:field="${editableBugReport.title}" id="newTitle">
+                            <label class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('title')}"
+                                th:errors="*{title}"></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col gy-3">
                             <label for="descriptionTextArea" class="form-label">Description</label>
-                            <textarea class="form-control" th:field="*{description}" id="descriptionTextArea"
-                                rows="7"></textarea>
+                            <textarea class="form-control" th:field="${editableBugReport.description}"
+                                id="descriptionTextArea" rows="7"></textarea>
+                            <label class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('description')}"
+                                th:errors="*{description}"></label>
                         </div>
 
                     </div>

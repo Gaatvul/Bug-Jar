@@ -27,7 +27,7 @@
                         <th>Status</th>
                         <th>Created On</th>
                     </tr>
-                    <tr th:each="report:${listOfBugReports}">
+                    <tr th:each="report : ${listOfBugReports}">
                         <td class="text-center" th:text="${report.id}"></td>
                         <td th:text="${report.title}"></td>
                         <td th:text="${report.description}"></td>
@@ -40,7 +40,8 @@
                         <td th:text="${report.priority}"></td>
                         <td th:text="${report.status}"></td>
                         <td th:text="${report.createdOn}"></td>
-                        <td><a th:href="@{/bugReports/view/{id} (id=${report.id})}">View</a></td>
+                        <td><a th:href="@{/bugReports/view/{id} (id=${report.id})}"
+                                class="btn btn-outline-primary">View</a></td>
                     </tr>
                 </table>
             </div>
@@ -53,6 +54,9 @@
                 </form>
 
             </div>
+        </div>
+        <div class="row">
+            <div class="col gy-4"></div>
         </div>
     </div>
 

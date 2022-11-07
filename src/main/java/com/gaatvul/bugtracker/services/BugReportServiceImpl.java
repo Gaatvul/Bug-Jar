@@ -1,7 +1,9 @@
 package com.gaatvul.bugtracker.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,14 +47,14 @@ public class BugReportServiceImpl implements BugReportService {
 
     @Override
     public void saveNewCommentToDatabase(CommentDTO addedComment) {
-        bugReportDAO.saveNewCommentToDatabase(addedComment);
 
+        bugReportDAO.saveNewCommentToDatabase(addedComment);
     }
 
     @Override
     public void saveNewBugReportToDatabase(BugReportDTO bugReportToBeSaved) {
-        bugReportDAO.saveNewBugReportToDatabase(bugReportToBeSaved);
 
+        bugReportDAO.saveNewBugReportToDatabase(bugReportToBeSaved);
     }
 
     @Override
@@ -64,53 +66,28 @@ public class BugReportServiceImpl implements BugReportService {
     @Override
     public void saveEditedBugReportToDatabase(BugReportEntity editedBugReport) {
 
-        findChanges(editedBugReport);
-
-        bugReportDAO.saveEditedBugReportToDatabase(editedBugReport);
-
-    }
-
-    private void findChanges(BugReportEntity editedBugReport) {
-
-        List<Change> attributeChanges = new ArrayList<>();
-
         BugReportEntity existingBugReport = bugReportDAO.getBugReportById(editedBugReport.getId());
 
-        if (editedBugReport.getTitle() != existingBugReport.getTitle()) {
-            attributeChanges.add(new Change("title", existingBugReport.getTitle(), editedBugReport.getTitle(),
-                    "TestAccount Developer", editedBugReport.getId()));
-        }
-        if (editedBugReport.getDescription() != existingBugReport.getDescription()) {
-            attributeChanges.add(new Change("description", existingBugReport.getDescription(),
-                    editedBugReport.getDescription(), "TestAccount Developer", editedBugReport.getId()));
-        }
-        if (editedBugReport.getAssignee() != existingBugReport.getAssignee()) {
-            attributeChanges.add(new Change("assignee", existingBugReport.getAssignee(), editedBugReport.getAssignee(),
-                    "TestAccount Developer", editedBugReport.getId()));
-        }
-        if (editedBugReport.getOwner() != existingBugReport.getOwner()) {
-            attributeChanges.add(new Change("owner", existingBugReport.getOwner(), editedBugReport.getOwner(),
-                    "TestAccount Developer", editedBugReport.getId()));
-        }
-        if (editedBugReport.getProjectAssignedTo() != existingBugReport.getProjectAssignedTo()) {
-            attributeChanges.add(new Change("projectAssignedTo", existingBugReport.getProjectAssignedTo(),
-                    editedBugReport.getProjectAssignedTo(), "TestAccount Developer", editedBugReport.getId()));
-        }
-        if (editedBugReport.getCriticality() != existingBugReport.getCriticality()) {
-            attributeChanges.add(new Change("criticality", existingBugReport.getCriticality(),
-                    editedBugReport.getCriticality(), "TestAccount Developer", editedBugReport.getId()));
-        }
-        if (editedBugReport.getCategory() != existingBugReport.getCategory()) {
-            attributeChanges.add(new Change("category", existingBugReport.getCategory(), editedBugReport.getCategory(),
-                    "TestAccount Developer", editedBugReport.getId()));
-        }
-        if (editedBugReport.getStatus() != existingBugReport.getStatus()) {
-            attributeChanges.add(new Change("status", existingBugReport.getStatus(), editedBugReport.getStatus(),
-                    "TestAccount Developer", editedBugReport.getId()));
-        }
-        if (editedBugReport.getPriority() != existingBugReport.getPriority()) {
-            attributeChanges.add(new Change("priority", existingBugReport.getPriority(), editedBugReport.getPriority(),
-                    "TestAccount Developer", editedBugReport.getId()));
+        findChangesInBugReport(editedBugReport, existingBugReport);
+
+        bugReportDAO.saveEditedBugReportToDatabase(editedBugReport);
+    }
+
+    private void findChangesInBugReport(BugReportEntity editedBugReport, BugReportEntity existingBugReport) {
+
+        List<Change> attributeChanges = new ArrayList<>();
+        HashMap<String, String> existingBugReportAttributes = existingBugReport.getAllAttributes();
+        HashMap<String, String> editedBugReportAttributes = editedBugReport.getAllAttributes();
+
+        for (Map.Entry<String, String> entry : existingBugReportAttributes.entrySet()) {
+
+            if (!entry.getValue().equals(editedBugReportAttributes.get(entry.getKey()))) {
+
+                attributeChanges.add(
+                        new Change(entry.getKey(), entry.getValue(),
+                                editedBugReportAttributes.get(entry.getKey()), "TestAccount Developer",
+                                existingBugReport.getId()));
+            }
         }
 
         saveChangesToDatabase(attributeChanges);

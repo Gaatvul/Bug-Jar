@@ -1,5 +1,7 @@
 package com.gaatvul.bugtracker.POJOs;
 
+import java.util.HashMap;
+
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.stereotype.Component;
@@ -101,5 +103,23 @@ public class BugReport {
         return "BugReport [title=" + title + ", description=" + description + ", projectAssignedTo=" + projectAssignedTo
                 + ", assignee=" + assignee + ", reporter=" + reporter + ", owner=" + owner + ", criticality="
                 + criticality + ", category=" + category + ", status=" + status + ", priority=" + priority + "]";
+    }
+
+    public HashMap<String, String> getAllAttributes() {
+
+        HashMap<String, String> allAttributes = new HashMap<>();
+        
+        allAttributes.put("title", title);
+        allAttributes.put("description", description);
+        allAttributes.put("projectAssignedTo", projectAssignedTo);
+        allAttributes.put("assignee", assignee);
+        allAttributes.put("reporter", reporter);
+        allAttributes.put("owner", owner);
+        allAttributes.put("criticality", criticality);
+        allAttributes.put("category", category);
+        allAttributes.put("status", status);
+        allAttributes.put("priority", priority);
+
+        return allAttributes;
     }
 }

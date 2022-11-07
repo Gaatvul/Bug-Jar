@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="dropdown">
-                                        <select name="CriticalityLevel" id="criticalityDropDown">
+                                        <select name="CriticalityLevel" th:field="*{criticality}" id="criticalityDropDown">
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
                                             <option value="High">High</option>
@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="dropdown">
-                                        <select name="category" id="categoryDropDown">
+                                        <select name="category" th:field="*{category}" id="categoryDropDown">
                                             <option value="Functional">Functional</option>
                                             <option value="Performance">Performance</option>
                                             <option value="Security">Security</option>
@@ -152,7 +152,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="dropdown">
-                                        <select name="status" id="statusDropDown">
+                                        <select name="status" th:field="*{Status}" id="statusDropDown">
                                             <option value="Open">Open</option>
                                             <option value="In-progress">In-progress</option>
                                             <option value="Done">Done</option>
@@ -169,7 +169,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="dropdown">
-                                        <select name="priority" id="priorityDropDown">
+                                        <select name="priority" th:field="*{Priority}" id="priorityDropDown">
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
                                             <option value="High">High</option>

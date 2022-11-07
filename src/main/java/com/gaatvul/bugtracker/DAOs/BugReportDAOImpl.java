@@ -1,10 +1,16 @@
 package com.gaatvul.bugtracker.DAOs;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.gaatvul.bugtracker.DTOs.BugReportDTO;
@@ -21,7 +27,7 @@ import com.gaatvul.bugtracker.Rowmappers.ProjectRowMapper;
 public class BugReportDAOImpl implements BugReportDAO {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<BugReportEntity> loadListOfBugReports() {
@@ -94,7 +100,6 @@ public class BugReportDAOImpl implements BugReportDAO {
         String sqlToInsertNewBugReportIntoDatabase = "CALL insert_new_bug_report(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sqlToInsertNewBugReportIntoDatabase, extractArgumentsFromBugReport(bugReportToBeSaved));
-
     }
 
     private Object[] extractArgumentsFromBugReport(BugReportDTO bugReport) {
@@ -121,20 +126,83 @@ public class BugReportDAOImpl implements BugReportDAO {
     @Override
     public void saveEditedBugReportToDatabase(BugReportEntity editedBugReport) {
 
-        String sqlToUpdateBugReportInDatabase = "UPDATE ";
+        String sqlToUpdateBugReportInDatabase = "CALL update_bug_report_with_id(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        jdbcTemplate.update(sqlToUpdateBugReportInDatabase, new PreparedStatementSetter() {
+
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                
+                ps.setInt(1, editedBugReport.getId());
+                ps.setString(2, editedBugReport.getTitle());
+                ps.setString(3, editedBugReport.getDescription());
+                ps.setString(4, editedBugReport.getProjectAssignedTo());
+                ps.setString(5, editedBugReport.getReporter());
+                ps.setString(6, editedBugReport.getAssignee());
+                ps.setString(7, editedBugReport.getOwner());
+                ps.setString(8, editedBugReport.getCriticality());
+                ps.setString(9, editedBugReport.getCategory());
+                ps.setString(10, editedBugReport.getPriority());
+                ps.setString(11, editedBugReport.getStatus());
+            }
+
+        });
     }
 
     @Override
     public void saveChangesToDatabase(List<Change> attributeChanges) {
 
-        jdbcTemplate.update(createSQLStatement(attributeChanges));
+        String sqlToInsertReportChanges = "INSERT INTO report_changes (value_type, old_value, new_value, report_id, account_id, date_created) VALUES(?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+
+        jdbcTemplate.batchUpdate(sqlToInsertReportChanges,
+
+                new BatchPreparedStatementSetter() {
+
+                    @Override
+                    public void setValues(PreparedStatement ps, int i) throws SQLException {
+
+                        ps.setString(1, attributeChanges.get(i).getAttributeName());
+                        ps.setString(2, attributeChanges.get(i).getExistingValue());
+                        ps.setString(3, attributeChanges.get(i).getNewValue());
+                        ps.setInt(4, attributeChanges.get(i).getReport_id());
+                        ps.setInt(5, getAccountIdFromName(attributeChanges.get(i).getUser()));
+                    }
+
+                    @Override
+                    public int getBatchSize() {
+
+                        return attributeChanges.size();
+                    }
+
+                });
 
     }
 
-    private String createSQLStatement(List<Change> attributeChanges) {
+    public int getAccountIdFromName(String accountName) {
 
-        String sqlToInsertReportChanges = "INSERT INTO report_changes (value_type, old_value, new_value, report_id, account_id)";
-        return null;
+        String sqlToRetrieveAccountIdWithName = "SELECT account_id FROM user_accounts WHERE concat(first_name, \" \", last_name) = ?;";
+
+        List<Integer> account_id = new ArrayList<Integer>();
+
+        account_id = jdbcTemplate.query(sqlToRetrieveAccountIdWithName, new PreparedStatementSetter() {
+
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+
+                ps.setString(1, accountName);
+            }
+
+        }, new RowMapper<Integer>() {
+
+            @Override
+            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+                return rs.getInt("account_id");
+            }
+
+        });
+
+        return account_id.get(0).intValue();
     }
 
 }

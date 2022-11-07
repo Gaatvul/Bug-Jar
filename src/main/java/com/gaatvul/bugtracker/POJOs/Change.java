@@ -53,6 +53,9 @@ public class Change {
         this.report_id = report_id;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return "Change [attributeName=" + attributeName + ", existingValue=" + existingValue + ", newValue=" + newValue
+                + ", user=" + user + ", report_id=" + report_id + "]";
+    }   
 }

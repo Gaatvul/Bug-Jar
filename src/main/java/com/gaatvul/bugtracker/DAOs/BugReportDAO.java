@@ -5,6 +5,7 @@ import java.util.List;
 import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
+import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
 import com.gaatvul.bugtracker.POJOs.Change;
 
@@ -27,5 +28,7 @@ public interface BugReportDAO {
     void saveEditedBugReportToDatabase(BugReportEntity editedBugReport);
 
     void saveChangesToDatabase(List<Change> attributeChanges);
+
+    List<ChangeEntity> loadListOfBugReportChangesWithId(int id);
 
 }

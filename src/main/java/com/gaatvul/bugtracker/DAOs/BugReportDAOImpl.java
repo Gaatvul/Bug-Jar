@@ -16,9 +16,11 @@ import org.springframework.stereotype.Repository;
 import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
+import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
 import com.gaatvul.bugtracker.POJOs.Change;
 import com.gaatvul.bugtracker.Rowmappers.BugReportRowMapper;
+import com.gaatvul.bugtracker.Rowmappers.ChangeEntityRowMapper;
 import com.gaatvul.bugtracker.Rowmappers.CommentRowMapper;
 import com.gaatvul.bugtracker.Rowmappers.ExistingUsersRowMapper;
 import com.gaatvul.bugtracker.Rowmappers.ProjectRowMapper;
@@ -203,6 +205,26 @@ public class BugReportDAOImpl implements BugReportDAO {
         });
 
         return account_id.get(0).intValue();
+    }
+
+    @Override
+    public List<ChangeEntity> loadListOfBugReportChangesWithId(int id) {
+        
+        List<ChangeEntity> bugReportChanges = new ArrayList<>();
+
+        String sqlToRetrieveListOfBugReportChanges = "CALL retrieve_bug_report_changes_with_report_id(?);";
+
+        bugReportChanges = jdbcTemplate.query(sqlToRetrieveListOfBugReportChanges, new PreparedStatementSetter(){
+
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+
+                ps.setInt(1, id);
+            }
+
+        } , new ChangeEntityRowMapper());
+
+        return bugReportChanges;
     }
 
 }

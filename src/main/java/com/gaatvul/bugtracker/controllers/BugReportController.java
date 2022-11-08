@@ -40,6 +40,7 @@ public class BugReportController {
 
         model.addAttribute("bugReport", bugReportService.getBugReportById(id));
         model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
+        model.addAttribute("bugReportChanges", bugReportService.loadListOfBugReportChangesWithId(id));
 
         return "bugReportView";
     }
@@ -52,6 +53,7 @@ public class BugReportController {
 
             model.addAttribute("bugReport", bugReportService.getBugReportById(id));
             model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
+            model.addAttribute("bugReportChanges", bugReportService.loadListOfBugReportChangesWithId(id));
 
             return "bugReportView";
 

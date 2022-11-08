@@ -5,6 +5,8 @@ public class Change {
     String attributeName, existingValue, newValue, user;
     int report_id;
 
+    public Change() {}
+
     public Change(String attributeName, String existingValue, String newValue, String user, int report_id) {
         this.attributeName = attributeName;
         this.existingValue = existingValue;

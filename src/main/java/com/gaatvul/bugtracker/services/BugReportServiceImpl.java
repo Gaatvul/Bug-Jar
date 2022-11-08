@@ -12,6 +12,7 @@ import com.gaatvul.bugtracker.DAOs.BugReportDAO;
 import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
+import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
 import com.gaatvul.bugtracker.POJOs.Change;
 
@@ -81,6 +82,10 @@ public class BugReportServiceImpl implements BugReportService {
 
         for (Map.Entry<String, String> entry : existingBugReportAttributes.entrySet()) {
 
+            if (entry.getValue() == null) {
+                entry.setValue("null");
+            }
+
             if (!entry.getValue().equals(editedBugReportAttributes.get(entry.getKey()))) {
 
                 attributeChanges.add(
@@ -96,6 +101,12 @@ public class BugReportServiceImpl implements BugReportService {
     private void saveChangesToDatabase(List<Change> attributeChanges) {
 
         bugReportDAO.saveChangesToDatabase(attributeChanges);
+    }
+
+    @Override
+    public List<ChangeEntity> loadListOfBugReportChangesWithId(int id) {
+       
+        return bugReportDAO.loadListOfBugReportChangesWithId(id);
     }
 
 }

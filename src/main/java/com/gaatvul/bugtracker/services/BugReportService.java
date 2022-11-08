@@ -5,6 +5,7 @@ import java.util.List;
 import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
+import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
 
 public interface BugReportService {
@@ -24,5 +25,7 @@ public interface BugReportService {
     List<String> loadListofExistingUsers();
 
     void saveEditedBugReportToDatabase(BugReportEntity editedBugReport);
+
+    List<ChangeEntity> loadListOfBugReportChangesWithId(int id);
 
 }

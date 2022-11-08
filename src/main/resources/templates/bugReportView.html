@@ -9,11 +9,18 @@
 
 <body>
 
+
+
     <div class="container">
         <form th:action="@{/bugReports/edit/{id} (id=${bugReport.id})}" th:object="${bugReport}" method="GET"
             id="EditBugReport"></form>
         <form th:action="@{/bugReports/view/{id} (id=${bugReport.id})}" th:object="${newComment}" method="POST"
             id="SubmitComment"></form>
+        <div class="row">
+            <div class="col py-5">
+                <div th:insert="navigation :: navbar"></div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md ">
                 <div class="row">
@@ -83,9 +90,11 @@
                         <p th:text="${bugReport.createdOn}" form="EditBugReport" id="createdOnTextBox" disabled></p>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6" th:with="listSize = ${#lists.size(bugReportChanges)}">
                         <label for="lastChangeTextBox">Last Changed On</label>
-                        <p th:text="${bugReport.createdOn}" form="EditBugReport" id="lastChangeTextBox" disabled></p>
+                        <p th:with="mostRecentChange=${listSize <= 0}? null : ${bugReportChanges[listSize-1]}"
+                            th:text="${listSize <= 0}? '' : ${mostRecentChange.createdOn}" form="EditBugReport"
+                            id="lastChangeTextBox" disabled></p>
                     </div>
                 </div>
 
@@ -95,15 +104,7 @@
 
         <div class="row">
             <div class="col-md gy-3">
-
-                <div class="row">
-                    <div class="col gy-3">
-                        <p>Attachments</p>
-                        <input type="file" id="attachments">
-                    </div>
-                </div>
-
-                <div class="row border border-dark">
+                <div class="row border border-dark rounded-1">
                     <div class="col">
                         <p>current files</p>
                     </div>
@@ -121,7 +122,7 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-comments" role="tabpanel"
                         aria-labelledby="nav-comments-tab" tabindex="0">
-                        <div class="border rounded-0" th:each="comment:${reportComments}">
+                        <div class="border rounded-0" th:each="comment : ${reportComments}">
                             <div class="row">
                                 <div class="col-1"></div>
                                 <div class="col">
@@ -162,7 +163,9 @@
                         </div>
                     </div>
                     <div class="tab-pane fade show" id="nav-changes" role="tabpanel" aria-labelledby="nav-changes-tab"
-                        tabindex="0">THIS IS THE CHANGES SECTION</div>
+                        tabindex="1">
+                        <div th:replace="changes :: change (${bugReportChanges})"></div>
+                    </div>
                 </div>
             </div>
             <div class="col-md">
@@ -172,7 +175,6 @@
         <div class="row">
             <div class="col gy-4"></div>
         </div>
-
 
     </div>
 

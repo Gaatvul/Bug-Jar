@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+
+    <div th:fragment="change (reportChanges)">
+        <div th:each="change : ${reportChanges}" form="reportChanges">
+            <div class="row gx-1 border rounded-1">
+                <div class="col m-2">
+                    <p><span th:text="${change.user}"></span> changed the <span class="badge bg-secondary"
+                            th:text="${change.attributeName}"></span></p>
+                    <p><span th:text="${change.existingValue}"></span> -> <span th:text="${change.newValue}"></span></p>
+                    <p th:text="${change.createdOn}">Change Made On</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

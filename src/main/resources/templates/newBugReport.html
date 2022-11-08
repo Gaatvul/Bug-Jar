@@ -12,6 +12,11 @@
 
     <div class="container">
         <div class="row">
+            <div class="col py-5">
+                <div th:insert="navigation :: navbar"></div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col gy-5"></div>
         </div>
         <form th:action="@{/bugReports/new}" th:object="${newBugReport}" method="POST">

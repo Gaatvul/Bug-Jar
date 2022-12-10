@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
+import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
 import com.gaatvul.bugtracker.services.BugReportService;
+import com.gaatvul.bugtracker.services.UserDetailsServiceImpl;
 
 @Controller
 public class BugReportController {
@@ -25,12 +29,16 @@ public class BugReportController {
     @Autowired
     private BugReportService bugReportService;
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
     @GetMapping("/bugReports")
     public String showListOfBugReports(Model model) {
 
         List<BugReportEntity> listOfBugReports = bugReportService.loadListOfBugReports();
 
         model.addAttribute("listOfBugReports", listOfBugReports);
+        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
 
         return "viewAllBugReports";
     }
@@ -41,6 +49,7 @@ public class BugReportController {
         model.addAttribute("bugReport", bugReportService.getBugReportById(id));
         model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
         model.addAttribute("bugReportChanges", bugReportService.loadListOfBugReportChangesWithId(id));
+        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
 
         return "bugReportView";
     }
@@ -59,20 +68,27 @@ public class BugReportController {
 
         }
 
-        bugReportService.saveNewCommentToDatabase(mapFormDataToCommentDTO(comment, id));
+        bugReportService.saveNewCommentToDatabase(mapFormDataToCommentDTO(comment.getCommentText(), id));
 
         return "redirect:/bugReports/view/{id}";
     }
 
-    private CommentDTO mapFormDataToCommentDTO(CommentDTO formData, int report_id) {
+    private CommentDTO mapFormDataToCommentDTO(String commentText, int id) {
 
         CommentDTO mappedComment = new CommentDTO();
 
-        mappedComment.setCommentText(formData.getCommentText());
-        mappedComment.setUserFullName("TestAccount Developer");
-        mappedComment.setReport_id(report_id);
+        mappedComment.setCommentText(commentText);
+        mappedComment.setUserFullName(getLoggedInUserFullName());
+        mappedComment.setReport_id(id);
 
         return mappedComment;
+    }
+
+    private String getLoggedInUserFullName() {
+
+        UserAccountDTO loggedInUser = userDetailsService.loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
+
+        return loggedInUser.getFirstName() + " " + loggedInUser.getLastName();
     }
 
     @GetMapping(value = "/bugReports/new")
@@ -83,6 +99,7 @@ public class BugReportController {
         model.addAttribute("newBugReport", newBugReport);
         model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
         model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
+        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
 
         return "newBugReport";
     }
@@ -111,6 +128,7 @@ public class BugReportController {
         model.addAttribute("editableBugReport", bugReportService.getBugReportById(id));
         model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
         model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
+        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
 
         return "editBugReportView";
     }
@@ -120,18 +138,26 @@ public class BugReportController {
             @Valid @ModelAttribute("editableBugReport") BugReportEntity editedBugReport, BindingResult bindingResult,
             Model model) {
 
-            if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
 
-                model.addAttribute("editableBugReport", editedBugReport);
-                model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
-                model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
+            model.addAttribute("editableBugReport", editedBugReport);
+            model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
+            model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
 
-                return "editBugReportView";
-            }
-        
+            return "editBugReportView";
+        }
+
         bugReportService.saveEditedBugReportToDatabase(editedBugReport);
 
         return "redirect:/bugReports/view/{id}";
+    }
+
+    private UserAccountDTO getLoggedInUserAccountDetails() {
+        return userDetailsService.loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
+    }
+
+    private Authentication getCurrentAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 
 }

@@ -1,7 +1,5 @@
 package com.gaatvul.bugtracker.services;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,8 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gaatvul.bugtracker.DAOs.UserDetailsDAOImpl;
-import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
+import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -32,6 +31,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public void saveNewUserToDatabase(NewUserFormDTO newUser) {
 
         userAccountDAO.saveNewUserToDatabase(newUser);
+    }
+
+    public void updateUserProfile(UpdateUserProfileDTO updatedUserProfile) {
+
+        userAccountDAO.updateUserProfile(updatedUserProfile);
     }
     
 }

@@ -3,6 +3,7 @@ package com.gaatvul.bugtracker.DAOs;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 
 public interface UserDetailsDAO {
@@ -12,4 +13,6 @@ public interface UserDetailsDAO {
     public UserAccountDTO retrieveUserAccountDetailsByEmailAddress(String emailAddress);
 
     public void saveNewUserToDatabase(NewUserFormDTO newUser);
+
+    public void updateUserProfile(UpdateUserProfileDTO updatedUserProfile);
 }

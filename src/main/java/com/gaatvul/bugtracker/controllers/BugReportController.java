@@ -32,7 +32,7 @@ public class BugReportController {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    @GetMapping("/bugReports")
+    @GetMapping(value = "/bugReports")
     public String showListOfBugReports(Model model) {
 
         List<BugReportEntity> listOfBugReports = bugReportService.loadListOfBugReports();
@@ -43,7 +43,7 @@ public class BugReportController {
         return "viewAllBugReports";
     }
 
-    @GetMapping("/bugReports/view/{id}")
+    @GetMapping(value = "/bugReports/view/{id}")
     public String viewReport(@PathVariable int id, @ModelAttribute("newComment") CommentEntity comment, Model model) {
 
         model.addAttribute("bugReport", bugReportService.getBugReportById(id));
@@ -86,7 +86,8 @@ public class BugReportController {
 
     private String getLoggedInUserFullName() {
 
-        UserAccountDTO loggedInUser = userDetailsService.loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
+        UserAccountDTO loggedInUser = userDetailsService
+                .loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
 
         return loggedInUser.getFirstName() + " " + loggedInUser.getLastName();
     }

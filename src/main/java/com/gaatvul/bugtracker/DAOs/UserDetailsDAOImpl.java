@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.Rowmappers.UserAccountDetailsRowmapper;
 
@@ -21,7 +22,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
     @Override
     public UserDetails retrieveUserByEmailAddress(String emailAddress) {
-        
+
         UserAccountDTO userAccount = retrieveUserAccountDetailsByEmailAddress(emailAddress);
 
         return User
@@ -32,13 +33,15 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
     }
 
     @Override
-    public UserAccountDTO retrieveUserAccountDetailsByEmailAddress(String emailAddress) throws UsernameNotFoundException {
+    public UserAccountDTO retrieveUserAccountDetailsByEmailAddress(String emailAddress)
+            throws UsernameNotFoundException {
 
         String sqlToRetrieveUserByEmailAddress = "call select_account_by_email(?);";
 
-        List<UserAccountDTO> userAccounts = jdbcTemplate.query(sqlToRetrieveUserByEmailAddress, new UserAccountDetailsRowmapper(), emailAddress);
+        List<UserAccountDTO> userAccounts = jdbcTemplate.query(sqlToRetrieveUserByEmailAddress,
+                new UserAccountDetailsRowmapper(), emailAddress);
 
-        if(userAccounts.isEmpty()) {
+        if (userAccounts.isEmpty()) {
             throw new UsernameNotFoundException("Account with [" + emailAddress + "] could not be found");
         }
 
@@ -47,7 +50,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
     @Override
     public void saveNewUserToDatabase(NewUserFormDTO newUser) {
-        
+
         String sqlToInsertNewUserIntoDatabase = "CALL insert_new_user(?, ?, ?, ?);";
 
         jdbcTemplate.update(sqlToInsertNewUserIntoDatabase, ps -> {
@@ -57,7 +60,20 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
             ps.setString(3, newUser.getEmailAddress());
             ps.setString(4, newUser.getPassword());
         });
-        
     }
-    
+
+    @Override
+    public void updateUserProfile(UpdateUserProfileDTO updatedUserProfile) {
+
+        String sqlToUpdateUserProfile = "UPDATE user_accounts SET first_name = ?, last_name = ?, email_address = ? WHERE account_id = ?";
+
+        jdbcTemplate.update(sqlToUpdateUserProfile, ps -> {
+
+            ps.setString(1, updatedUserProfile.getFirstName());
+            ps.setString(2, updatedUserProfile.getLastName());
+            ps.setString(3, updatedUserProfile.getEmailAddress());
+            ps.setLong(4, updatedUserProfile.getId());
+        });
+    }
+
 }

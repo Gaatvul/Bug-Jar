@@ -17,7 +17,7 @@ public class UserAccountDetailsRowmapper implements RowMapper<UserAccountDTO> {
         
         UserAccountDTO userAccountDetails = new UserAccountDTO();
 
-        userAccountDetails.setId(rs.getInt("account_id"));
+        userAccountDetails.setId(rs.getLong("account_id"));
         userAccountDetails.setFirstName(rs.getString("first_name"));
         userAccountDetails.setLastName(rs.getString("last_name"));
         userAccountDetails.setEmailAddress(rs.getString("email_address"));

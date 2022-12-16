@@ -66,8 +66,8 @@ public class NewUserFormDTO {
         this.confirmPassword = confirmPassword;
     }
 
-    public boolean isSamePassword() {
-        return (password.equals(confirmPassword));
+    public boolean passwordIsMismatchedWithConfirm() {
+        return (!password.equals(confirmPassword));
     }
 
 }

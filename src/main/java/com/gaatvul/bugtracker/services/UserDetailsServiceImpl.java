@@ -1,5 +1,7 @@
 package com.gaatvul.bugtracker.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,6 +38,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public void updateUserProfile(UpdateUserProfileDTO updatedUserProfile) {
 
         userAccountDAO.updateUserProfile(updatedUserProfile);
+    }
+
+    public List<UserAccountDTO> loadAllUserAccounts() {
+        return userAccountDAO.loadAllUserAccounts();
+    }
+
+    public UserAccountDTO loadUserAccountById(int id) {
+        return userAccountDAO.loadUserAccountById(id);
+    }
+
+    public List<String> loadAllTeams() {
+        return userAccountDAO.loadAllTeams();
     }
     
 }

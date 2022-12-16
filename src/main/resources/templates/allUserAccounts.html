@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>A List of Bug Reports!</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col py-5">
+                <div th:insert="navigation :: navbar"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Account ID</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email Address</th>
+                        <th>Team</th>
+                        <th>Role</th>
+                        <th>Enabled</th>
+                        <th>Date Created</th>
+                        <th></th>
+                    </tr>
+                    <tr th:each="account : ${userAccounts}">
+                        <td class="text-center" th:text="${account.id}"></td>
+                        <td th:text="${account.firstName}"></td>
+                        <td th:text="${account.lastName}"></td>
+                        <td th:text="${account.emailAddress}"></td>
+                        <td th:text="${account.team}"></td>
+                        <td th:text="${account.role}"></td>
+                        <td th:text="${account.isEnabled}"></td>
+                        <td th:text="${account.dateCreated}"></td>
+                        <td><a th:href="@{/allUserAccounts/view/{id} (id=${account.id})}"
+                                class="btn btn-outline-primary">View</a></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col gy-4"></div>
+        </div>
+    </div>
+
+
+    <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

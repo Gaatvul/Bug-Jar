@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 </head>
 
 <body>
@@ -39,6 +39,9 @@
                             </li>
                         </ul>
                         <hr>
+                        <div th:switch="${userDetails.role}">
+                            <div th:case="'Administrator'" th:insert="navigation :: admin-links"></div>
+                        </div>
                         <div class="dropdown dropup position-absolute bottom-0 my-3">
                             <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -62,6 +65,14 @@
                 </div>
             </div>
         </nav>
+    </div>
+
+    <div th:fragment="admin-links">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/allUserAccounts">All User Accounts</a>
+            </li>
+        </ul>
     </div>
 
 

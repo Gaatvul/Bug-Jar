@@ -19,44 +19,59 @@
                     <div class="col-6">
                         <div class="row mb-3">
                             <div class="col">
-                                <div class="input-group">
-                                    <span class="input-group-text">First and last name</span>
-                                    <input type="text" aria-label="First name" class="form-control"
-                                        th:field="*{firstName}">
-                                    <label class="alert alert-danger" role="alert"
-                                        th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></label>
-                                    <input type="text" aria-label="Last name" class="form-control"
-                                        th:field="*{lastName}">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="text" aria-label="First name" class="form-control"
+                                                th:field="*{firstName}" th:errorclass="is-invalid" id="first-name">
+                                            <label for="first-name"><span
+                                                    th:text="${#fields.hasErrors('firstName')} ? ${#fields.errors('firstName')} : 'First name'"></span></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="text" aria-label="Last name" class="form-control"
+                                                th:field="*{lastName}" th:errorclass="is-invalid" id="last-name">
+                                            <label for="last-name"><span
+                                                    th:text="${#fields.hasErrors('lastName')} ? ${#fields.errors('lastName')} : 'Last name'"></span></label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <input type="text" class="form-control" th:field="*{emailAddress}"
-                                    placeholder="Email Address" aria-label="Email address">
-                                <label class="alert alert-danger" role="alert"
-                                    th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></label>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" th:field="*{emailAddress}"
+                                        aria-label="Email address" th:errorclass="is-invalid" id="email-address">
+                                    <label for="email-address"><span
+                                            th:text="${#fields.hasErrors('emailAddress')} ? ${#fields.errors('emailAddress')} : 'Email address'"></span></label>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <input type="text" class="form-control" id="password" aria-label="password"
-                                    placeholder="password" th:field="*{password}">
-                                <label class="alert alert-danger" role="alert"
-                                    th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></label>
-                                <label for="password">Password</label>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" aria-label="password" th:field="*{password}"
+                                        th:errorclass="is-invalid" id="password">
+                                    <label for="password"><span
+                                            th:text="${#fields.hasErrors('password')} ? ${#fields.errors('password')} : 'Password'"></span></label>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col mb-3">
-                                <input type="text" class="form-control" id="confirm-password"
-                                    aria-label="Confirm password" placeholder="password">
-                                <label for="confirm-password">Confirm password</label>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" aria-label="password"
+                                        th:field="*{confirmPassword}" th:errorclass="is-invalid" id="confirm-password">
+                                    <label for="confirm-password"><span
+                                            th:text="${#fields.hasErrors('confirmPassword')} ? ${#fields.errors('confirmPassword')} : 'Confirm Password'"></span></label>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-1">
-                                <input type="submit" class="btn btn-outline-primary" value="Create">
+                                <input type="submit" class="btn btn-outline-primary" value="Signup">
                             </div>
                         </div>
                     </div>

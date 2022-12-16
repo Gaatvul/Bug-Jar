@@ -1,5 +1,7 @@
 package com.gaatvul.bugtracker.DAOs;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
@@ -15,4 +17,10 @@ public interface UserDetailsDAO {
     public void saveNewUserToDatabase(NewUserFormDTO newUser);
 
     public void updateUserProfile(UpdateUserProfileDTO updatedUserProfile);
+
+    public List<UserAccountDTO> loadAllUserAccounts();
+
+    public UserAccountDTO loadUserAccountById(int id);
+
+    public List<String> loadAllTeams();
 }

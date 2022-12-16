@@ -1,9 +1,12 @@
 package com.gaatvul.bugtracker.DAOs;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,7 +39,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
     public UserAccountDTO retrieveUserAccountDetailsByEmailAddress(String emailAddress)
             throws UsernameNotFoundException {
 
-        String sqlToRetrieveUserByEmailAddress = "call select_account_by_email(?);";
+        String sqlToRetrieveUserByEmailAddress = "call retrieve_account_by_email(?);";
 
         List<UserAccountDTO> userAccounts = jdbcTemplate.query(sqlToRetrieveUserByEmailAddress,
                 new UserAccountDetailsRowmapper(), emailAddress);
@@ -74,6 +77,38 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
             ps.setString(3, updatedUserProfile.getEmailAddress());
             ps.setLong(4, updatedUserProfile.getId());
         });
+    }
+
+    @Override
+    public List<UserAccountDTO> loadAllUserAccounts() {
+
+        String sqlToLoadAllUserAccounts = "call retrieve_all_user_accounts;";
+
+        return jdbcTemplate.query(sqlToLoadAllUserAccounts, new UserAccountDetailsRowmapper());
+    }
+
+    @Override
+    public UserAccountDTO loadUserAccountById(int id)
+            throws UsernameNotFoundException {
+
+        String sqlToLoadAllUserAccounts = "call retrieve_user_account_by_id(?);";
+
+        List<UserAccountDTO> userAccounts = jdbcTemplate.query(sqlToLoadAllUserAccounts,
+                new UserAccountDetailsRowmapper(), id);
+
+        if (userAccounts.isEmpty()) {
+            throw new UsernameNotFoundException("Account with id: [" + id + "] could not be found");
+        }
+
+        return userAccounts.get(0);
+    }
+
+    @Override
+    public List<String> loadAllTeams() {
+
+        String sqlToLoadAllTeams = "SELECT team_name FROM project_teams";
+
+        return jdbcTemplate.query(sqlToLoadAllTeams, (ResultSet rs, int rowNum) -> rs.getString("team_name"));
     }
 
 }

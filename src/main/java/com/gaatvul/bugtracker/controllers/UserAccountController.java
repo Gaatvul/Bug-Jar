@@ -3,24 +3,21 @@ package com.gaatvul.bugtracker.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
 import com.gaatvul.bugtracker.DTOs.UpdatePasswordDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
+import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.services.UserDetailsServiceImpl;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserAccountController {
@@ -31,9 +28,7 @@ public class UserAccountController {
     @GetMapping(value = "/signup")
     public String getSignUpForm(Model model) {
 
-        NewUserFormDTO newUser = new NewUserFormDTO();
-
-        model.addAttribute("newUser", newUser);
+        model.addAttribute("newUser", new NewUserFormDTO());
 
         return "newUserAccount";
     }
@@ -41,6 +36,13 @@ public class UserAccountController {
     @PostMapping(value = "/signup")
     public String signUpNewUser(@Valid @ModelAttribute("newUser") NewUserFormDTO newUser,
             BindingResult bindingResult, Model model) {
+
+        if (newUser.passwordIsMismatchedWithConfirm()) {
+            bindingResult.addError(new FieldError("newUser", "password", null,
+                    false, null, null, "New Passwords do not match"));
+            bindingResult.addError(new FieldError("newUser", "confirmPassword", null,
+                    false, null, null, "New Passwords do not match"));
+        }
 
         if (bindingResult.hasErrors()) {
 
@@ -104,7 +106,7 @@ public class UserAccountController {
             BindingResult bindingResult, Model model) {
 
         if (!updatedUserPassword.getOldPassword().equals(getLoggedInUserAccountDetails().getPassword())) {
-            bindingResult.addError(new FieldError("userPassword", "oldPassword", null, 
+            bindingResult.addError(new FieldError("userPassword", "oldPassword", null,
                     false, null, null, "Incorrect Password"));
         }
 
@@ -119,7 +121,6 @@ public class UserAccountController {
 
             model.addAttribute("userDetails", getLoggedInUserAccountDetails());
             model.addAttribute("userPassword", updatedUserPassword);
-            bindingResult.getAllErrors().forEach(System.out::println);
 
             return "editUserPasswordView";
         }

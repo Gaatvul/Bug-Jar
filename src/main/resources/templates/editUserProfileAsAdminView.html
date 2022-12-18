@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col py-5">
+                <div th:insert="navigation :: navbar"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="col-2">
+                    <a th:href="@{/allUserAccounts/view/{id} (id=${accountDetails.id})}"
+                        class="btn btn-outline-primary"><- User Profile</a>
+                </div>
+                <div class="row my-3">
+                    <h2>Update Account Details</h2>
+                    <form th:object="${accountDetails}" th:action="@{/allUserAccounts/save/{id}}" method="POST">
+                        <div class="form-floating">
+                            <input type="number" readonly th:field="*{id}" class="form-control-plaintext"
+                                id="account-id">
+                            <label for="account-id">Account ID</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" th:field="*{firstName}" class="form-control" id="first-name">
+                            <label for="first-name">First name</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="text" th:field="*{lastName}" class="form-control" id="last-name">
+                            <label for="last-name">Last name</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="email" th:field="*{emailAddress}" class="form-control" id="email-address">
+                            <label for="email-address">Email address</label>
+                        </div>
+                        <div class="form-floating">
+                            <select class="form-select" id="team" th:field="*{team}">
+                                <option th:each="team : ${allTeams}" th:value="${team}" th:text="${team}"></option>
+                            </select>
+                            <label for="team">Team</label>
+                        </div>
+                        <div class="form-floating">
+                            <select class="form-select" id="team" th:field="*{role}">
+                                <option value="Administrator" th:text="'Administrator'"></option>
+                                <option value="Manager" th:text="'Manager'"></option>
+                                <option value="Developer" th:text="'Developer'"></option>
+                                <option value="Tester" th:text="'Tester'"></option>
+                                <option value="End-user" th:text="'End-user'"></option>
+                                <option value="none" th:text="'none'"></option>
+                                <option value="owner" th:text="'owner'"></option>
+                            </select>
+                            <label for="role">Role</label>
+                        </div>
+                        <input class="btn btn-outline-primary" value="Save" type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+
+    <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

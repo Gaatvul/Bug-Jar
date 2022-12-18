@@ -47,16 +47,15 @@
                     <div class="row g-3">
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-4">
-                                    <label for="reporterDropDown">Reporter</label>
-                                </div>
                                 <div class="col">
-                                    <div class="dropdown">
-                                        <select name="reporter" th:field="*{reporter}" id="reporterDropDown">
+                                    <div class="form-floating">
+                                        <select name="reporter" class="form-select" th:field="*{reporter}"
+                                            id="reporterDropDown">
                                             <option th:each="user : ${existingUsers}" th:value="${user}"
                                                 th:text="${user}">
                                             </option>
                                         </select>
+                                        <label for="reporterDropDown">Reporter</label>
                                     </div>
                                 </div>
                             </div>
@@ -64,32 +63,29 @@
 
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-4">
-                                    <label for="assigneeDropDown">Assignee</label>
-                                </div>
                                 <div class="col">
-                                    <div class="dropdown">
-                                        <select name="assignee" th:field="*{assignee}" id="assigneeDropDown">
+                                    <div class="form-floating">
+                                        <select name="assignee" class="form-select" th:field="*{assignee}"
+                                            id="assigneeDropDown">
                                             <option th:each="user : ${existingUsers}" th:value="${user}"
                                                 th:text="${user}">
                                             </option>
                                         </select>
+                                        <label for="assigneeDropDown">Assignee</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-4">
-                                    <label for="ownerDropDown">Owner</label>
-                                </div>
                                 <div class="col">
-                                    <div class="dropdown">
-                                        <select name="owner" th:field="*{owner}" id="ownerDropDown">
+                                    <div class="form-floating">
+                                        <select name="owner" class="form-select" th:field="*{owner}" id="ownerDropDown">
                                             <option th:each="user : ${existingUsers}" th:value="${user}"
                                                 th:text="${user}">
                                             </option>
                                         </select>
+                                        <label for="ownerDropDown">Owner</label>
                                     </div>
                                 </div>
                             </div>
@@ -97,16 +93,15 @@
 
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-4">
-                                    <label for="projectDropDown">Project</label>
-                                </div>
                                 <div class="col">
-                                    <div class="dropdown">
-                                        <select name="project" th:field="*{projectAssignedTo}" id="projectDropDown">
+                                    <div class="form-floating">
+                                        <select name="project" class="form-select" th:field="*{projectAssignedTo}"
+                                            id="projectDropDown">
                                             <option th:each="project : ${allProjects}" th:value="${project}"
                                                 th:text="${project}">
                                             </option>
                                         </select>
+                                        <label for="projectDropDown">Project</label>
                                     </div>
                                 </div>
                             </div>
@@ -114,12 +109,9 @@
 
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-4">
-                                    <label for="criticalityDropDown">Criticality</label>
-                                </div>
                                 <div class="col">
-                                    <div class="dropdown">
-                                        <select name="CriticalityLevel" th:field="*{criticality}"
+                                    <div class="form-floating">
+                                        <select name="CriticalityLevel" class="form-select" th:field="*{criticality}"
                                             id="criticalityDropDown">
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
@@ -127,6 +119,7 @@
                                             <option value="Severe">Severe</option>
                                             <option value="Blocker">Blocker</option>
                                         </select>
+                                        <label for="criticalityDropDown">Criticality</label>
                                     </div>
                                 </div>
                             </div>
@@ -134,18 +127,17 @@
 
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-4">
-                                    <label for="categoryDropDown">Category</label>
-                                </div>
                                 <div class="col">
-                                    <div class="dropdown">
-                                        <select name="category" th:field="*{category}" id="categoryDropDown">
+                                    <div class="form-floating">
+                                        <select name="category" class="form-select" th:field="*{category}"
+                                            id="categoryDropDown">
                                             <option value="Functional">Functional</option>
                                             <option value="Performance">Performance</option>
                                             <option value="Security">Security</option>
                                             <option value="Feature">Feature</option>
                                             <option value="Usability">Usability</option>
                                         </select>
+                                        <label for="categoryDropDown">Category</label>
                                     </div>
                                 </div>
                             </div>
@@ -153,16 +145,15 @@
 
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-4">
-                                    <label for="statusDropDown">Status</label>
-                                </div>
                                 <div class="col">
-                                    <div class="dropdown">
-                                        <select name="status" th:field="*{Status}" id="statusDropDown">
+                                    <div class="form-floating">
+                                        <select name="status" class="form-select" th:field="*{Status}"
+                                            id="statusDropDown">
                                             <option value="Open">Open</option>
                                             <option value="In-progress">In-progress</option>
                                             <option value="Done">Done</option>
                                         </select>
+                                        <label for="statusDropDown">Status</label>
                                     </div>
                                 </div>
                             </div>
@@ -170,17 +161,16 @@
 
                         <div class="col-6">
                             <div class="row">
-                                <div class="col-4">
-                                    <label for="priorityDropDown">Priority</label>
-                                </div>
                                 <div class="col">
-                                    <div class="dropdown">
-                                        <select name="priority" th:field="*{Priority}" id="priorityDropDown">
+                                    <div class="form-floating">
+                                        <select name="priority" class="form-select" th:field="*{Priority}"
+                                            id="priorityDropDown">
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
                                             <option value="High">High</option>
                                             <option value="Urgent">Urgent</option>
                                         </select>
+                                        <label for="priorityDropDown">Priority</label>
                                     </div>
                                 </div>
                             </div>

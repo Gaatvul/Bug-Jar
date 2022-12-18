@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-</head>
-
 <body>
 
     <div th:fragment="navbar">
@@ -40,7 +36,7 @@
                         </ul>
                         <hr>
                         <div th:switch="${userDetails.role}">
-                            <div th:case="'Administrator'" th:insert="navigation :: admin-links"></div>
+                            <div th:case="'Administrator'" th:insert="this :: admin-links"></div>
                         </div>
                         <div class="dropdown dropup position-absolute bottom-0 my-3">
                             <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"

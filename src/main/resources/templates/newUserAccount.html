@@ -23,9 +23,9 @@
                                     <div class="col-6">
                                         <div class="form-floating">
                                             <input type="text" aria-label="First name" class="form-control"
-                                                th:field="*{firstName}" th:errorclass="is-invalid" id="first-name">
+                                                th:field="*{userProfile.firstName}" th:errorclass="is-invalid" id="first-name">
                                             <label for="first-name"><span
-                                                    th:text="${#fields.hasErrors('firstName')} ? ${#fields.errors('firstName')} : 'First name'"></span></label>
+                                                    th:text="${#fields.hasErrors('userProfile.firstName')} ? ${#fields.errors('userProfile.firstName')} : 'First name'"></span></label>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -42,20 +42,20 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" th:field="*{emailAddress}"
+                                    <input type="text" class="form-control" th:field="*{userProfile.emailAddress}"
                                         aria-label="Email address" th:errorclass="is-invalid" id="email-address">
                                     <label for="email-address"><span
-                                            th:text="${#fields.hasErrors('emailAddress')} ? ${#fields.errors('emailAddress')} : 'Email address'"></span></label>
+                                            th:text="${#fields.hasErrors('userProfile.emailAddress')} ? ${#fields.errors('userProfile.emailAddress')} : 'Email address'"></span></label>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" aria-label="password" th:field="*{password}"
+                                    <input type="password" class="form-control" aria-label="password" th:field="*{userPassword.password}"
                                         th:errorclass="is-invalid" id="password">
                                     <label for="password"><span
-                                            th:text="${#fields.hasErrors('password')} ? ${#fields.errors('password')} : 'Password'"></span></label>
+                                            th:text="${#fields.hasErrors('userPassword.password')} ? ${#fields.errors('userPassword.password')} : 'Password'"></span></label>
                                 </div>
                             </div>
                         </div>
@@ -63,9 +63,9 @@
                             <div class="col mb-3">
                                 <div class="form-floating">
                                     <input type="password" class="form-control" aria-label="password"
-                                        th:field="*{confirmPassword}" th:errorclass="is-invalid" id="confirm-password">
+                                        th:field="*{userPassword.confirmPassword}" th:errorclass="is-invalid" id="confirm-password">
                                     <label for="confirm-password"><span
-                                            th:text="${#fields.hasErrors('confirmPassword')} ? ${#fields.errors('confirmPassword')} : 'Confirm Password'"></span></label>
+                                            th:text="${#fields.hasErrors('userPassword.confirmPassword')} ? ${#fields.errors('userPassword.confirmPassword')} : 'Confirm Password'"></span></label>
                                 </div>
                             </div>
                         </div>

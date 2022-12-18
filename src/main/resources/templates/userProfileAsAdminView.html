@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col py-5">
+                <div th:insert="navigation :: navbar"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <a th:href="@{/allUserAccounts}" class="btn btn-outline-primary"><- All User Accounts</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col gy-5">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Account ID</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Email Address</th>
+                            <th>Team</th>
+                            <th>Role</th>
+                            <th>Date Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:object="${accountDetails}">
+                            <td class="text-center" th:text="${accountDetails.id}"></td>
+                            <td th:text="${accountDetails.firstName}"></td>
+                            <td th:text="${accountDetails.lastName}"></td>
+                            <td th:text="${accountDetails.emailAddress}"></td>
+                            <td th:text="${accountDetails.team}"></td>
+                            <td th:text="${accountDetails.role}"></td>
+                            <td th:text="${accountDetails.dateCreated}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <a th:href="@{/allUserAccounts/edit/{id} (id=${accountDetails.id})}"
+                    class="btn btn-outline-primary">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

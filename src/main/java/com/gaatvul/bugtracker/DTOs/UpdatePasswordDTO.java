@@ -1,21 +1,21 @@
 package com.gaatvul.bugtracker.DTOs;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
+import com.gaatvul.bugtracker.POJOs.UserPassword;
 
 public class UpdatePasswordDTO {
 
-    @NotEmpty(message = "Uh oh, looks like there's no password filled in!")
-    @NotNull(message = "Uh oh, looks like this field is null")
+    @NotBlank(message = "Uh oh, looks like there's no password filled in!")
     private String oldPassword;
 
-    @NotEmpty(message = "Uh oh, looks like there's no new password filled in!")
-    @NotNull(message = "Uh oh, looks like this field is null")
-    private String newPassword;
+    @Valid
+    private UserPassword userPassword;
 
-    @NotEmpty(message = "Uh oh, looks like there's no confirm password filled in!")
-    @NotNull(message = "Uh oh, looks like this field is null")
-    private String confirmNewPassword;
+    public UpdatePasswordDTO() {
+        this.userPassword = new UserPassword();
+    }
 
     public String getOldPassword() {
         return oldPassword;
@@ -25,24 +25,32 @@ public class UpdatePasswordDTO {
         this.oldPassword = oldPassword;
     }
 
-    public String getNewPassword() {
-        return newPassword;
+    public String getPassword() {
+        return userPassword.getPassword();
     }
 
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+    public void setPassword(String password) {
+        userPassword.setPassword(password);
     }
 
-    public String getConfirmNewPassword() {
-        return confirmNewPassword;
+    public String getConfirmPassword() {
+        return userPassword.getConfirmPassword();
     }
 
-    public void setConfirmNewPassword(String confirmNewPassword) {
-        this.confirmNewPassword = confirmNewPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        userPassword.setConfirmPassword(confirmPassword);
     }
 
-    public boolean isMismatchedWithConfirm() {
-        return (!newPassword.equals(confirmNewPassword));
+    public boolean passwordIsMismatchedWithConfirm() {
+        return userPassword.passwordIsMismatchedWithConfirm();
+    }
+
+    public UserPassword getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(UserPassword userPassword) {
+        this.userPassword = userPassword;
     }
 
 }

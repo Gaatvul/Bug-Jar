@@ -38,9 +38,9 @@ public class UserAccountController {
             BindingResult bindingResult, Model model) {
 
         if (newUser.passwordIsMismatchedWithConfirm()) {
-            bindingResult.addError(new FieldError("newUser", "password", null,
+            bindingResult.addError(new FieldError("newUser", "userPassword.password", null,
                     false, null, null, "New Passwords do not match"));
-            bindingResult.addError(new FieldError("newUser", "confirmPassword", null,
+            bindingResult.addError(new FieldError("newUser", "userPassword.confirmPassword", null,
                     false, null, null, "New Passwords do not match"));
         }
 
@@ -110,10 +110,10 @@ public class UserAccountController {
                     false, null, null, "Incorrect Password"));
         }
 
-        if (updatedUserPassword.isMismatchedWithConfirm()) {
-            bindingResult.addError(new FieldError("userPassword", "newPassword", null,
+        if (updatedUserPassword.passwordIsMismatchedWithConfirm()) {
+            bindingResult.addError(new FieldError("userPassword", "userPassword.Password", null,
                     false, null, null, "New Passwords do not match"));
-            bindingResult.addError(new FieldError("userPassword", "confirmNewPassword", null,
+            bindingResult.addError(new FieldError("userPassword", "userPassword.confirmPassword", null,
                     false, null, null, "New Passwords do not match"));
         }
 

@@ -1,16 +1,22 @@
 package com.gaatvul.bugtracker.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.services.UserDetailsServiceImpl;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -33,9 +39,9 @@ public class AdminController {
     public String getUserProfilePage(@PathVariable int id, Model model) {
 
         model.addAttribute("userDetails", getLoggedInUserAccountDetails());
-        model.addAttribute("userAccounts", userDetailsService.loadUserAccountById(id));
+        model.addAttribute("accountDetails", userDetailsService.loadUserAccountById(id));
 
-        return "userProfileView";
+        return "userProfileAsAdminView";
     }
 
     @GetMapping(value="/allUserAccounts/edit/{id}")
@@ -45,8 +51,18 @@ public class AdminController {
         model.addAttribute("accountDetails", userDetailsService.loadUserAccountById(id));
         model.addAttribute("allTeams", userDetailsService.loadAllTeams());
 
-        return "editUserProfileView";
+        return "editUserProfileAsAdminView";
     }
+
+    @PostMapping(value="/allUserAccounts/save/{id}")
+    public String saveUpdatedUserProfile(@Valid @ModelAttribute("accountDetails") UpdateUserProfileDTO updatedUserProfile,
+    BindingResult bindingResult, @PathVariable int id, Model model) {
+        
+        
+        
+        return "redirect: /allUserAccounts";
+    }
+    
     //TODO: create POST mapping for saving changes to account details.
     
 

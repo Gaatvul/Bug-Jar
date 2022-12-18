@@ -1,73 +1,83 @@
 package com.gaatvul.bugtracker.DTOs;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
 
+import org.springframework.stereotype.Component;
+
+import com.gaatvul.bugtracker.POJOs.UserPassword;
+import com.gaatvul.bugtracker.POJOs.UserProfile;
+
+@Component
 public class NewUserFormDTO {
 
-    @NotEmpty(message = "Uh oh, looks like there's no first name filled in!")
-    @NotNull(message = "Uh oh, looks like this field is null")
-    private String firstName;
+    @Valid
+    private UserProfile userProfile;
+    @Valid
+    private UserPassword userPassword;
 
-    @NotNull(message = "Uh oh, looks like this field is null")
-    private String lastName;
+    public NewUserFormDTO() {
+        this.userProfile = new UserProfile();
+        this.userPassword = new UserPassword();
+    }
 
-    @NotEmpty(message = "Uh oh, looks like there's no email address filled in!")
-    @Email(message = "Uh oh, looks like your email address is not quite correct!")
-    @NotNull(message = "Uh oh, looks like this field is null")
-    private String emailAddress;
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
 
-    @NotEmpty(message = "Uh oh, looks like there's no password filled in!")
-    @NotNull(message = "Uh oh, looks like this field is null")
-    private String password;
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
     
-    @NotEmpty(message = "Uh oh, looks like there's no confirm password filled in!")
-    @NotNull(message = "Uh oh, looks like this field is null")
-    private String confirmPassword;
-
     public String getFirstName() {
-        return firstName;
+        return userProfile.getFirstName();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        userProfile.setFirstName(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return userProfile.getLastName();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        userProfile.setLastName(lastName);
     }
 
     public String getEmailAddress() {
-        return emailAddress;
+        return userProfile.getEmailAddress();
     }
 
     public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+        userProfile.setEmailAddress(emailAddress);
+    }
+
+    public UserPassword getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(UserPassword userPassword) {
+        this.userPassword = userPassword;
     }
 
     public String getPassword() {
-        return password;
+        return userPassword.getPassword();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        userPassword.setPassword(password);
     }
 
     public String getConfirmPassword() {
-        return confirmPassword;
+        return userPassword.getConfirmPassword();
     }
 
     public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+        userPassword.setConfirmPassword(confirmPassword);
     }
 
     public boolean passwordIsMismatchedWithConfirm() {
-        return (!password.equals(confirmPassword));
+        return userPassword.passwordIsMismatchedWithConfirm();
     }
 
 }

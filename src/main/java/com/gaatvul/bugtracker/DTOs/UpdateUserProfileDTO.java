@@ -1,20 +1,19 @@
 package com.gaatvul.bugtracker.DTOs;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.Valid;
+
+import com.gaatvul.bugtracker.POJOs.UserProfile;
 
 public class UpdateUserProfileDTO {
 
     long id;
 
-    @NotEmpty(message = "Uh oh, looks like there's no first name filled in!")
-    private String firstName;
+    @Valid
+    private UserProfile userProfile;
 
-    private String lastName;
-
-    @NotEmpty(message = "Uh oh, looks like there's no email address filled in!")
-    @Email(message = "Uh oh, looks like your email address is not quite correct!")
-    private String emailAddress;
+    public UpdateUserProfileDTO() {
+        this.userProfile = new UserProfile();
+    }
 
     public long getId() {
         return id;
@@ -25,27 +24,27 @@ public class UpdateUserProfileDTO {
     }
 
     public String getFirstName() {
-        return firstName;
+        return userProfile.getFirstName();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        userProfile.setFirstName(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return userProfile.getLastName();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        userProfile.setLastName(lastName);
     }
 
     public String getEmailAddress() {
-        return emailAddress;
+        return userProfile.getEmailAddress();
     }
 
     public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+        userProfile.setEmailAddress(emailAddress);
     }
-    
+   
 }

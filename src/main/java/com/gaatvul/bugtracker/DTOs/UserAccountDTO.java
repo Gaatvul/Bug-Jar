@@ -2,17 +2,21 @@ package com.gaatvul.bugtracker.DTOs;
 
 import java.sql.Timestamp;
 
+import com.gaatvul.bugtracker.POJOs.UserProfile;
+
 public class UserAccountDTO {
 
     private long id;
-    private String firstName;
-    private String lastName;
-    private String emailAddress;
+    private UserProfile userProfile;
     private String team;
     private String role;
     private String password;
     private boolean isEnabled;
     private Timestamp dateCreated;
+
+    public UserAccountDTO() {
+        this.userProfile = new UserProfile();
+    }
 
     public long getId() {
         return id;
@@ -23,26 +27,27 @@ public class UserAccountDTO {
     }
 
     public String getFirstName() {
-        return firstName;
+        return userProfile.getFirstName();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        userProfile.setFirstName(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return userProfile.getLastName();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        userProfile.setLastName(lastName);
     }
+
     public String getEmailAddress() {
-        return emailAddress;
+        return userProfile.getEmailAddress();
     }
 
     public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+        userProfile.setEmailAddress(emailAddress);
     }
 
     public String getTeam() {

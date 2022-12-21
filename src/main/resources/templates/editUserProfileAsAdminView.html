@@ -18,12 +18,12 @@
         <div class="row">
             <div class="col">
                 <div class="col-2">
-                    <a th:href="@{/allUserAccounts/view/{id} (id=${accountDetails.id})}"
+                    <a th:href="@{/admin/allUserAccounts/view/{id} (id=${accountDetails.id})}"
                         class="btn btn-outline-primary"><- User Profile</a>
                 </div>
                 <div class="row my-3">
                     <h2>Update Account Details</h2>
-                    <form th:object="${accountDetails}" th:action="@{/allUserAccounts/save/{id}}" method="POST">
+                    <form th:object="${accountDetails}" th:action="@{/admin/allUserAccounts/save/{id} (id=${accountDetails.id})}" method="POST">
                         <div class="form-floating">
                             <input type="number" readonly th:field="*{id}" class="form-control-plaintext"
                                 id="account-id">

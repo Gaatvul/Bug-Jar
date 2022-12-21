@@ -38,7 +38,7 @@
                         <td th:text="${account.role}"></td>
                         <td th:text="${account.isEnabled}"></td>
                         <td th:text="${account.dateCreated}"></td>
-                        <td><a th:href="@{/allUserAccounts/view/{id} (id=${account.id})}"
+                        <td><a th:href="@{/admin/allUserAccounts/view/{id} (id=${account.id})}"
                                 class="btn btn-outline-primary">View</a></td>
                     </tr>
                 </table>

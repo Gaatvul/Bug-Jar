@@ -2,29 +2,285 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Dashboard</title>
+
+    <!-- Fonts and icons -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Icons -->
+    <link th:href="@{/css/nucleo-icons.css}" rel="stylesheet" />
+    <link th:href="@{/css/nucleo-svg.css}" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" th:href="@{/css/material-dashboard.css}" rel="stylesheet" />
+
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
     <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-gray-300">
     <div class="container">
         <div class="row">
             <div class="col py-5">
                 <div th:insert="navigation :: navbar"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col gy-5"></div>
+        <div class="row justify-content-around mt-4">
+            <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                <div class="card z-index-2">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                            <div class="chart">
+                                <canvas id="chart-donut-criticality" class="chart-canvas" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="h3 text-center">Reports By Criticality</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                <div class="card z-index-2">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                            <div class="chart">
+                                <canvas id="chart-bar-category" class="chart-canvas" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="h3 text-center">Reports By Category</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row">
-
+        <div class="row justify-content-around mt-4">
+            <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                <div class="card z-index-2">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                            <div class="chart">
+                                <canvas id="chart-donut-status" class="chart-canvas" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="h3 text-center">Reports By Status</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                <div class="card z-index-2">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+                            <div class="chart">
+                                <canvas id="chart-donut-priority" class="chart-canvas" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="h3 text-center">Reports By Priority</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
 
     <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/plugins/chartjs.min.js}"></script>
+
+    <script th:inline="javascript">
+
+        var ctx = document.getElementById("chart-donut-criticality").getContext("2d");
+
+        var donutData = [(${ reportsByCriticality })];
+
+        new Chart(ctx, {
+            type: "doughnut",
+            data: {
+                labels: ["Blocker",
+                    "Severe",
+                    "High",
+                    "Medium",
+                    "Low"],
+                datasets: [{
+                    label: "Dataset 1",
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: ["purple",
+                        "rgba(245, 58, 39, 0.8)",
+                        "rgba(245, 178, 39, 0.8)",
+                        "rgba(213, 225, 39, 0.8)",
+                        "rgba(39, 245, 67, 0.8)"],
+                    hoverOffset: 10,
+                    hoverBorderWidth: 2,
+                    data: donutData,
+                },
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 10,
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: "white",
+                        }
+                    }
+                }
+            },
+        });
+
+    </script>
+    <script th:inline="javascript">
+
+        var ctx = document.getElementById("chart-bar-category").getContext("2d");
+
+        var donutData = [(${ reportsByCategory })];
+
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: ["Functional",
+                    "Performance",
+                    "Security",
+                    "Feature",
+                    "Usability"],
+                datasets: [{
+                    label: "Reports",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: ["pink",
+                        "orange",
+                        "purple",
+                        "red",
+                        "yellow"],
+                    hoverBorderWidth: 2,
+                    data: donutData,
+                },
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 10,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: "white",
+                        }
+                    }
+                }
+            },
+        });
+    </script>
+    <script th:inline="javascript">
+
+        var ctx = document.getElementById("chart-donut-status").getContext("2d");
+
+        var donutData = [(${ reportsByStatus })];
+
+        new Chart(ctx, {
+            type: "doughnut",
+            data: {
+                labels: ["Open",
+                    "In-progress",
+                    "Done"],
+                datasets: [{
+                    label: "Reports",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: ["rgba(245, 58, 39, 0.8)",
+                        "rgba(213, 225, 39, 0.8)",
+                        "rgba(39, 245, 67, 0.8)"],
+                    hoverOffset: 10,
+                    hoverBorderWidth: 2,
+                    data: donutData,
+                },
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 10,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: "white",
+                        }
+                    }
+                }
+            },
+        });
+    </script>
+    <script th:inline="javascript">
+
+        var ctx = document.getElementById("chart-donut-priority").getContext("2d");
+
+        var donutData = [(${ reportsByPriority })];
+
+        new Chart(ctx, {
+            type: "doughnut",
+            data: {
+                labels: ["Urgent",
+                    "High",
+                    "Medium",
+                    "Low"],
+                datasets: [{
+                    label: "Reports",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    borderRadius: 4,
+                    borderSkipped: false,
+                    backgroundColor: ["rgba(245, 58, 39, 0.8)",
+                        "rgba(245, 178, 39, 0.8)",
+                        "rgba(213, 225, 39, 0.8)",
+                        "rgba(39, 245, 67, 0.8)"],
+                    hoverOffset: 10,
+                    hoverBorderWidth: 2,
+                    data: donutData,
+                },
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 10,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: "white",
+                        }
+                    }
+                }
+            },
+        });
+    </script>
 
 </body>
 

@@ -35,6 +35,12 @@
                             </li>
                         </ul>
                         <hr>
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
+                            </li>
+                        </ul>
+                        <hr>
                         <div th:switch="${userDetails.role}">
                             <div th:case="'Administrator'" th:insert="this :: admin-links"></div>
                         </div>
@@ -66,7 +72,7 @@
     <div th:fragment="admin-links">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/allUserAccounts">All User Accounts</a>
+                <a class="nav-link active" aria-current="page" href="/admin/allUserAccounts">All User Accounts</a>
             </li>
         </ul>
     </div>

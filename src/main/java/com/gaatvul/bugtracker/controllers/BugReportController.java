@@ -63,6 +63,7 @@ public class BugReportController {
             model.addAttribute("bugReport", bugReportService.getBugReportById(id));
             model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
             model.addAttribute("bugReportChanges", bugReportService.loadListOfBugReportChangesWithId(id));
+            model.addAttribute("userDetails", getLoggedInUserAccountDetails());
 
             return "bugReportView";
 
@@ -86,8 +87,7 @@ public class BugReportController {
 
     private String getLoggedInUserFullName() {
 
-        UserAccountDTO loggedInUser = userDetailsService
-                .loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
+        UserAccountDTO loggedInUser = getLoggedInUserAccountDetails();
 
         return loggedInUser.getFirstName() + " " + loggedInUser.getLastName();
     }
@@ -114,6 +114,7 @@ public class BugReportController {
             model.addAttribute("newBugReport", bugReportFromModel);
             model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
             model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
+            model.addAttribute("userDetails", getLoggedInUserAccountDetails());
 
             return "newBugReport";
         }
@@ -144,6 +145,7 @@ public class BugReportController {
             model.addAttribute("editableBugReport", editedBugReport);
             model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
             model.addAttribute("existingUsers", bugReportService.loadListofExistingUsers());
+            model.addAttribute("userDetails", getLoggedInUserAccountDetails());
 
             return "editBugReportView";
         }

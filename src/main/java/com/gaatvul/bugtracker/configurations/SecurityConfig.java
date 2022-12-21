@@ -22,8 +22,12 @@ public class SecurityConfig {
         http
         .authorizeHttpRequests(authorize -> authorize
         .antMatchers("/signup", "/css/**", "/js/**", "/webjars/**").permitAll()
-        .antMatchers("/**").authenticated())
-        .formLogin();
+        .antMatchers("/admin/**").hasRole("Administrator")
+        .anyRequest().authenticated())
+        .formLogin()
+        .and()
+        .exceptionHandling()
+        .accessDeniedPage("/access-denied");
 
         return http.build();
     }

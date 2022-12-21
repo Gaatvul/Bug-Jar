@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
+import com.gaatvul.bugtracker.DTOs.UpdateUserProfileAsAdminDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.services.UserDetailsServiceImpl;
 
-
-
-
 @Controller
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     @Autowired
@@ -35,7 +34,7 @@ public class AdminController {
         return "allUserAccounts";
     }
 
-    @GetMapping(value="/allUserAccounts/view/{id}")
+    @GetMapping(value = "/allUserAccounts/view/{id}")
     public String getUserProfilePage(@PathVariable int id, Model model) {
 
         model.addAttribute("userDetails", getLoggedInUserAccountDetails());
@@ -44,7 +43,7 @@ public class AdminController {
         return "userProfileAsAdminView";
     }
 
-    @GetMapping(value="/allUserAccounts/edit/{id}")
+    @GetMapping(value = "/allUserAccounts/edit/{id}")
     public String geteditUserProfilePage(@PathVariable int id, Model model) {
 
         model.addAttribute("userDetails", getLoggedInUserAccountDetails());
@@ -54,20 +53,26 @@ public class AdminController {
         return "editUserProfileAsAdminView";
     }
 
-    @PostMapping(value="/allUserAccounts/save/{id}")
-    public String saveUpdatedUserProfile(@Valid @ModelAttribute("accountDetails") UpdateUserProfileDTO updatedUserProfile,
-    BindingResult bindingResult, @PathVariable int id, Model model) {
-        
-        
-        
-        return "redirect: /allUserAccounts";
+    @PostMapping(value = "/allUserAccounts/save/{id}")
+    public String saveUpdatedUserProfile(
+            @Valid @ModelAttribute("accountDetails") UpdateUserProfileAsAdminDTO updatedUserProfile,
+            BindingResult bindingResult, @PathVariable int id, Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+            model.addAttribute("accountDetails", userDetailsService.loadUserAccountById(id));
+            model.addAttribute("allTeams", userDetailsService.loadAllTeams());
+
+            return "editUserProfileAsAdminView";
+        }
+
+        userDetailsService.updateUserProfileAsAdmin(updatedUserProfile);
+
+        return "redirect:/admin/allUserAccounts";
     }
-    
-    //TODO: create POST mapping for saving changes to account details.
-    
 
     // TODO: Use retrieve all accounts -> filter list for Teams & roles
-    
 
     private UserAccountDTO getLoggedInUserAccountDetails() {
         return userDetailsService.loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());

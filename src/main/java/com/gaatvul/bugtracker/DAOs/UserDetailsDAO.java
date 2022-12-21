@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdateUserProfileAsAdminDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 
@@ -23,4 +24,6 @@ public interface UserDetailsDAO {
     public UserAccountDTO loadUserAccountById(int id);
 
     public List<String> loadAllTeams();
+
+    public void updateUserProfileAsAdmin(UpdateUserProfileAsAdminDTO updatedUserProfile);
 }

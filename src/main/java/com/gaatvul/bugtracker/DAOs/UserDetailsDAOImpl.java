@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdateUserProfileAsAdminDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.Rowmappers.UserAccountDetailsRowmapper;
@@ -66,7 +67,8 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
     @Override
     public void updateUserProfile(UpdateUserProfileDTO updatedUserProfile) {
 
-        String sqlToUpdateUserProfile = "UPDATE user_accounts SET first_name = ?, last_name = ?, email_address = ? WHERE account_id = ?";
+        String sqlToUpdateUserProfile = "UPDATE user_accounts SET first_name = ?, last_name = ?, email_address = ? "
+                + "WHERE account_id = ?";
 
         jdbcTemplate.update(sqlToUpdateUserProfile, ps -> {
 
@@ -107,6 +109,24 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
         String sqlToLoadAllTeams = "SELECT team_name FROM project_teams";
 
         return jdbcTemplate.query(sqlToLoadAllTeams, (ResultSet rs, int rowNum) -> rs.getString("team_name"));
+    }
+
+    @Override
+    public void updateUserProfileAsAdmin(UpdateUserProfileAsAdminDTO updatedUserProfile) {
+
+        String sqlToUpdateUserProfile = "UPDATE user_accounts "
+                + "SET first_name = ?, last_name = ?, email_address = ?, "
+                + "team_id = (SELECT team_id FROM project_teams WHERE team_name = ?), "
+                + "role_id = (SELECT role_id FROM account_roles WHERE role_name = ?) WHERE account_id = ?";
+
+        jdbcTemplate.update(sqlToUpdateUserProfile, ps -> {
+            ps.setString(1, updatedUserProfile.getFirstName());
+            ps.setString(2, updatedUserProfile.getLastName());
+            ps.setString(3, updatedUserProfile.getEmailAddress());
+            ps.setString(4, updatedUserProfile.getTeam());
+            ps.setString(5, updatedUserProfile.getRole());
+            ps.setLong(6, updatedUserProfile.getId());
+        });
     }
 
 }

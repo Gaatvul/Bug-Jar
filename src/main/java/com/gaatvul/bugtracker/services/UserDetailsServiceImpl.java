@@ -9,9 +9,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gaatvul.bugtracker.DAOs.UserDetailsDAOImpl;
-import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdateUserProfileAsAdminDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
+import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -51,5 +52,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public List<String> loadAllTeams() {
         return userAccountDAO.loadAllTeams();
     }
-    
+
+    public void updateUserProfileAsAdmin(UpdateUserProfileAsAdminDTO updatedUserProfile) {
+        userAccountDAO.updateUserProfileAsAdmin(updatedUserProfile);
+    }
+
 }

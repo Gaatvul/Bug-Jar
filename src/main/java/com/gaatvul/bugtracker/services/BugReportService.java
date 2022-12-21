@@ -28,4 +28,12 @@ public interface BugReportService {
 
     List<ChangeEntity> loadListOfBugReportChangesWithId(int id);
 
+    List<Integer> getCriticalityCount();
+
+    List<Integer> getCategoryCount();
+
+    List<Integer> getStatusCount();
+
+    List<Integer> getPriorityCount();
+
 }

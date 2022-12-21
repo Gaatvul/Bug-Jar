@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.gaatvul.bugtracker.DAOs.BugReportDAO;
 import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
+import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
@@ -21,6 +24,9 @@ public class BugReportServiceImpl implements BugReportService {
 
     @Autowired
     private BugReportDAO bugReportDAO;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @Override
     public List<BugReportEntity> loadListOfBugReports() {
@@ -82,6 +88,9 @@ public class BugReportServiceImpl implements BugReportService {
 
         for (Map.Entry<String, String> entry : existingBugReportAttributes.entrySet()) {
 
+            String userFullName = getLoggedInUserAccountDetails().getFirstName() + " "
+                    + getLoggedInUserAccountDetails().getLastName();
+
             if (entry.getValue() == null) {
                 entry.setValue("null");
             }
@@ -90,7 +99,7 @@ public class BugReportServiceImpl implements BugReportService {
 
                 attributeChanges.add(
                         new Change(entry.getKey(), entry.getValue(),
-                                editedBugReportAttributes.get(entry.getKey()), "TestAccount Developer",
+                                editedBugReportAttributes.get(entry.getKey()), userFullName,
                                 existingBugReport.getId()));
             }
         }
@@ -105,8 +114,40 @@ public class BugReportServiceImpl implements BugReportService {
 
     @Override
     public List<ChangeEntity> loadListOfBugReportChangesWithId(int id) {
-       
+
         return bugReportDAO.loadListOfBugReportChangesWithId(id);
+    }
+
+    @Override
+    public List<Integer> getCriticalityCount() {
+
+        return bugReportDAO.getCriticalityCount();
+    }
+
+    @Override
+    public List<Integer> getCategoryCount() {
+
+        return bugReportDAO.getCategoryCount();
+    }
+
+    @Override
+    public List<Integer> getStatusCount() {
+
+        return bugReportDAO.getStatusCount();
+    }
+
+    @Override
+    public List<Integer> getPriorityCount() {
+
+        return bugReportDAO.getPriorityCount();
+    }
+
+    private UserAccountDTO getLoggedInUserAccountDetails() {
+        return userDetailsService.loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
+    }
+
+    private Authentication getCurrentAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 
 }

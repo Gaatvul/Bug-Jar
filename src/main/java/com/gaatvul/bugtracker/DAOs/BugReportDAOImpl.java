@@ -134,7 +134,7 @@ public class BugReportDAOImpl implements BugReportDAO {
 
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
-                
+
                 ps.setInt(1, editedBugReport.getId());
                 ps.setString(2, editedBugReport.getTitle());
                 ps.setString(3, editedBugReport.getDescription());
@@ -209,12 +209,12 @@ public class BugReportDAOImpl implements BugReportDAO {
 
     @Override
     public List<ChangeEntity> loadListOfBugReportChangesWithId(int id) {
-        
+
         List<ChangeEntity> bugReportChanges = new ArrayList<>();
 
         String sqlToRetrieveListOfBugReportChanges = "CALL retrieve_bug_report_changes_with_report_id(?);";
 
-        bugReportChanges = jdbcTemplate.query(sqlToRetrieveListOfBugReportChanges, new PreparedStatementSetter(){
+        bugReportChanges = jdbcTemplate.query(sqlToRetrieveListOfBugReportChanges, new PreparedStatementSetter() {
 
             @Override
             public void setValues(PreparedStatement ps) throws SQLException {
@@ -222,9 +222,71 @@ public class BugReportDAOImpl implements BugReportDAO {
                 ps.setInt(1, id);
             }
 
-        } , new ChangeEntityRowMapper());
+        }, new ChangeEntityRowMapper());
 
         return bugReportChanges;
+    }
+
+    @Override
+    public List<Integer> getCriticalityCount() {
+
+        String sqlToGetCriticalityCount = "SELECT COUNT(*) as criticality_count from bug_reports WHERE criticality_id = 1"+
+                " UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE criticality_id = 2 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE criticality_id = 3 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE criticality_id = 4 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE criticality_id = 5;";
+
+        return jdbcTemplate.query(sqlToGetCriticalityCount,
+                (ResultSet rs, int rowNum) -> rs.getInt("criticality_count"));
+    }
+
+    @Override
+    public List<Integer> getCategoryCount() {
+
+        String sqlToGetCriticalityCount = "SELECT COUNT(*) as category_count from bug_reports WHERE category_id = 1"+
+                " UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE category_id = 2 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE category_id = 3 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE category_id = 4 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE category_id = 5;";
+
+        return jdbcTemplate.query(sqlToGetCriticalityCount,
+                (ResultSet rs, int rowNum) -> rs.getInt("category_count"));
+    }
+
+    @Override
+    public List<Integer> getStatusCount() {
+
+        String sqlToGetCriticalityCount = "SELECT COUNT(*) as status_count from bug_reports WHERE status_id = 1"+
+                " UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE status_id = 2 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE status_id = 3;";
+
+        return jdbcTemplate.query(sqlToGetCriticalityCount,
+                (ResultSet rs, int rowNum) -> rs.getInt("status_count"));
+    }
+
+    @Override
+    public List<Integer> getPriorityCount() {
+
+        String sqlToGetCriticalityCount = "SELECT COUNT(*) as priority_count from bug_reports WHERE priority_id = 1"+
+                " UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE priority_id = 2 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE priority_id = 3 " +
+                "UNION ALL " +
+                "SELECT COUNT(*) FROM bug_reports WHERE priority_id = 4;";
+
+        return jdbcTemplate.query(sqlToGetCriticalityCount,
+                (ResultSet rs, int rowNum) -> rs.getInt("priority_count"));
     }
 
 }

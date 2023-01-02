@@ -247,7 +247,7 @@ public class BugReportDAOImpl implements BugReportDAO {
     @Override
     public List<Integer> getCategoryCount() {
 
-        String sqlToGetCriticalityCount = "SELECT COUNT(*) as category_count from bug_reports WHERE category_id = 1"+
+        String sqlToGetCriticalityCount = "SELECT COUNT(*) as category_count from bug_reports WHERE category_id = 1" +
                 " UNION ALL " +
                 "SELECT COUNT(*) FROM bug_reports WHERE category_id = 2 " +
                 "UNION ALL " +
@@ -264,7 +264,7 @@ public class BugReportDAOImpl implements BugReportDAO {
     @Override
     public List<Integer> getStatusCount() {
 
-        String sqlToGetCriticalityCount = "SELECT COUNT(*) as status_count from bug_reports WHERE status_id = 1"+
+        String sqlToGetCriticalityCount = "SELECT COUNT(*) as status_count from bug_reports WHERE status_id = 1" +
                 " UNION ALL " +
                 "SELECT COUNT(*) FROM bug_reports WHERE status_id = 2 " +
                 "UNION ALL " +
@@ -277,7 +277,7 @@ public class BugReportDAOImpl implements BugReportDAO {
     @Override
     public List<Integer> getPriorityCount() {
 
-        String sqlToGetCriticalityCount = "SELECT COUNT(*) as priority_count from bug_reports WHERE priority_id = 1"+
+        String sqlToGetCriticalityCount = "SELECT COUNT(*) as priority_count from bug_reports WHERE priority_id = 1" +
                 " UNION ALL " +
                 "SELECT COUNT(*) FROM bug_reports WHERE priority_id = 2 " +
                 "UNION ALL " +

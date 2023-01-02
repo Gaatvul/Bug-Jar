@@ -8,65 +8,165 @@
 </head>
 
 <body>
-
-    <div class="container">
-        <div class="row">
-            <div class="col py-5">
-                <div th:insert="navigation :: navbar"></div>
+    <div class="row g-0">
+        <div class="col p-2">
+            <div class="sticky-top text-bg-dark bg-gradient rounded-3">
+                <div class="container py-3 position-relative" style="height: 98vh; width: 22vw;">
+                    <h5 th:text="'Welcome, ' + ${userDetails.firstName}"></h5>
+                    <hr>
+                    <ul class="nav flex-column mb-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/bugReports">All Bug Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="/bugReports/new" method="GET">
+                                <button class="btn btn-primary" type="submit">New Bug Report</button>
+                            </form>
+                        </li>
+                    </ul>
+                    <hr>
+                    <ul class="nav flex-column mb-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div th:switch="${userDetails.role}">
+                        <div th:case="'Administrator'" th:insert="navigation :: admin-links"></div>
+                    </div>
+                    <hr>
+                    <div class="dropdown dropup position-absolute bottom-0 flex-column mb-3">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <span th:text="${userDetails.firstName}"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown dropdown-menu-dark text-small shadow">
+                            <li class="dropdown-item">
+                                <form action="/profile" method="GET">
+                                    <a class="nav-link" href="/profile" type="submit">Profile</a>
+                                </form>
+                            </li>
+                            <div class="mx-3">
+                                <hr>
+                            </div>
+                            <li class="dropdown-item">
+                                <a class="nav-link" aria-current="page" href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>Report ID</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Project</th>
-                        <th>Assignee</th>
-                        <th>Reporter</th>
-                        <th>Owner</th>
-                        <th>Criticality</th>
-                        <th>Category</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                        <th>Created On</th>
-                    </tr>
-                    <tr th:each="report : ${listOfBugReports}">
-                        <td class="text-center" th:text="${report.id}"></td>
-                        <td th:text="${report.title}"></td>
-                        <td th:text="${report.description}"></td>
-                        <td th:text="${report.projectAssignedTo}"></td>
-                        <td th:text="${report.assignee}"></td>
-                        <td th:text="${report.reporter}"></td>
-                        <td th:text="${report.owner}"></td>
-                        <td th:text="${report.criticality}"></td>
-                        <td th:text="${report.category}"></td>
-                        <td th:text="${report.priority}"></td>
-                        <td th:text="${report.status}"></td>
-                        <td th:text="${report.createdOn}"></td>
-                        <td><a th:href="@{/bugReports/view/{id} (id=${report.id})}"
-                                class="btn btn-outline-primary">View</a></td>
-                    </tr>
-                </table>
-            </div>
 
-        </div>
-        <div class="row">
-            <div class="col">
-                <form action="/bugReports/new" method="GET">
-                    <button class="btn btn-primary" type="submit">New Bug Report</button>
-                </form>
-
+        <div class="col-lg-9">
+            <div class="container-fluid">
+                <div class="row sticky-top p-2">
+                    <!-- <div th:insert="navigation :: navbar"></div> -->
+                    <div class="container rounded-3 text-bg-dark bg-gradient text-center" style="height: 10vh;">
+                        <button class="btn btn-primary float-start border border-white d-lg-none" type="button"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                            aria-controls="offcanvasNavbar">
+                            <span class="navbar-toggler-icon">nav</span>
+                        </button>
+                        <h5 class="navbar-text">bug reports</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="search-bar" onkeyup="myFunction()"
+                                placeholder="search">
+                            <label for="search-bar">search by title...</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover" id="reports">
+                                <thead>
+                                    <tr class="header rounded-3 shadow">
+                                        <th class="visually-hidden">Report ID</th>
+                                        <th>Title</th>
+                                        <th class="visually-hidden">Description</th>
+                                        <th>Project</th>
+                                        <th>Assignee</th>
+                                        <th>Reporter</th>
+                                        <th class="visually-hidden">Owner</th>
+                                        <th>Criticality</th>
+                                        <th>Category</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Created On</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="rounded-3">
+                                    <tr th:each="report : ${listOfBugReports}">
+                                        <td class="visually-hidden" th:text="${report.id}"></td>
+                                        <td class="text-truncate" style="max-width: 150px;" th:text="${report.title}">
+                                        </td>
+                                        <td class="visually-hidden" th:text="${report.description}"></td>
+                                        <td th:text="${report.projectAssignedTo}"></td>
+                                        <td th:text="${report.assignee}"></td>
+                                        <td th:text="${report.reporter}"></td>
+                                        <td class="visually-hidden" th:text="${report.owner}"></td>
+                                        <td th:text="${report.criticality}"></td>
+                                        <td th:text="${report.category}"></td>
+                                        <td th:text="${report.priority}"></td>
+                                        <td th:text="${report.status}"></td>
+                                        <td th:text="${report.createdOn}"></td>
+                                        <td><a th:href="@{/bugReports/view/{id} (id=${report.id})}"
+                                                class="btn btn-outline-primary">View</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form action="/bugReports/new" method="GET">
+                            <button class="btn btn-primary" type="submit">New Bug Report</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col gy-4"></div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col gy-4"></div>
         </div>
     </div>
 
 
+
+
+
+
+
     <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function myFunction() {
+            var searchBarInput, searchFilter, table, tr, td, txtValue;
+            searchBarInput = document.getElementById("search-bar");
+            searchFilter = searchBarInput.value.toUpperCase();
+            table = document.getElementById("reports");
+            tr = table.getElementsByTagName("tr");
+            for (let i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(searchFilter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

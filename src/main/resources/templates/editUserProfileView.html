@@ -5,43 +5,47 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link th:href="@{/css/styles.css}" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col py-5">
-                <div th:insert="navigation :: navbar"></div>
-            </div>
+    <div class="row g-0">
+        <div class="col p-2 d-none d-lg-block">
+            <div th:replace="navigation :: side-navbar"></div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="col-1">
-                    <a href="/profile" class="btn btn-outline-primary"><- Profile</a>
-                </div>
-                <div class="row my-3">
-                    <h2>Update Account Details</h2>
-                    <form th:object="${userDetails}" th:action="@{/profile/update-profile-changes}" method="POST">
-                        <div class="form-floating">
-                            <input type="text" th:field="*{firstName}" class="form-control" id="first-name">
-                            <label for="first-name">First name</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="text" th:field="*{lastName}" class="form-control" id="last-name">
-                            <label for="last-name">Last name</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="email" th:field="*{emailAddress}" class="form-control" id="email-address">
-                            <label for="email-address">Email address</label>
-                        </div>
-                        <input class="btn btn-outline-primary" value="Save" type="submit">
-                    </form>
-                </div>
-            </div>
+        <div class="col d-block d-lg-none">
+            <div th:replace="navigation :: offcanvas-navbar"></div>
         </div>
-        <div class="row">
-
+        <div class="col-lg-9">
+            <div class="container-fluid">
+                <div class="row p-2">
+                    <div class="container rounded-3 text-bg-dark bg-gradient text-center" style="height: 10vh;">
+                        <button class="btn btn-primary float-start border border-white d-lg-none" type="button"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
+                            aria-controls="offcanvas-navbar">
+                            <span class="navbar-toggler-icon">nav</span>
+                        </button>
+                        <h5 class="navbar-text">bug reports</h5>
+                    </div>
+                </div>
+                <h2>Update Account Details</h2>
+                <form th:object="${userDetails}" th:action="@{/profile/update-profile-changes}" method="POST">
+                    <div class="form-floating">
+                        <input type="text" th:field="*{firstName}" class="form-control" id="first-name">
+                        <label for="first-name">First name</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" th:field="*{lastName}" class="form-control" id="last-name">
+                        <label for="last-name">Last name</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="email" th:field="*{emailAddress}" class="form-control" id="email-address">
+                        <label for="email-address">Email address</label>
+                    </div>
+                    <input class="btn btn-outline-primary" value="Save" type="submit">
+                </form>
+            </div>
         </div>
     </div>
 

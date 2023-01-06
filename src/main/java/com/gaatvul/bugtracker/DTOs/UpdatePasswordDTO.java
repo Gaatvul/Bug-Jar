@@ -7,6 +7,8 @@ import com.gaatvul.bugtracker.POJOs.UserPassword;
 
 public class UpdatePasswordDTO {
 
+    private long id;
+
     @NotBlank(message = "Uh oh, looks like there's no password filled in!")
     private String oldPassword;
 
@@ -15,6 +17,14 @@ public class UpdatePasswordDTO {
 
     public UpdatePasswordDTO() {
         this.userPassword = new UserPassword();
+    }
+    
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getOldPassword() {

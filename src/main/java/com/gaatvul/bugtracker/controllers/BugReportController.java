@@ -49,6 +49,7 @@ public class BugReportController {
         model.addAttribute("bugReport", bugReportService.getBugReportById(id));
         model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
         model.addAttribute("bugReportChanges", bugReportService.loadListOfBugReportChangesWithId(id));
+        model.addAttribute("lastChanged", bugReportService.loadLastChangeTimeStamp(id));
         model.addAttribute("userDetails", getLoggedInUserAccountDetails());
 
         return "bugReportView";
@@ -79,17 +80,10 @@ public class BugReportController {
         CommentDTO mappedComment = new CommentDTO();
 
         mappedComment.setCommentText(commentText);
-        mappedComment.setUserFullName(getLoggedInUserFullName());
+        mappedComment.setUserFullName(getLoggedInUserAccountDetails().getFullName());
         mappedComment.setReport_id(id);
 
         return mappedComment;
-    }
-
-    private String getLoggedInUserFullName() {
-
-        UserAccountDTO loggedInUser = getLoggedInUserAccountDetails();
-
-        return loggedInUser.getFirstName() + " " + loggedInUser.getLastName();
     }
 
     @GetMapping(value = "/bugReports/new")
@@ -118,6 +112,8 @@ public class BugReportController {
 
             return "newBugReport";
         }
+
+        bugReportFromModel.setReporter(getLoggedInUserAccountDetails().getFullName());
 
         bugReportService.saveNewBugReportToDatabase(bugReportFromModel);
 

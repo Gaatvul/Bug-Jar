@@ -1,5 +1,6 @@
 package com.gaatvul.bugtracker.services;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.gaatvul.bugtracker.DTOs.BugReportDTO;
@@ -27,6 +28,8 @@ public interface BugReportService {
     void saveEditedBugReportToDatabase(BugReportEntity editedBugReport);
 
     List<ChangeEntity> loadListOfBugReportChangesWithId(int id);
+
+    Timestamp loadLastChangeTimeStamp(int id);
 
     List<Integer> getCriticalityCount();
 

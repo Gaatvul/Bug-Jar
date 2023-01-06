@@ -1,5 +1,6 @@
 package com.gaatvul.bugtracker.services;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -116,6 +117,14 @@ public class BugReportServiceImpl implements BugReportService {
     public List<ChangeEntity> loadListOfBugReportChangesWithId(int id) {
 
         return bugReportDAO.loadListOfBugReportChangesWithId(id);
+    }
+
+    @Override
+    public Timestamp loadLastChangeTimeStamp(int id) {
+
+        List<ChangeEntity> listOfChanges = loadListOfBugReportChangesWithId(id);
+
+        return (listOfChanges.isEmpty() ? null : listOfChanges.get(listOfChanges.size()-1).getCreatedOn());
     }
 
     @Override

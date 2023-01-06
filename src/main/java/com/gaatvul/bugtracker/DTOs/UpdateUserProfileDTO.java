@@ -38,6 +38,10 @@ public class UpdateUserProfileDTO {
     public void setLastName(String lastName) {
         userProfile.setLastName(lastName);
     }
+    
+    public String getFullName() {
+        return userProfile.getFullName();
+    }
 
     public String getEmailAddress() {
         return userProfile.getEmailAddress();

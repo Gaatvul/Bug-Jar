@@ -14,6 +14,8 @@ public class UserProfile {
 
     private String lastName;
 
+    private String fullName;
+
     @NotBlank(message = "Uh oh, looks like there's no email address filled in!")
     @Email(message = "Uh oh, looks like your email address is not quite correct!")
     private String emailAddress;
@@ -32,6 +34,10 @@ public class UserProfile {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
     }
 
     public String getEmailAddress() {

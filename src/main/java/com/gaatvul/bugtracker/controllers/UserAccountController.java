@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,9 @@ public class UserAccountController {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping(value = "/signup")
     public String getSignUpForm(Model model) {
@@ -50,6 +54,9 @@ public class UserAccountController {
 
             return "newUserAccount";
         }
+
+        String encodedPassword = passwordEncoder.encode(newUser.getPassword());
+        newUser.setPassword(encodedPassword);
 
         userDetailsService.saveNewUserToDatabase(newUser);
 
@@ -105,15 +112,18 @@ public class UserAccountController {
             @Valid @ModelAttribute("userPassword") UpdatePasswordDTO updatedUserPassword,
             BindingResult bindingResult, Model model) {
 
-        if (!updatedUserPassword.getOldPassword().equals(getLoggedInUserAccountDetails().getPassword())) {
+        updatedUserPassword.setId(getLoggedInUserAccountDetails().getId());
+
+        if (!passwordEncoder.matches(updatedUserPassword.getOldPassword(),
+                getLoggedInUserAccountDetails().getPassword())) {
             bindingResult.addError(new FieldError("userPassword", "oldPassword", null,
                     false, null, null, "Incorrect Password"));
         }
 
         if (updatedUserPassword.passwordIsMismatchedWithConfirm()) {
-            bindingResult.addError(new FieldError("userPassword", "userPassword.Password", null,
+            bindingResult.addError(new FieldError("userPassword", "password", null,
                     false, null, null, "New Passwords do not match"));
-            bindingResult.addError(new FieldError("userPassword", "userPassword.confirmPassword", null,
+            bindingResult.addError(new FieldError("userPassword", "confirmPassword", null,
                     false, null, null, "New Passwords do not match"));
         }
 
@@ -124,6 +134,14 @@ public class UserAccountController {
 
             return "editUserPasswordView";
         }
+
+        String encodedPassword = passwordEncoder.encode(updatedUserPassword.getPassword());
+        updatedUserPassword.setPassword(encodedPassword);
+
+        String encodedConfirmPassword = passwordEncoder.encode(updatedUserPassword.getConfirmPassword());
+        updatedUserPassword.setConfirmPassword(encodedConfirmPassword);
+
+        userDetailsService.updateUserPassword(updatedUserPassword);
 
         return "redirect:/profile";
     }

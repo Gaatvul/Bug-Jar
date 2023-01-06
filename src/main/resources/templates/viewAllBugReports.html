@@ -20,21 +20,38 @@
         <div class="col-lg-9">
             <div class="container-fluid">
                 <div class="row sticky-top p-2">
-                    <div class="col-1 d-lg-none">
-                        <i class="btn btn-light bi bi-arrow-right-square float-start py-auto" type="button"
-                            data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                            aria-controls="offcanvas-navbar"></i>
+                    <div class="col-1 d-lg-none position-relative">
+                        <div class="position-absolute start-50 top-50 translate-middle">
+                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
+                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
+                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
+                                aria-controls="offcanvas-navbar"></i>
+                        </div>
                     </div>
                     <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient mw-100" style="height: 10vh;">
-                            <h5 class="navbar-text">bug reports</h5>
+                        <div class="container rounded-3 text-bg-dark bg-gradient" style="height: 4em;">
+                            <div class="row py-2">
+                                <div class="col">
+                                    <nav class="pt-2" aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">All Bug Reports</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col text-center">
+                                    <h5 class="navbar-text">All Bug Reports</h5>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="search-bar" onkeyup="myFunction()"
+                            <input type="text" class="form-control" id="search-bar" onkeyup="searchReports()"
                                 placeholder="search">
                             <label for="search-bar">search by title...</label>
                         </div>
@@ -44,20 +61,20 @@
                     <div class="col">
                         <div class="table-responsive">
                             <table class="table align-middle table-hover" id="reports">
-                                <thead>
-                                    <tr class="header rounded-3 shadow">
+                                <thead class="rounded-3 shadow">
+                                    <tr class="header">
                                         <th class="visually-hidden">Report ID</th>
-                                        <th>Title</th>
+                                        <th onclick="sortTableColumn(1)" style="cursor: pointer;">Title</th>
                                         <th class="visually-hidden">Description</th>
-                                        <th>Project</th>
+                                        <th onclick="sortTableColumn(3)" style="cursor: pointer;">Project</th>
                                         <th>Assigned Users</th>
                                         <th class="visually-hidden">Reporter</th>
                                         <th class="visually-hidden">Owner</th>
                                         <th>Criticality</th>
-                                        <th>Category</th>
+                                        <th onclick="sortTableColumn(8)" style="cursor: pointer;">Category</th>
                                         <th>Priority</th>
                                         <th>Status</th>
-                                        <th>Created On</th>
+                                        <th onclick="sortTableColumn(11)" style="cursor: pointer;">Created On</th>
                                     </tr>
                                 </thead>
                                 <tbody class="rounded-3">
@@ -72,15 +89,14 @@
                                                 <div class="d-flex" style="font-size: 2rem;">
                                                     <a href="" class="link-dark" data-bs-toggle="tooltip"
                                                         data-bs-placement="bottom"
-                                                        th:data-bs-title="${report.assignee}"><i
-                                                            class="bi bi-person-badge"></i></a>
-                                                    <a href="" class="link-dark" data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom"
                                                         th:data-bs-title="${report.reporter}"><i
                                                             class="bi bi-person-badge"></i></a>
                                                     <a href="" class="link-dark" data-bs-toggle="tooltip"
                                                         data-bs-placement="bottom"
-                                                        th:data-bs-title="${report.owner}"><i
+                                                        th:data-bs-title="${report.assignee}"><i
+                                                            class="bi bi-person-badge"></i></a>
+                                                    <a href="" class="link-dark" data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom" th:data-bs-title="${report.owner}"><i
                                                             class="bi bi-person-badge"></i></a>
                                                 </div>
                                             </div>
@@ -120,7 +136,7 @@
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
     <script>
-        function myFunction() {
+        function searchReports() {
             var searchBarInput, searchFilter, table, tr, td, txtValue;
             searchBarInput = document.getElementById("search-bar");
             searchFilter = searchBarInput.value.toUpperCase();
@@ -134,6 +150,55 @@
                         tr[i].style.display = "";
                     } else {
                         tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        function sortTableColumn(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("reports");
+            switching = true;
+            dir = "asc";
+
+            while (switching) {
+
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+
+                    shouldSwitch = false;
+
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+
+                    switchcount++;
+                } else {
+
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
                     }
                 }
             }

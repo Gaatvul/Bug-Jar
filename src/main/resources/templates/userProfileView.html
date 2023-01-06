@@ -19,14 +19,33 @@
         </div>
         <div class="col-lg-9">
             <div class="container-fluid">
-                <div class="row p-2">
-                    <div class="container rounded-3 text-bg-dark bg-gradient text-center" style="height: 10vh;">
-                        <button class="btn btn-primary float-start border border-white d-lg-none" type="button"
-                            data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                            aria-controls="offcanvas-navbar">
-                            <span class="navbar-toggler-icon">nav</span>
-                        </button>
-                        <h5 class="navbar-text">bug reports</h5>
+                <div class="row sticky-top p-2">
+                    <div class="col-1 d-lg-none position-relative">
+                        <div class="position-absolute start-50 top-50 translate-middle">
+                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
+                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
+                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
+                                aria-controls="offcanvas-navbar"></i>
+                        </div>
+                    </div>
+                    <div class="col px-1">
+                        <div class="container rounded-3 text-bg-dark bg-gradient" style="height: 4em;">
+                            <div class="row py-2">
+                                <div class="col">
+                                    <nav class="pt-2" aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col text-center">
+                                    <h5 class="navbar-text">My Profile</h5>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

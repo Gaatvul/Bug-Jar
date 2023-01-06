@@ -22,17 +22,37 @@
         </div>
         <div class="col-lg-9">
             <div class="container-fluid">
-                <div class="row p-2">
-                    <div class="container rounded-3 text-bg-dark bg-gradient text-center" style="height: 10vh;">
-                        <button class="btn btn-primary float-start border border-white d-lg-none" type="button"
-                            data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                            aria-controls="offcanvas-navbar">
-                            <span class="navbar-toggler-icon">nav</span>
-                        </button>
-                        <h5 class="navbar-text">bug reports</h5>
+                <div class="row sticky-top p-2">
+                    <div class="col-1 d-lg-none position-relative">
+                        <div class="position-absolute start-50 top-50 translate-middle">
+                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
+                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
+                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
+                                aria-controls="offcanvas-navbar"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
+                    <div class="col px-1">
+                        <div class="container rounded-3 text-bg-dark bg-gradient" style="height: 4em;">
+                            <div class="row py-2">
+                                <div class="col">
+                                    <nav class="pt-2" aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item" aria-current="page"><a href="/bugReports">All
+                                                    Bug Reports</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page"
+                                                th:text="${bugReport.title}">Bug Report</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col text-center">
+                                    <h5 class="navbar-text">Bug Report View</h5>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row ps-2">
                     <div class="col-md">
@@ -48,67 +68,64 @@
                                 <textarea class="form-control" form="EditBugReport" th:text="${bugReport.description}"
                                     id="descriptionTextArea" rows="7" disabled></textarea>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-md overflow-hidden">
-                        <div class="row g-3">
-                            <div class="col-sm-6 border-end border-dark">
+                        <div class="row g-3 py-1">
+                            <div class="col-sm-6 form-floating">
+                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                    th:field="${bugReport.reporter}" id="reporterTextBox">
                                 <label for="reporterTextBox">Reporter</label>
-                                <input type="text" form="EditBugReport" th:field="${bugReport.reporter}"
-                                    id="reporterTextBox" disabled>
-
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 form-floating">
+                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                    th:field="${bugReport.assignee}" id="assigneeTextBox">
                                 <label for="assigneeTextBox">Assignee</label>
-                                <input type="text" form="EditBugReport" th:field="${bugReport.assignee}"
-                                    id="assigneeTextBox" disabled>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 form-floating">
+                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                    th:field="${bugReport.owner}" id="ownerTextBox">
                                 <label for="ownerTextBox">Owner</label>
-                                <input type="text" form="EditBugReport" th:field="${bugReport.owner}" id="ownerTextBox"
-                                    disabled>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-6 form-floating">
+                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                    th:field="${bugReport.projectAssignedTo}" id="projectTextBox">
                                 <label for="projectTextBox">Project</label>
-                                <input type="text" form="EditBugReport" th:field="${bugReport.projectAssignedTo}"
-                                    id="projectTextBox" disabled>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 form-floating">
+                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                    th:field="${bugReport.criticality}" id="criticalityTextBox">
                                 <label for="criticalityTextBox">Criticality</label>
-                                <input type="text" form="EditBugReport" th:field="${bugReport.criticality}"
-                                    id="criticalityTextBox" disabled>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-6 form-floating">
+                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                    th:field="${bugReport.category}" id="categoryTextBox">
                                 <label for="categoryTextBox">Category</label>
-                                <input type="text" form="EditBugReport" th:field="${bugReport.category}"
-                                    id="categoryTextBox" disabled>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 form-floating">
+                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                    th:field="${bugReport.status}" id="statusTextBox">
                                 <label for="statusTextBox">Status</label>
-                                <input type="text" form="EditBugReport" th:field="${bugReport.status}"
-                                    id="statusTextBox" disabled>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-6 form-floating">
+                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                    th:field="${bugReport.priority}" id="priorityTextBox">
                                 <label for="priorityTextBox">Priority</label>
-                                <input type="text" form="EditBugReport" th:field="${bugReport.priority}"
-                                    id="priorityTextBox" disabled>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 form-floating">
+                                <input readonly class="form-control-plaintext" type="text"
+                                    th:field="${bugReport.createdOn}" form="EditBugReport" id="createdOnTextBox" />
                                 <label for="createdOnTextBox">Date Created On</label>
-                                <p th:text="${bugReport.createdOn}" form="EditBugReport" id="createdOnTextBox" disabled>
-                                </p>
                             </div>
 
-                            <div class="col-6" th:with="listSize = ${#lists.size(bugReportChanges)}">
+                            <div class="col-6 form-floating">
+                                <input readonly class="form-control-plaintext" type="text" th:value="${lastChanged}"
+                                    form="EditBugReport" id="lastChangeTextBox" />
                                 <label for="lastChangeTextBox">Last Changed On</label>
-                                <p th:with="mostRecentChange=${listSize <= 0}? null : ${bugReportChanges[listSize-1]}"
-                                    th:text="${listSize <= 0}? '' : ${mostRecentChange.createdOn}" form="EditBugReport"
-                                    id="lastChangeTextBox" disabled></p>
                             </div>
                         </div>
 
@@ -118,13 +135,8 @@
 
                 <div class="row ps-2">
                     <div class="col-md gy-3">
-                        <div class="row border border-dark rounded-1">
-                            <div class="col">
-                                <p>current files</p>
-                            </div>
-                        </div>
                         Comments & Changes
-                        <nav>
+                        <nav aria-label="nav">
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                 <button class="nav-link active" id="nav-comments-tab" data-bs-toggle="tab"
                                     data-bs-target="#nav-comments" type="button" role="tab" aria-controls="nav-comments"
@@ -137,21 +149,26 @@
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-comments" role="tabpanel"
                                 aria-labelledby="nav-comments-tab" tabindex="0">
-                                <div class="border rounded-0" th:each="comment : ${reportComments}">
-                                    <div class="row">
-                                        <div class="col-1"></div>
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <p><span class="fw-bold" th:text="${comment.commenter_name}"></span>
-                                                        [<span class="fw-light fs-6" form="SubmitComment"
-                                                            th:text="${comment.createdOn}"></span>]
-                                                    </p>
+                                <div class="row" th:each="comment : ${reportComments}">
+                                    <div class="col">
+                                        <div class="card my-4">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <div class="h2 bg-primary bg-gradient shadow-lg rounded-3 p-3 d-flex justify-content-center"
+                                                            style="z-index: 5; margin-top: -3rem; width: 4rem; height: 4rem;">
+                                                            <i class="bi bi-person-square align-self-center"
+                                                                style="font-size: 2rem;"></i>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <p class="fw" th:text="${comment.commentText}"></p>
                                             </div>
-                                            <div class="row">
-                                                <div class="col gy-2 text-wrap" form="SubmitComment"
-                                                    th:text="${comment.commentText}"></div>
+                                            <div class="card-footer">
+                                                <p class="align-middle m-0"><span class="fw-bold" th:text="${comment.commenter_name}"></span>
+                                                    <span class="fw-light fs-6" form="SubmitComment"
+                                                        th:text="'[' + ${comment.createdOn} + ']'"></span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

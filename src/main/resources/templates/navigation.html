@@ -26,7 +26,8 @@
                             class="bi bi-card-list pe-1"></i>All Bug Reports</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/bugReports/new"><i class="bi bi-plus-square pe-1"></i>New Bug Report</a>
+                    <a class="nav-link active" href="/bugReports/new"><i class="bi bi-plus-square pe-1"></i>New Bug
+                        Report</a>
                 </li>
             </ul>
             <hr>
@@ -37,9 +38,7 @@
                 </li>
             </ul>
             <hr>
-            <div th:switch="${userDetails.role}">
-                <div th:case="'Administrator'" th:replace="navigation :: admin-links"></div>
-            </div>
+            <div th:replace="${userDetails.isAdmin()} ? ~{this :: admin-links} : ~{}"></div>
             <div class="dropdown dropup position-absolute bottom-0 flex-column mb-3">
                 <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="bi bi-person-circle pe-1"></i>
@@ -63,7 +62,7 @@
     </div>
 
     <div class="offcanvas offcanvas-start text-bg-dark bg-gradient rounded-3" style="width: 35vw;" tabindex="-1"
-        id="offcanvas-navbar" th:fragment="offcanvas-navbar">
+        id="offcanvas-navbar" data-bs-scroll="true" th:fragment="offcanvas-navbar">
         <div class="container py-3 position-relative" style="height: 98vh;">
             <h5 th:text="'Welcome, ' + ${userDetails.firstName}"></h5>
             <hr>
@@ -87,9 +86,7 @@
                 </li>
             </ul>
             <hr>
-            <div th:switch="${userDetails.role}">
-                <div th:case="'Administrator'" th:replace="navigation :: admin-links"></div>
-            </div>
+            <div th:replace="${userDetails.isAdmin()} ? ~{this :: admin-links} : ~{}"></div>
             <div class="dropdown dropup position-absolute bottom-0 flex-column mb-3">
                 <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="bi bi-person-circle pe-1"></i>

@@ -10,6 +10,7 @@ public class UserAccountDTO {
     private UserProfile userProfile;
     private String team;
     private String role;
+    private boolean isAdmin;
     private String password;
     private boolean isEnabled;
     private Timestamp dateCreated;
@@ -42,6 +43,10 @@ public class UserAccountDTO {
         userProfile.setLastName(lastName);
     }
 
+    public String getFullName() {
+        return userProfile.getFullName();
+    }
+
     public String getEmailAddress() {
         return userProfile.getEmailAddress();
     }
@@ -64,6 +69,14 @@ public class UserAccountDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean isAdmin() {
+        return (role.equals("Administrator"));
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getPassword() {

@@ -2,6 +2,7 @@ package com.gaatvul.bugtracker.POJOs;
 
 import java.util.HashMap;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class BugReport {
 
     @NotEmpty(message = "Uh oh, looks like there is no title!")
+    @Max(value = 400, message = "Uh oh, your title is too long (max 400 characters)")
     private String title;
 
     @NotEmpty(message = "Uh oh, looks like there is no description!")

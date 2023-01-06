@@ -2,6 +2,8 @@ package com.gaatvul.bugtracker.services;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.gaatvul.bugtracker.DAOs.UserDetailsDAOImpl;
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdatePasswordDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileAsAdminDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
@@ -39,6 +42,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public void updateUserProfile(UpdateUserProfileDTO updatedUserProfile) {
 
         userAccountDAO.updateUserProfile(updatedUserProfile);
+    }
+
+    public void updateUserPassword(@Valid UpdatePasswordDTO updatedUserPassword) {
+
+        userAccountDAO.updateUserPassword(updatedUserPassword);
     }
 
     public List<UserAccountDTO> loadAllUserAccounts() {

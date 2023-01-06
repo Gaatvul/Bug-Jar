@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdatePasswordDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileAsAdminDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
@@ -77,6 +78,18 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
             ps.setString(3, updatedUserProfile.getEmailAddress());
             ps.setLong(4, updatedUserProfile.getId());
         });
+    }
+
+    @Override
+    public void updateUserPassword(UpdatePasswordDTO updatedUserPassword) {
+        
+        String sqlToUpdateUserPassword = "UPDATE user_accounts SET password = ? WHERE account_id = ?";
+
+        jdbcTemplate.update(sqlToUpdateUserPassword, ps -> {
+
+            ps.setString(1, updatedUserPassword.getPassword());
+            ps.setLong(2, updatedUserPassword.getId());
+        });        
     }
 
     @Override

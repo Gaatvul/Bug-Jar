@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
+import com.gaatvul.bugtracker.DTOs.UpdatePasswordDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileAsAdminDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
@@ -18,6 +19,8 @@ public interface UserDetailsDAO {
     public void saveNewUserToDatabase(NewUserFormDTO newUser);
 
     public void updateUserProfile(UpdateUserProfileDTO updatedUserProfile);
+
+    public void updateUserPassword(UpdatePasswordDTO updatedUserPassword);
 
     public List<UserAccountDTO> loadAllUserAccounts();
 

@@ -71,9 +71,7 @@ public class AdminController {
 
         return "redirect:/admin/allUserAccounts";
     }
-
-    // TODO: Use retrieve all accounts -> filter list for Teams & roles
-
+    
     private UserAccountDTO getLoggedInUserAccountDetails() {
         return userDetailsService.loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
     }

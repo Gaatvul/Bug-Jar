@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
+import com.gaatvul.bugtracker.POJOs.BugReport;
 import com.gaatvul.bugtracker.services.BugReportService;
 import com.gaatvul.bugtracker.services.UserDetailsServiceImpl;
 
@@ -89,7 +89,7 @@ public class BugReportController {
     @GetMapping(value = "/bugReports/new")
     public String createNewBugReport(Model model) {
 
-        BugReportDTO newBugReport = new BugReportDTO();
+        BugReport newBugReport = new BugReport();
 
         model.addAttribute("newBugReport", newBugReport);
         model.addAttribute("allProjects", bugReportService.loadListOfAllProjects());
@@ -100,7 +100,7 @@ public class BugReportController {
     }
 
     @PostMapping(value = "/bugReports/new")
-    public String saveNewBugReportToDatabase(@Valid @ModelAttribute("newBugReport") BugReportDTO bugReportFromModel,
+    public String saveNewBugReportToDatabase(@Valid @ModelAttribute("newBugReport") BugReport bugReportFromModel,
             BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {

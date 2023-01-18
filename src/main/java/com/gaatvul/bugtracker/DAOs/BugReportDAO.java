@@ -2,11 +2,11 @@ package com.gaatvul.bugtracker.DAOs;
 
 import java.util.List;
 
-import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
+import com.gaatvul.bugtracker.POJOs.BugReport;
 import com.gaatvul.bugtracker.POJOs.Change;
 
 public interface BugReportDAO {
@@ -21,7 +21,7 @@ public interface BugReportDAO {
 
     void saveNewCommentToDatabase(CommentDTO addedComment);
 
-    void saveNewBugReportToDatabase(BugReportDTO bugReportToBeSaved);
+    void saveNewBugReportToDatabase(BugReport bugReportToBeSaved);
 
     List<String> loadListofExistingUsers();
 

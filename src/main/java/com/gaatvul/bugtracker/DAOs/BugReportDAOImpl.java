@@ -13,11 +13,11 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
+import com.gaatvul.bugtracker.POJOs.BugReport;
 import com.gaatvul.bugtracker.POJOs.Change;
 import com.gaatvul.bugtracker.Rowmappers.BugReportRowMapper;
 import com.gaatvul.bugtracker.Rowmappers.ChangeEntityRowMapper;
@@ -97,14 +97,14 @@ public class BugReportDAOImpl implements BugReportDAO {
     }
 
     @Override
-    public void saveNewBugReportToDatabase(BugReportDTO bugReportToBeSaved) {
+    public void saveNewBugReportToDatabase(BugReport bugReportToBeSaved) {
 
         String sqlToInsertNewBugReportIntoDatabase = "CALL insert_new_bug_report(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sqlToInsertNewBugReportIntoDatabase, extractArgumentsFromBugReport(bugReportToBeSaved));
     }
 
-    private Object[] extractArgumentsFromBugReport(BugReportDTO bugReport) {
+    private Object[] extractArgumentsFromBugReport(BugReport bugReport) {
 
         Object[] sqlArgs = { bugReport.getTitle(), bugReport.getDescription(), bugReport.getProjectAssignedTo(),
                 bugReport.getReporter(), bugReport.getAssignee(), bugReport.getOwner(), bugReport.getCriticality(),

@@ -3,11 +3,13 @@ package com.gaatvul.bugtracker.services;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.gaatvul.bugtracker.DTOs.BugReportDTO;
+import javax.validation.Valid;
+
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
+import com.gaatvul.bugtracker.POJOs.BugReport;
 
 public interface BugReportService {
 
@@ -21,7 +23,7 @@ public interface BugReportService {
 
     void saveNewCommentToDatabase(CommentDTO addedComment);
 
-    void saveNewBugReportToDatabase(BugReportDTO bugReportToBeSaved);
+    void saveNewBugReportToDatabase(@Valid BugReport bugReportFromModel);
 
     List<String> loadListofExistingUsers();
 

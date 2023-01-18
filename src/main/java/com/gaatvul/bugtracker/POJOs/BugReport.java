@@ -2,8 +2,8 @@ package com.gaatvul.bugtracker.POJOs;
 
 import java.util.HashMap;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -11,14 +11,34 @@ import org.springframework.stereotype.Component;
 public class BugReport {
 
     @NotEmpty(message = "Uh oh, looks like there is no title!")
-    @Max(value = 400, message = "Uh oh, your title is too long (max 400 characters)")
+    @Size(max = 400, message = "Uh oh, your title is too long (max 400 characters)")
     private String title;
 
     @NotEmpty(message = "Uh oh, looks like there is no description!")
     private String description;
 
-    private String projectAssignedTo, assignee, reporter, owner, criticality, category, status,
-            priority;
+    @NotEmpty(message = "Please select a project")
+    private String projectAssignedTo;
+
+    @NotEmpty(message = "Please select an assignee")
+    private String assignee;
+
+
+    private String reporter;
+
+    @NotEmpty(message = "Please select an owner")
+    private String owner;
+
+    @NotEmpty(message = "Please select a criticality")
+    private String criticality;
+
+    @NotEmpty(message = "Please select a category")
+    private String category;
+
+    @NotEmpty(message = "Please select a status")
+    private String status;
+    
+    private String priority;
 
     public String getTitle() {
         return title;

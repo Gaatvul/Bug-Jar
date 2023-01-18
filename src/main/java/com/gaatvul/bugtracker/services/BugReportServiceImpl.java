@@ -12,12 +12,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.gaatvul.bugtracker.DAOs.BugReportDAO;
-import com.gaatvul.bugtracker.DTOs.BugReportDTO;
 import com.gaatvul.bugtracker.DTOs.CommentDTO;
 import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.Entities.BugReportEntity;
 import com.gaatvul.bugtracker.Entities.ChangeEntity;
 import com.gaatvul.bugtracker.Entities.CommentEntity;
+import com.gaatvul.bugtracker.POJOs.BugReport;
 import com.gaatvul.bugtracker.POJOs.Change;
 
 @Service
@@ -60,7 +60,7 @@ public class BugReportServiceImpl implements BugReportService {
     }
 
     @Override
-    public void saveNewBugReportToDatabase(BugReportDTO bugReportToBeSaved) {
+    public void saveNewBugReportToDatabase(BugReport bugReportToBeSaved) {
 
         bugReportDAO.saveNewBugReportToDatabase(bugReportToBeSaved);
     }

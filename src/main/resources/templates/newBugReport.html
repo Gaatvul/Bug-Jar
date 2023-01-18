@@ -56,20 +56,23 @@
                                 <div class="col">
                                     <div class="form-floating">
                                         <input class="form-control" type="text" th:field="${newBugReport.title}"
-                                            id="newTitle">
+                                            id="newTitle" th:errorclass="is-invalid">
                                         <label for="newTitle">Title</label>
-                                        <label class="alert alert-danger" role="alert"
-                                            th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></label>
+                                        <div class="invalid-tooltip" role="alert" th:if="${#fields.hasErrors('title')}"
+                                            th:errors="*{title}"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col gy-3">
-                                    <label for="descriptionTextArea" class="form-label">Description</label>
-                                    <textarea class="form-control" th:field="*{description}" id="descriptionTextArea"
-                                        rows="7"></textarea>
-                                    <label class="alert alert-danger" role="alert"
-                                        th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label>
+                                    <div class="form-floating">
+                                        <textarea class="form-control" style="height: 29vh;" th:field="*{description}"
+                                            id="descriptionTextArea" rows="7" th:errorclass="is-invalid"></textarea>
+                                        <label for="descriptionTextArea" class="form-label">Description</label>
+                                        <div class="invalid-tooltip" role="alert"
+                                            th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -92,13 +95,16 @@
                                         <div class="col">
                                             <div class="form-floating">
                                                 <select name="assignee" class="form-select" th:field="*{assignee}"
-                                                    id="assigneeDropDown">
+                                                    id="assigneeDropDown" th:errorclass="is-invalid">
                                                     <option value=""></option>
                                                     <option th:each="user : ${existingUsers}" th:value="${user}"
                                                         th:text="${user}">
                                                     </option>
                                                 </select>
                                                 <label for="assigneeDropDown">Assignee</label>
+                                                <div class="invalid-tooltip" role="alert"
+                                                    th:if="${#fields.hasErrors('assignee')}" th:errors="*{assignee}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -108,13 +114,15 @@
                                         <div class="col">
                                             <div class="form-floating">
                                                 <select name="owner" class="form-select" th:field="*{owner}"
-                                                    id="ownerDropDown">
+                                                    id="ownerDropDown" th:errorclass="is-invalid">
                                                     <option value=""></option>
                                                     <option th:each="user : ${existingUsers}" th:value="${user}"
                                                         th:text="${user}">
                                                     </option>
                                                 </select>
                                                 <label for="ownerDropDown">Owner</label>
+                                                <div class="invalid-tooltip" role="alert"
+                                                    th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -125,13 +133,17 @@
                                         <div class="col">
                                             <div class="form-floating">
                                                 <select name="project" class="form-select"
-                                                    th:field="*{projectAssignedTo}" id="projectDropDown">
+                                                    th:field="*{projectAssignedTo}" id="projectDropDown"
+                                                    th:errorclass="is-invalid">
                                                     <option value=""></option>
                                                     <option th:each="project : ${allProjects}" th:value="${project}"
                                                         th:text="${project}">
                                                     </option>
                                                 </select>
                                                 <label for="projectDropDown">Project</label>
+                                                <div class="invalid-tooltip" role="alert"
+                                                    th:if="${#fields.hasErrors('projectAssignedTo')}"
+                                                    th:errors="*{projectAssignedTo}"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -142,7 +154,8 @@
                                         <div class="col">
                                             <div class="form-floating">
                                                 <select name="CriticalityLevel" class="form-select"
-                                                    th:field="*{criticality}" id="criticalityDropDown">
+                                                    th:field="*{criticality}" id="criticalityDropDown"
+                                                    th:errorclass="is-invalid">
                                                     <option value=""></option>
                                                     <option value="Low">Low</option>
                                                     <option value="Medium">Medium</option>
@@ -151,6 +164,9 @@
                                                     <option value="Blocker">Blocker</option>
                                                 </select>
                                                 <label for="criticalityDropDown">Criticality</label>
+                                                <div class="invalid-tooltip" role="alert"
+                                                    th:if="${#fields.hasErrors('criticality')}"
+                                                    th:errors="*{criticality}"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -161,7 +177,7 @@
                                         <div class="col">
                                             <div class="form-floating">
                                                 <select name="category" class="form-select" th:field="*{category}"
-                                                    id="categoryDropDown">
+                                                    id="categoryDropDown" th:errorclass="is-invalid">
                                                     <option value=""></option>
                                                     <option value="Functional">Functional</option>
                                                     <option value="Performance">Performance</option>
@@ -170,6 +186,9 @@
                                                     <option value="Usability">Usability</option>
                                                 </select>
                                                 <label for="categoryDropDown">Category</label>
+                                                <div class="invalid-tooltip" role="alert"
+                                                    th:if="${#fields.hasErrors('category')}" th:errors="*{category}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -179,14 +198,16 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-floating">
-                                                <select name="status" class="form-select" th:field="*{Status}"
-                                                    id="statusDropDown">
+                                                <select class="form-select" th:field="*{status}" id="statusDropDown"
+                                                    th:errorclass="is-invalid">
                                                     <option value=""></option>
                                                     <option value="Open">Open</option>
                                                     <option value="In-progress">In-progress</option>
                                                     <option value="Done">Done</option>
                                                 </select>
                                                 <label for="statusDropDown">Status</label>
+                                                <div class="invalid-tooltip" role="alert"
+                                                    th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
                                             </div>
                                         </div>
                                     </div>

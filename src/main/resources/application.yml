@@ -1,14 +1,23 @@
 spring:
-    profiles:
-    datasource:
-        url: jdbc:mysql://localhost:3306/bug-tracker?useSSL=false
-        username: root
-        password: root
-        driver-class-name: com.mysql.cj.jdbc.Driver
-
+  datasource:
+    url: jdbc:mysql://localhost:3306/bug-tracker?useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8080
 logging:
   level:
     web: debug
 
-debug: true
+debug: false
 ---
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    url: jdbc:${MYSQL_URL}
+    username: ${MYSQLUSER}
+    password: ${MYSQLPASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver

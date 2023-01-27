@@ -20,20 +20,29 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-        .authorizeHttpRequests(authorize -> authorize
-        .antMatchers("/signup", "/css/**", "/js/**", "/webjars/**").permitAll()
-        .antMatchers("/admin/**").hasRole("Administrator")
-        .anyRequest().authenticated())
-        .formLogin()
-        .and()
-        .exceptionHandling()
-        .accessDeniedPage("/access-denied");
+            .authorizeHttpRequests(authorize -> authorize
+                    .antMatchers("/signup", "/css/**", "/js/**", "/webjars/**").permitAll()
+                    .antMatchers("/admin/**").hasRole("Administrator")
+                    .anyRequest().authenticated())
+            .formLogin(form -> form
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/dashboard", true)
+                    .failureUrl("/login?error")
+                    .permitAll())
+            .logout(logout -> logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout-successful")
+                    .deleteCookies("JSESSIONID"))
+            .exceptionHandling()
+            .accessDeniedPage("/access-denied");
 
         return http.build();
     }
 
     @Bean
-    public AuthenticationManager buildAuthenticationManager(HttpSecurity http, UserDetailsServiceImpl userDetailsService)
+    public AuthenticationManager buildAuthenticationManager(HttpSecurity http,
+            UserDetailsServiceImpl userDetailsService)
             throws Exception {
 
         return http

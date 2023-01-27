@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>navigation</title>
+</head>
+
 <body>
 
     <div th:fragment="admin-links">
@@ -61,7 +67,7 @@
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-start text-bg-dark bg-gradient rounded-3" style="width: 35vw;" tabindex="-1"
+    <div class="offcanvas offcanvas-start text-bg-dark bg-gradient rounded-3" style="width: 36vw;" tabindex="-1"
         id="offcanvas-navbar" data-bs-scroll="true" th:fragment="offcanvas-navbar">
         <div class="container py-3 position-relative" style="height: 98vh;">
             <h5 th:text="'Welcome, ' + ${userDetails.firstName}"></h5>
@@ -75,7 +81,7 @@
                             class="bi bi-card-list pe-1"></i>All Bug Reports</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active"><i class="bi bi-plus-square pe-1"></i>New Bug Report</a>
+                    <a class="nav-link active" aria-current="page" href="/bugReports/new"><i class="bi bi-plus-square pe-1"></i>New Bug Report</a>
                 </li>
             </ul>
             <hr>

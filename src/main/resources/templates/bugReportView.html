@@ -2,10 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>A List of Bug Reports!</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link th:href="@{/css/custom-bootstrap.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -23,7 +25,7 @@
         <div class="col-lg-9">
             <div class="container-fluid">
                 <div class="row sticky-top p-2">
-                    <div class="col-1 d-lg-none position-relative">
+                    <div class="col-1 mx-2 d-lg-none position-relative">
                         <div class="position-absolute start-50 top-50 translate-middle">
                             <i class="btn btn-light bi bi-arrow-right-square py-auto"
                                 style="font-size: 3rem; background-color: transparent; border-color: transparent;"
@@ -48,7 +50,7 @@
                                 <div class="col text-center">
                                     <h5 class="navbar-text">Bug Report View</h5>
                                 </div>
-                                <div class="col">
+                                <div class="col-md">
                                 </div>
                             </div>
                         </div>
@@ -65,7 +67,7 @@
                         <div class="row">
                             <div class="col gy-3">
                                 <label for="descriptionTextArea" class="form-label">Description</label>
-                                <textarea class="form-control" form="EditBugReport" th:text="${bugReport.description}"
+                                <textarea class="form-control-plaintext" form="EditBugReport" th:text="${bugReport.description}"
                                     id="descriptionTextArea" rows="7" disabled></textarea>
                             </div>
                         </div>
@@ -73,46 +75,46 @@
                     <div class="col-md overflow-hidden">
                         <div class="row g-3 py-1">
                             <div class="col-sm-6 form-floating">
-                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                <input readonly class="form-control-plaintext" type="text" form="EditBugReport"
                                     th:field="${bugReport.reporter}" id="reporterTextBox">
                                 <label for="reporterTextBox">Reporter</label>
                             </div>
 
                             <div class="col-sm-6 form-floating">
-                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                <input readonly class="form-control-plaintext" type="text" form="EditBugReport"
                                     th:field="${bugReport.assignee}" id="assigneeTextBox">
                                 <label for="assigneeTextBox">Assignee</label>
                             </div>
                             <div class="col-6 form-floating">
-                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                <input readonly class="form-control-plaintext" type="text" form="EditBugReport"
                                     th:field="${bugReport.owner}" id="ownerTextBox">
                                 <label for="ownerTextBox">Owner</label>
                             </div>
 
                             <div class="col-6 form-floating">
-                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                <input readonly class="form-control-plaintext" type="text" form="EditBugReport"
                                     th:field="${bugReport.projectAssignedTo}" id="projectTextBox">
                                 <label for="projectTextBox">Project</label>
                             </div>
                             <div class="col-6 form-floating">
-                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                <input readonly class="form-control-plaintext" type="text" form="EditBugReport"
                                     th:field="${bugReport.criticality}" id="criticalityTextBox">
                                 <label for="criticalityTextBox">Criticality</label>
                             </div>
 
                             <div class="col-6 form-floating">
-                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                <input readonly class="form-control-plaintext" type="text" form="EditBugReport"
                                     th:field="${bugReport.category}" id="categoryTextBox">
                                 <label for="categoryTextBox">Category</label>
                             </div>
                             <div class="col-6 form-floating">
-                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                <input readonly class="form-control-plaintext" type="text" form="EditBugReport"
                                     th:field="${bugReport.status}" id="statusTextBox">
                                 <label for="statusTextBox">Status</label>
                             </div>
 
                             <div class="col-6 form-floating">
-                                <input readonly class="form-control" type="text" form="EditBugReport"
+                                <input readonly class="form-control-plaintext" type="text" form="EditBugReport"
                                     th:field="${bugReport.priority}" id="priorityTextBox">
                                 <label for="priorityTextBox">Priority</label>
                             </div>

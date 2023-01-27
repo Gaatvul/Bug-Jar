@@ -1,0 +1,99 @@
+# Skills gained from working on this project
+
+- Bootstrap 5
+  - Flexbox grid
+    - Breakpoints
+  - columns
+  - gutters
+  - margins
+  - Forms
+    - Floating labels
+    - buttons
+    - input
+    - textarea
+  - Tables
+  - tabs
+  - Breadcrumb
+  - Sizing
+  - Position
+  - Display
+  - Shadows
+- SQL Databases
+  - MySQL
+    - Table creation
+      - Primary keys
+      - Foreign keys
+      - Datatypes
+      - Auto increment
+      - Nullable
+      - Unique columns
+      - Unsigned columns (ie positive values only)
+    - MySQL Workbench
+  - Nested selects
+  - Joins
+  - Stored procedures
+  - views
+  - Table normalisation
+  - JDBC
+  - CRUD operations
+- Java
+  - Lambda expressions
+  - Lists
+  - Hashmaps
+  - Interfaces
+  - Composition
+  - Ternary expressions
+  - Bean validation
+  - JDBC Template
+- Spring Framework
+  - Dependencies, webjars
+  - Application properties
+  - Java bean configuration
+  - Spring MVC
+    - MVC architecture
+    - Dispatcher servlet
+  - Spring Boot
+    - Auto-configuration
+    - Custom configuration
+  - Spring Security
+    - Authentication
+    - Authorisation
+    - User Accounts
+    - Password encryption (BCrypt)
+    - CSRF (token)
+    - Security Context
+- ChartJS
+  - Databinding
+  - Styling
+  - Donut (pie) chart
+  - Bar chart
+- Maven
+  - Lifecycle
+    - Clean
+    - Compile
+    - Install
+- Thymeleaf
+  - List iteration
+  - Databinding
+  - Input validation feedback
+    - Field errors
+  - Fragments
+  - Inlining variables with Javascript (dashboard charts)
+- UI/UX design
+  - User input validation & feedback
+  - Navigation
+  - Responsiveness web design
+  - Search table
+  - Sort table
+- HTML5
+- Webservers
+  - Local deployment
+  - Tomcat 8.5
+- Deploying applications to a production environment (Application deployment)
+- Git & Github
+- VS Code
+- Debugging
+  - Monitoring variables, stepping in/out, adding breakpoints
+- HTTP
+  - GET, POST
+  - Path variables

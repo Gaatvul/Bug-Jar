@@ -1,0 +1,6 @@
+.form-floating > input {
+    border: 0;
+    border-bottom: 1px solid #212529;
+    appearance: none;
+    border-radius: 0;
+}

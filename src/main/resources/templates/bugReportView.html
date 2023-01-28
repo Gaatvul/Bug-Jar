@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>A List of Bug Reports!</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
@@ -16,7 +16,7 @@
             id="EditBugReport"></form>
         <form th:action="@{/bugReports/view/{id} (id=${bugReport.id})}" th:object="${newComment}" method="POST"
             id="SubmitComment"></form>
-        <div class="col p-2 d-none d-lg-block">
+        <div class="col d-none d-lg-block">
             <div th:replace="navigation :: side-navbar"></div>
         </div>
         <div class="col d-block d-lg-none">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient" style="height: 4em;">
+                        <div class="container rounded-3 text-bg-dark bg-gradient">
                             <div class="row py-2">
                                 <div class="col">
                                     <nav class="pt-2" aria-label="breadcrumb">
@@ -66,9 +66,12 @@
                         </div>
                         <div class="row">
                             <div class="col gy-3">
-                                <label for="descriptionTextArea" class="form-label">Description</label>
-                                <textarea class="form-control-plaintext" form="EditBugReport" th:text="${bugReport.description}"
-                                    id="descriptionTextArea" rows="7" disabled></textarea>
+                                <div class="form-floating border border-secondary rounded-2">
+                                    <textarea class="form-control" form="EditBugReport" style="height: 29vh;"
+                                        th:text="${bugReport.description}" id="descriptionTextArea" readonly
+                                        disabled></textarea>
+                                    <label for="descriptionTextArea" class="form-label">Description</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,7 +151,7 @@
                                     aria-selected="false">Changes</button>
                             </div>
                         </nav>
-                        <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-content pt-2" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-comments" role="tabpanel"
                                 aria-labelledby="nav-comments-tab" tabindex="0">
                                 <div class="row" th:each="comment : ${reportComments}">
@@ -167,7 +170,8 @@
                                                 <p class="fw" th:text="${comment.commentText}"></p>
                                             </div>
                                             <div class="card-footer">
-                                                <p class="align-middle m-0"><span class="fw-bold" th:text="${comment.commenter_name}"></span>
+                                                <p class="align-middle m-0"><span class="fw-bold"
+                                                        th:text="${comment.commenter_name}"></span>
                                                     <span class="fw-light fs-6" form="SubmitComment"
                                                         th:text="'[' + ${comment.createdOn} + ']'"></span>
                                                 </p>
@@ -179,17 +183,20 @@
                                     <div class="col">
                                         <div class="row">
                                             <div class="col">
-                                                <textarea class="form-control" placeholder="Add a commment..."
-                                                    id="addCommentTextArea" rows="3"
-                                                    th:field="*{newComment.commentText}"
-                                                    form="SubmitComment"></textarea>
+                                                <div class="form-floating">
+                                                    <textarea class="form-control" id="addCommentTextArea"
+                                                        style="height: 150px;" th:field="*{newComment.commentText}"
+                                                        form="SubmitComment" th:errorclass="is-invalid"></textarea>
+                                                    <label for="descriptionTextArea" class="form-label">Add a
+                                                        comment...</label>
+                                                    <div class="invalid-tooltip" role="alert"
+                                                        th:if="${#fields.hasErrors('newComment.commentText')}"
+                                                        th:errors="*{newComment.commentText}"></div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row pt-1 mt-5">
                                             <div class="col justify-content-end">
-                                                <p class="alert alert-danger" role="alert"
-                                                    th:if="${#fields.hasErrors('newComment.commentText')}"
-                                                    th:errors="*{newComment.commentText}"></p>
                                                 <input class="btn btn-primary" form="SubmitComment" value="Submit"
                                                     type="submit"></input>
                                             </div>

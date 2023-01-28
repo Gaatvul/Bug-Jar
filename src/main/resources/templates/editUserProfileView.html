@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
@@ -12,7 +12,7 @@
 
 <body>
     <div class="row g-0">
-        <div class="col p-2 d-none d-lg-block">
+        <div class="col d-none d-lg-block">
             <div th:replace="navigation :: side-navbar"></div>
         </div>
         <div class="col d-block d-lg-none">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient" style="height: 4em;">
+                        <div class="container rounded-3 text-bg-dark bg-gradient">
                             <div class="row py-2">
                                 <div class="col">
                                     <nav class="pt-2" aria-label="breadcrumb">
@@ -52,26 +52,38 @@
                     </div>
                 </div>
                 <h2>Update Account Details</h2>
-                <form th:object="${userDetails}" th:action="@{/profile/update-profile-changes}" method="POST">
-                    <div class="form-floating">
-                        <input type="text" th:field="*{firstName}" class="form-control" id="first-name">
+                <form th:object="${updatedUserProfile}" th:action="@{/profile/update-profile-changes}" method="POST">
+                    <div class="form-floating my-2">
+                        <input type="text" th:field="*{userProfile.firstName}" class="form-control" id="first-name"
+                            th:errorclass="is-invalid">
                         <label for="first-name">First name</label>
+                        <div class="invalid-tooltip" role="alert" th:if="${#fields.hasErrors('userProfile.firstName')}"
+                            th:errors="*{userProfile.firstName}">
+                        </div>
                     </div>
-                    <div class="form-floating">
+                    <div class="form-floating my-2">
                         <input type="text" th:field="*{lastName}" class="form-control" id="last-name">
                         <label for="last-name">Last name</label>
                     </div>
-                    <div class="form-floating">
-                        <input type="email" th:field="*{emailAddress}" class="form-control" id="email-address">
+                    <div class="form-floating my-2">
+                        <input type="text" th:field="*{userProfile.emailAddress}" class="form-control"
+                            id="email-address" th:errorclass="is-invalid">
                         <label for="email-address">Email address</label>
+                        <div class="invalid-tooltip" role="alert"
+                            th:if="${#fields.hasErrors('userProfile.emailAddress')}"
+                            th:errors="*{userProfile.emailAddress}">
+                        </div>
                     </div>
-                    <input class="btn btn-outline-primary" value="Save" type="submit">
+                    <input class="btn btn-outline-primary mt-4" value="Save" type="submit">
                 </form>
             </div>
         </div>
     </div>
 
     <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toastTrigger = document.URL.includes('profile-update-success');
+    </script>
 
 </body>
 

@@ -3,8 +3,6 @@ package com.gaatvul.bugtracker.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileAsAdminDTO;
-import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.services.UserDetailsServiceImpl;
 
 @Controller
@@ -28,7 +25,7 @@ public class AdminController {
     @GetMapping(value = "/allUserAccounts")
     public String getAllUserAccountsPage(Model model) {
 
-        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+        model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
         model.addAttribute("userAccounts", userDetailsService.loadAllUserAccounts());
 
         return "allUserAccounts";
@@ -37,7 +34,7 @@ public class AdminController {
     @GetMapping(value = "/allUserAccounts/view/{id}")
     public String getUserProfilePage(@PathVariable int id, Model model) {
 
-        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+        model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
         model.addAttribute("accountDetails", userDetailsService.loadUserAccountById(id));
 
         return "userProfileAsAdminView";
@@ -46,7 +43,7 @@ public class AdminController {
     @GetMapping(value = "/allUserAccounts/edit/{id}")
     public String geteditUserProfilePage(@PathVariable int id, Model model) {
 
-        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+        model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
         model.addAttribute("accountDetails", userDetailsService.loadUserAccountById(id));
         model.addAttribute("allTeams", userDetailsService.loadAllTeams());
 
@@ -60,8 +57,8 @@ public class AdminController {
 
         if (bindingResult.hasErrors()) {
 
-            model.addAttribute("userDetails", getLoggedInUserAccountDetails());
-            model.addAttribute("accountDetails", userDetailsService.loadUserAccountById(id));
+            model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
+            model.addAttribute("accountDetails", updatedUserProfile);
             model.addAttribute("allTeams", userDetailsService.loadAllTeams());
 
             return "editUserProfileAsAdminView";
@@ -71,13 +68,4 @@ public class AdminController {
 
         return "redirect:/admin/allUserAccounts";
     }
-    
-    private UserAccountDTO getLoggedInUserAccountDetails() {
-        return userDetailsService.loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
-    }
-
-    private Authentication getCurrentAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-
 }

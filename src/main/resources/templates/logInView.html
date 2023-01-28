@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Log In</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
@@ -28,11 +28,20 @@
                         <label for="password">Password</label>
                     </div>
                     <button class="btn btn-lg btn-primary btn-block mb-2" type="submit">Sign in</button>
+
+                    <button class="btn btn-lg btn-outline-primary btn-block mb-2" onclick="fillCredentials()"
+                        type="submit">Fill credentials</button>
                 </form>
             </div>
         </div>
     </div>
     <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function fillCredentials() {
+            document.getElementById("username").setAttribute("value", 'test.none@gmail.com');
+            document.getElementById("password").setAttribute("value", 'root');
+        }
+    </script>
 </body>
 
 </html>

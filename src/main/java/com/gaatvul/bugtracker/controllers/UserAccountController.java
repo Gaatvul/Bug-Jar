@@ -3,8 +3,6 @@ package com.gaatvul.bugtracker.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.gaatvul.bugtracker.DTOs.NewUserFormDTO;
 import com.gaatvul.bugtracker.DTOs.UpdatePasswordDTO;
 import com.gaatvul.bugtracker.DTOs.UpdateUserProfileDTO;
-import com.gaatvul.bugtracker.DTOs.UserAccountDTO;
 import com.gaatvul.bugtracker.services.UserDetailsServiceImpl;
 
 @Controller
@@ -28,6 +25,8 @@ public class UserAccountController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private static String notEnoughPrivilagesMessage = "Unable to complete action. Your account does not have enough privilages.";
 
     @GetMapping(value = "/signup")
     public String getSignUpForm(Model model) {
@@ -66,7 +65,7 @@ public class UserAccountController {
     @GetMapping("/profile")
     public String getUserProfile(Model model) {
 
-        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+        model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
 
         return "userProfileView";
     }
@@ -74,24 +73,37 @@ public class UserAccountController {
     @GetMapping("/profile/edit-profile")
     public String getEditProfilePage(Model model) {
 
-        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+        UpdateUserProfileDTO updatedUserProfile = new UpdateUserProfileDTO();
+        updatedUserProfile.setFirstName(userDetailsService.getLoggedInUserAccountDetails().getFirstName());
+        updatedUserProfile.setLastName(userDetailsService.getLoggedInUserAccountDetails().getLastName());
+        updatedUserProfile.setEmailAddress(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress());
+
+        model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
+        model.addAttribute("updatedUserProfile", updatedUserProfile);
 
         return "editUserProfileView";
     }
 
     @PostMapping("/profile/update-profile-changes")
     public String updateUserProfile(
-            @Valid @ModelAttribute("userDetails") UpdateUserProfileDTO updatedUserProfile,
+            @Valid @ModelAttribute("updatedUserProfile") UpdateUserProfileDTO updatedUserProfile,
             BindingResult bindingResult, Model model) {
+
+        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole())) {
+            bindingResult.addError(
+                    new FieldError("userDetails", "userProfile.emailAddress", null, false,
+                            null, null, notEnoughPrivilagesMessage));
+        }
+
+        updatedUserProfile.setId(userDetailsService.getLoggedInUserAccountDetails().getId());
 
         if (bindingResult.hasErrors()) {
 
-            model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+            model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
+            model.addAttribute("updatedUserProfile", updatedUserProfile);
 
             return "editUserProfileView";
         }
-
-        updatedUserProfile.setId(getLoggedInUserAccountDetails().getId());
 
         userDetailsService.updateUserProfile(updatedUserProfile);
 
@@ -101,7 +113,7 @@ public class UserAccountController {
     @GetMapping(value = "/profile/update-password")
     public String getUpdateUserPasswordPage(Model model) {
 
-        model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+        model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
         model.addAttribute("userPassword", new UpdatePasswordDTO());
 
         return "editUserPasswordView";
@@ -112,10 +124,16 @@ public class UserAccountController {
             @Valid @ModelAttribute("userPassword") UpdatePasswordDTO updatedUserPassword,
             BindingResult bindingResult, Model model) {
 
-        updatedUserPassword.setId(getLoggedInUserAccountDetails().getId());
+        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole())) {
+            bindingResult.addError(
+                    new FieldError("userPassword", "confirmPassword", null,
+                            false, null, null, notEnoughPrivilagesMessage));
+        }
+
+        updatedUserPassword.setId(userDetailsService.getLoggedInUserAccountDetails().getId());
 
         if (!passwordEncoder.matches(updatedUserPassword.getOldPassword(),
-                getLoggedInUserAccountDetails().getPassword())) {
+                userDetailsService.getLoggedInUserAccountDetails().getPassword())) {
             bindingResult.addError(new FieldError("userPassword", "oldPassword", null,
                     false, null, null, "Incorrect Password"));
         }
@@ -129,7 +147,7 @@ public class UserAccountController {
 
         if (bindingResult.hasErrors()) {
 
-            model.addAttribute("userDetails", getLoggedInUserAccountDetails());
+            model.addAttribute("userDetails", userDetailsService.getLoggedInUserAccountDetails());
             model.addAttribute("userPassword", updatedUserPassword);
 
             return "editUserPasswordView";
@@ -144,14 +162,6 @@ public class UserAccountController {
         userDetailsService.updateUserPassword(updatedUserPassword);
 
         return "redirect:/profile";
-    }
-
-    private UserAccountDTO getLoggedInUserAccountDetails() {
-        return userDetailsService.loadUserAccountDetailsByUsername(getCurrentAuthentication().getName());
-    }
-
-    private Authentication getCurrentAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
     }
 
 }

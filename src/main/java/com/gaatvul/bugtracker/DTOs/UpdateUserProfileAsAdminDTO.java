@@ -8,11 +8,20 @@ public class UpdateUserProfileAsAdminDTO {
 
     private long id;
     @Valid private UserProfile userProfile;
+
     private String team;
     private String role;
 
     public UpdateUserProfileAsAdminDTO() {
         this.userProfile = new UserProfile();
+    }
+    
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
     public long getId() {

@@ -6,10 +6,18 @@ import com.gaatvul.bugtracker.POJOs.UserProfile;
 
 public class UpdateUserProfileDTO {
 
-    long id;
+    private long id;
 
     @Valid
     private UserProfile userProfile;
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 
     public UpdateUserProfileDTO() {
         this.userProfile = new UserProfile();

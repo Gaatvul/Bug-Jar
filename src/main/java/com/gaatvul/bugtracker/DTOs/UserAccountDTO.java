@@ -2,11 +2,14 @@ package com.gaatvul.bugtracker.DTOs;
 
 import java.sql.Timestamp;
 
+import javax.validation.Valid;
+
 import com.gaatvul.bugtracker.POJOs.UserProfile;
 
 public class UserAccountDTO {
 
     private long id;
+    @Valid
     private UserProfile userProfile;
     private String team;
     private String role;
@@ -17,6 +20,14 @@ public class UserAccountDTO {
 
     public UserAccountDTO() {
         this.userProfile = new UserProfile();
+    }
+    
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
     public long getId() {

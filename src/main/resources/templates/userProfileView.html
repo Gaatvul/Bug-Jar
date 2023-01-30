@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Profile</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
@@ -12,7 +12,7 @@
 
 <body>
     <div class="row g-0">
-        <div class="col p-2 d-none d-lg-block">
+        <div class="col d-none d-lg-block">
             <div th:replace="navigation :: side-navbar"></div>
         </div>
         <div class="col d-block d-lg-none">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient" style="height: 4em;">
+                        <div class="container rounded-3 text-bg-dark bg-gradient">
                             <div class="row py-2">
                                 <div class="col">
                                     <nav class="pt-2" aria-label="breadcrumb">
@@ -82,11 +82,30 @@
                 </div>
             </div>
         </div>
-
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-bg-success">
+                    <strong class="me-auto">Update Success</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Your profile was successfully updated.
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
 
+    <script>
+        const toastTrigger = document.URL.includes('profile-update-success');
+
+        const toastLiveExample = document.getElementById('liveToast')
+        if (toastTrigger) {
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
+        }
+    </script>
 </body>
 
 </html>

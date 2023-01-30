@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>navigation</title>
 </head>
@@ -19,8 +19,8 @@
         <hr>
     </div>
 
-    <div class="sticky-top text-bg-dark bg-gradient rounded-3" th:fragment="side-navbar">
-        <div class="container py-3 position-relative" style="height: 98vh; width: 22vw;">
+    <div class="sticky-top text-bg-dark bg-gradient " th:fragment="side-navbar">
+        <div class="container py-3 position-relative min-vh-100">
             <h5 th:text="'Welcome, ' + ${userDetails.firstName}"></h5>
             <hr>
             <ul class="nav flex-column mb-auto">
@@ -45,75 +45,80 @@
             </ul>
             <hr>
             <div th:replace="${userDetails.isAdmin()} ? ~{this :: admin-links} : ~{}"></div>
-            <div class="dropdown dropup position-absolute bottom-0 flex-column mb-3">
-                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"><i class="bi bi-person-circle pe-1"></i>
-                    <span th:text="${userDetails.firstName}"></span>
-                </a>
-                <ul class="dropdown-menu dropdown dropdown-menu-dark text-small shadow">
-                    <li class="dropdown-item">
-                        <a class="nav-link" href="/profile" type="submit"><i
-                                class="bi bi-person-lines-fill pe-1"></i>Profile</a>
-                    </li>
-                    <div class="mx-3">
+            <div class="position-absolute bottom-0">
+                <div class="dropdown dropup mb-3">
+                    <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="bi bi-person-circle pe-1"></i>
+                        <span th:text="${userDetails.firstName}"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown dropdown-menu-dark text-small shadow">
+                        <li class="dropdown-item">
+                            <a class="nav-link" href="/profile" type="submit"><i
+                                    class="bi bi-person-lines-fill pe-1"></i>Profile</a>
+                        </li>
+                        <div class="mx-3">
 
-                    </div>
-                    <li class="dropdown-item">
-                        <a class="nav-link" aria-current="page" href="/logout"><i
-                                class="bi bi-door-open pe-1"></i>Logout</a>
-                    </li>
-                </ul>
+                        </div>
+                        <li class="dropdown-item">
+                            <a class="nav-link" aria-current="page" href="/logout"><i
+                                    class="bi bi-door-open pe-1"></i>Logout</a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
-    </div>
 
-    <div class="offcanvas offcanvas-start text-bg-dark bg-gradient rounded-3" style="width: 36vw;" tabindex="-1"
-        id="offcanvas-navbar" data-bs-scroll="true" th:fragment="offcanvas-navbar">
-        <div class="container py-3 position-relative" style="height: 98vh;">
-            <h5 th:text="'Welcome, ' + ${userDetails.firstName}"></h5>
-            <hr>
-            <ul class="nav flex-column mb-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/"><i class="bi bi-house pe-1"></i>Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/bugReports"><i
-                            class="bi bi-card-list pe-1"></i>All Bug Reports</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/bugReports/new"><i class="bi bi-plus-square pe-1"></i>New Bug Report</a>
-                </li>
-            </ul>
-            <hr>
-            <ul class="nav flex-column mb-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/dashboard"><i
-                            class="bi bi-speedometer2 pe-1"></i>Dashboard</a>
-                </li>
-            </ul>
-            <hr>
-            <div th:replace="${userDetails.isAdmin()} ? ~{this :: admin-links} : ~{}"></div>
-            <div class="dropdown dropup position-absolute bottom-0 flex-column mb-3">
-                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"><i class="bi bi-person-circle pe-1"></i>
-                    <span th:text="${userDetails.firstName}"></span>
-                </a>
-                <ul class="dropdown-menu dropdown dropdown-menu-dark text-small shadow">
-                    <li class="dropdown-item">
-                        <a class="nav-link" href="/profile" type="submit"><i
-                                class="bi bi-person-lines-fill pe-1"></i>Profile</a>
+        <div class="offcanvas offcanvas-start text-bg-dark bg-gradient" tabindex="-1" id="offcanvas-navbar"
+            data-bs-scroll="true" th:fragment="offcanvas-navbar">
+            <div class="container py-3 position-relative min-vh-100">
+                <p class="h5" th:text="'Welcome, ' + ${userDetails.firstName}"></p>
+                <button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+                <hr>
+                <ul class="nav flex-column mb-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/"><i class="bi bi-house pe-1"></i>Home</a>
                     </li>
-                    <div class="mx-3">
-
-                    </div>
-                    <li class="dropdown-item">
-                        <a class="nav-link" aria-current="page" href="/logout"><i
-                                class="bi bi-door-open pe-1"></i>Logout</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/bugReports"><i
+                                class="bi bi-card-list pe-1"></i>All Bug Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/bugReports/new"><i
+                                class="bi bi-plus-square pe-1"></i>New Bug Report</a>
                     </li>
                 </ul>
+                <hr>
+                <ul class="nav flex-column mb-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/dashboard"><i
+                                class="bi bi-speedometer2 pe-1"></i>Dashboard</a>
+                    </li>
+                </ul>
+                <hr>
+                <div th:replace="${userDetails.isAdmin()} ? ~{this :: admin-links} : ~{}"></div>
+                <div class="dropdown dropup position-absolute bottom-0 flex-column mb-3">
+                    <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="bi bi-person-circle pe-1"></i>
+                        <span th:text="${userDetails.firstName}"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown dropdown-menu-dark text-small shadow">
+                        <li class="dropdown-item">
+                            <a class="nav-link" href="/profile" type="submit"><i
+                                    class="bi bi-person-lines-fill pe-1"></i>Profile</a>
+                        </li>
+                        <div class="mx-3">
+
+                        </div>
+                        <li class="dropdown-item">
+                            <a class="nav-link" aria-current="page" href="/logout"><i
+                                    class="bi bi-door-open pe-1"></i>Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
 </body>
 

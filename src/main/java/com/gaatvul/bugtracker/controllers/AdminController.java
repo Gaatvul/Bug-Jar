@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,9 @@ public class AdminController {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    private static String notEnoughPrivilagesMessage = 
+        "Unable to complete action. Your account does not have enough privilages.";
 
     @GetMapping(value = "/allUserAccounts")
     public String getAllUserAccountsPage(Model model) {
@@ -54,6 +58,13 @@ public class AdminController {
     public String saveUpdatedUserProfile(
             @Valid @ModelAttribute("accountDetails") UpdateUserProfileAsAdminDTO updatedUserProfile,
             BindingResult bindingResult, @PathVariable int id, Model model) {
+
+        if ("admin.demo@gmail.com"
+                .equalsIgnoreCase(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress())) {
+            bindingResult.addError(new FieldError("accountDetails",
+                    "userProfile.emailAddress", null, false, null,
+                    null, notEnoughPrivilagesMessage));
+        }
 
         if (bindingResult.hasErrors()) {
 

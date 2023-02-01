@@ -30,7 +30,8 @@ public class BugReportController {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    private static String notEnoughPrivilagesMessage = "Unable to complete action. Your account does not have enough privilages.";
+    private static String notEnoughPrivilagesMessage = 
+        "Unable to complete action. Your account does not have enough privilages.";
 
     @GetMapping(value = "/bugReports")
     public String showListOfBugReports(Model model) {
@@ -44,7 +45,8 @@ public class BugReportController {
     }
 
     @GetMapping(value = "/bugReports/view/{id}")
-    public String viewReport(@PathVariable int id, @ModelAttribute("newComment") CommentEntity comment, Model model) {
+    public String viewReport(@PathVariable int id, @ModelAttribute("newComment") CommentEntity comment, 
+        Model model) {
 
         model.addAttribute("bugReport", bugReportService.getBugReportById(id));
         model.addAttribute("reportComments", bugReportService.getBugReportCommentsWithId(id));
@@ -56,12 +58,14 @@ public class BugReportController {
     }
 
     @PostMapping(value = "/bugReports/view/{id}")
-    public String addNewCommentToReport(@PathVariable int id, @Valid @ModelAttribute("newComment") CommentDTO comment,
-            BindingResult bindingResult, Model model) {
+    public String addNewCommentToReport(@PathVariable int id, 
+        @Valid @ModelAttribute("newComment") CommentDTO comment, BindingResult bindingResult, Model model) {
 
-        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole())) {
+        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole()) || "admin.demo@gmail.com"
+                .equalsIgnoreCase(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress())) {
             bindingResult.addError(
-                    new FieldError("newComment", "commentText", null, false, null, null, notEnoughPrivilagesMessage));
+                    new FieldError("newComment", "commentText", null, 
+                    false, null, null, notEnoughPrivilagesMessage));
         }
 
         if (bindingResult.hasErrors()) {
@@ -109,7 +113,8 @@ public class BugReportController {
     public String saveNewBugReportToDatabase(@Valid @ModelAttribute("newBugReport") BugReport bugReportFromModel,
             BindingResult bindingResult, Model model) {
 
-        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole())) {
+        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole()) || "admin.demo@gmail.com"
+                .equalsIgnoreCase(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress())) {
             bindingResult.addError(
                     new FieldError("newBugReport", "reporter", null, false,
                             null, null, notEnoughPrivilagesMessage));
@@ -147,6 +152,13 @@ public class BugReportController {
     public String saveEdit(@PathVariable int id,
             @Valid @ModelAttribute("editableBugReport") BugReportEntity editedBugReport, BindingResult bindingResult,
             Model model) {
+
+        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole()) || "admin.demo@gmail.com"
+                .equalsIgnoreCase(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress())) {
+            bindingResult.addError(
+                    new FieldError("editableBugReport", "reporter", null, false,
+                            null, null, notEnoughPrivilagesMessage));
+        }
 
         if (bindingResult.hasErrors()) {
 

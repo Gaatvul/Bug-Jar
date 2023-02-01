@@ -89,7 +89,8 @@ public class UserAccountController {
             @Valid @ModelAttribute("updatedUserProfile") UpdateUserProfileDTO updatedUserProfile,
             BindingResult bindingResult, Model model) {
 
-        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole())) {
+        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole()) || "admin.demo@gmail.com"
+                .equalsIgnoreCase(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress())) {
             bindingResult.addError(
                     new FieldError("userDetails", "userProfile.emailAddress", null, false,
                             null, null, notEnoughPrivilagesMessage));
@@ -124,7 +125,8 @@ public class UserAccountController {
             @Valid @ModelAttribute("userPassword") UpdatePasswordDTO updatedUserPassword,
             BindingResult bindingResult, Model model) {
 
-        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole())) {
+        if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole()) || "admin.demo@gmail.com"
+                .equalsIgnoreCase(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress())) {
             bindingResult.addError(
                     new FieldError("userPassword", "confirmPassword", null,
                             false, null, null, notEnoughPrivilagesMessage));

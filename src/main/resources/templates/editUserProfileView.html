@@ -21,7 +21,7 @@
         <div class="col-lg-9">
             <div class="container-fluid">
                 <div
-                    th:replace="/fragments/banner :: banner (pageLinks='editUserProfile-links', pageName='Edit Profile')">
+                    th:replace="banner :: banner (pageLinks='editUserProfile-links', pageName='Edit Profile')">
                 </div>
                 <h2>Update Account Details</h2>
                 <form th:object="${updatedUserProfile}" th:action="@{/profile/update-profile-changes}" method="POST">

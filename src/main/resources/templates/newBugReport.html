@@ -22,7 +22,7 @@
         <div class="col-lg-9 mb-3">
             <div class="container-fluid">
                 <div
-                    th:replace="/fragments/banner :: banner (pageLinks='newBugReport-links', pageName='New Bug Report')">
+                    th:replace="banner :: banner (pageLinks='newBugReport-links', pageName='New Bug Report')">
                 </div>
                 <form th:action="@{/bugReports/new}" th:object="${newBugReport}" method="POST">
                     <div class="row">

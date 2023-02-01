@@ -13,33 +13,51 @@
 <body>
     <div class="container">
         <div class="row justify-content-center align-items-center vh-100">
-            <div class="col-md-4 rounded-2 shadow">
+            <div class="col-md-4">
                 <form class="form-signin" th:action="@{/login}" method="POST">
-                    <h2 class="py-3 text-center">Please sign in</h2>
-                    <div class="alert alert-danger" th:if="${param.error}">Incorrect credentials</div>
-                    <div class="form-floating mb-2">
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Username"
-                            required autofocus th:classappend="${param.error}? 'is-invalid'">
-                        <label for="username" class="sr-only">Username</label>
+                    <div class="row rounded-2 shadow bg-white">
+                        <h2 class="py-3 text-center">Please sign in</h2>
+                        <div class="alert alert-danger" th:if="${param.error}">Incorrect credentials</div>
+                        <div class="form-floating mb-2">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                                required autofocus th:classappend="${param.error}? 'is-invalid'">
+                            <label for="username" class="sr-only">Username</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="password" id="password" name="password" class="form-control"
+                                placeholder="Password" required th:classappend="${param.error}? 'is-invalid'">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="text-center">
+                        <button class="btn btn-lg btn-primary btn-block mb-2 w-75" type="submit">Sign in</button>
+                        </div>
                     </div>
-                    <div class="form-floating mb-2">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password"
-                            required th:classappend="${param.error}? 'is-invalid'">
-                        <label for="password">Password</label>
-                    </div>
-                    <button class="btn btn-lg btn-primary btn-block mb-2" type="submit">Sign in</button>
 
-                    <button class="btn btn-lg btn-outline-primary btn-block mb-2" onclick="fillCredentials()"
-                        type="submit">Fill credentials</button>
+                    <div class="row rounded-2 shadow mt-4">
+                        <div class="col text-center pt-3">
+                        <h2 class="py-3 text-center">Demo Accounts</h2>
+                            <button class="btn btn-lg btn-outline-primary btn-block" onclick="fillCredentials(1)"
+                                type="submit">None Demo Account</button>
+                            <button class="btn btn-lg btn-outline-primary btn-block my-3" onclick="fillCredentials(2)"
+                                type="submit">Admin Demo Account</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
     <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
     <script>
-        function fillCredentials() {
-            document.getElementById("username").setAttribute("value", 'test.none@gmail.com');
-            document.getElementById("password").setAttribute("value", 'root');
+        function fillCredentials(acc) {
+
+            if (acc == 1) {
+                document.getElementById("username").setAttribute("value", 'test.none@gmail.com');
+                document.getElementById("password").setAttribute("value", 'root');
+            }
+            if (acc == 2) {
+                document.getElementById("username").setAttribute("value", 'admin.demo@gmail.com');
+                document.getElementById("password").setAttribute("value", 'root');
+            }
         }
     </script>
 </body>

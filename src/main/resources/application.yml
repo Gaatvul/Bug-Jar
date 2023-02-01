@@ -4,13 +4,13 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    active: production
 server:
   port: 8080
 logging:
   level:
     web: debug
-profiles:
-  active: production
 
 debug: false
 ---

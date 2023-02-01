@@ -12,14 +12,15 @@
 </head>
 
 <body>
+
     <div class="row mt-4 pt-2 pb-4 justify-content-end border-bottom border-secondary">
         <div class="col">
-            <h1 class="display-6 text-light ps-3">BugJar</h1>
+            <h1 class="display-6 text-light ps-3">
+                <div th:replace="/fragments/svgLogo :: logo-white"></div>
+                BugJar
+            </h1>
         </div>
-        <div class="col-4 text-end">
-            <div sec:authorize="isAuthenticated()">
-                <a class="btn btn-outline-primary" href="./dashboard">Dashboard</a>
-            </div>
+        <div class="col-4 mt-4 text-end">
             <a class="btn btn-outline-primary" href="./login">Demo Account</a>
             <a class="btn btn-outline-primary mx-4" href="./login">Log in</a>
             <a class="btn btn-primary me-3" href="./signup">Sign up</a>

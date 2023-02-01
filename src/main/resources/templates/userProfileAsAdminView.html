@@ -22,7 +22,7 @@
             <div class="container-fluid">
                 <div th:object="${accountDetails}">
                     <div
-                        th:replace="/fragments/banner :: banner (pageLinks='userProfileAsAdmin-links', pageName=*{fullName} + '\'s Profile')">
+                        th:replace="banner :: banner (pageLinks='userProfileAsAdmin-links', pageName=*{fullName} + '\'s Profile')">
                     </div>
                 </div>
                 <div class="row">

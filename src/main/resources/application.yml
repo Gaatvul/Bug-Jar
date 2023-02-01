@@ -9,8 +9,8 @@ server:
 logging:
   level:
     web: debug
-  profiles:
-    active: production
+profiles:
+  active: production
 
 debug: false
 ---

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>A List of Bug Reports!</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
@@ -21,62 +21,39 @@
 
         <div class="col-lg-9">
             <div class="container-fluid">
-                <div class="row sticky-top p-2">
-                    <div class="col-1 mx-2 d-lg-none position-relative">
-                        <div class="position-absolute start-50 top-50 translate-middle">
-                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
-                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
-                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                                aria-controls="offcanvas-navbar"></i>
-                        </div>
-                    </div>
-                    <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient">
-                            <div class="row py-2">
-                                <div class="col">
-                                    <nav class="pt-2" aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">All Bug Reports</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                                <div class="col text-center">
-                                    <h5 class="navbar-text">All Bug Reports</h5>
-                                </div>
-                                <div class="col-md">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div
+                    th:replace="/fragments/banner :: banner (pageLinks='allBugReports-links', pageName='All Bug Reports')">
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="search-bar" onkeyup="searchReports()"
-                                placeholder="search">
-                            <label for="search-bar">search by title...</label>
+                            <input type="search" class="form-control" id="search-bar" th:value="${param.report}"
+                                onkeydown="searchReports()" placeholder="search">
+                            <label for="search-bar">search by column eg. category=functional</label>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="table-responsive">
+                        <div class="table-responsive bg-white rounded-3 shadow p-3">
                             <table class="table align-middle table-hover" id="reports">
                                 <thead class="rounded-3 shadow">
                                     <tr class="header">
                                         <th class="visually-hidden">Report ID</th>
-                                        <th onclick="sortTableColumn(1)" style="cursor: pointer;">Title</th>
+                                        <th onclick="sortTableColumn(1)" style="cursor: pointer;" id="Title">Title</th>
                                         <th class="visually-hidden">Description</th>
-                                        <th onclick="sortTableColumn(3)" style="cursor: pointer;">Project</th>
+                                        <th onclick="sortTableColumn(3)" style="cursor: pointer;" id="Project">Project
+                                        </th>
                                         <th>Assigned Users</th>
                                         <th class="visually-hidden">Reporter</th>
                                         <th class="visually-hidden">Owner</th>
                                         <th>Criticality</th>
-                                        <th onclick="sortTableColumn(8)" style="cursor: pointer;">Category</th>
+                                        <th onclick="sortTableColumn(8)" style="cursor: pointer;" id="Category">Category
+                                        </th>
                                         <th>Priority</th>
                                         <th>Status</th>
-                                        <th onclick="sortTableColumn(11)" style="cursor: pointer;">Created On</th>
+                                        <th onclick="sortTableColumn(11)" style="cursor: pointer;" id="Created On">
+                                            Created On</th>
                                     </tr>
                                 </thead>
                                 <tbody class="rounded-3">
@@ -139,26 +116,65 @@
     </script>
     <script>
         function searchReports() {
-            var searchBarInput, searchFilter, table, tr, td, txtValue;
+            const columnNames = new Map();
+
+            columnNames.set('id', 0);
+            columnNames.set('title', 1);
+            columnNames.set('desc', 2);
+            columnNames.set('project', 3);
+            columnNames.set('assignee', 4);
+            columnNames.set('reporter', 5);
+            columnNames.set('owner', 6);
+            columnNames.set('criticality', 7);
+            columnNames.set('category', 8);
+            columnNames.set('priority', 9);
+            columnNames.set('status', 10);
+            columnNames.set('created', 11);
+
+            var searchBarInput, searchFilter, searchKeyword, searchTerm, table, tr, td, txtValue;
             searchBarInput = document.getElementById("search-bar");
             searchFilter = searchBarInput.value.toUpperCase();
             table = document.getElementById("reports");
             tr = table.getElementsByTagName("tr");
-            for (let i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(searchFilter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
+
+            const splitExp = /\={1}/;
+            searchKeyword = searchFilter.split(splitExp, 2)[0];
+            searchTerm = searchFilter.split(splitExp, 2)[1];
+
+            if (!searchFilter.includes("=") || searchTerm == undefined) {
+                return;
+            } else {
+                for (let i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[columnNames.get(searchKeyword.toLowerCase())];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(searchTerm) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
                     }
                 }
             }
         }
+        onload = (event) => searchReports();
     </script>
     <script>
         function sortTableColumn(n) {
+            const columnsId = new Map();
+
+            columnsId.set(1, 'Title');
+            columnsId.set(3, 'Project');
+            columnsId.set(8, 'Category');
+            columnsId.set(11, 'Created On');
+
+            columnsId.forEach(key => {
+                document.getElementById(key).innerHTML = key
+            });
+
+            const sortAZ = "<i class=\"bi bi-caret-down-fill ps-1\"></i>";
+            const sortZA = "<i class=\"bi bi-caret-up-fill ps-1\"></i>";
+
             var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
             table = document.getElementById("reports");
             switching = true;
@@ -177,12 +193,14 @@
                     y = rows[i + 1].getElementsByTagName("TD")[n];
 
                     if (dir == "asc") {
+                        document.getElementById(columnsId.get(n)).innerHTML = columnsId.get(n) + sortAZ;
                         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 
                             shouldSwitch = true;
                             break;
                         }
                     } else if (dir == "desc") {
+                        document.getElementById(columnsId.get(n)).innerHTML = columnsId.get(n) + sortZA;
                         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
 
                             shouldSwitch = true;
@@ -207,5 +225,6 @@
         }
     </script>
 </body>
+
 
 </html>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
@@ -11,8 +11,9 @@
 </head>
 
 <body>
+
     <div class="row g-0">
-        <div class="col p-2 d-none d-lg-block">
+        <div class="col d-none d-lg-block">
             <div th:replace="navigation :: side-navbar"></div>
         </div>
         <div class="col d-block d-lg-none">
@@ -20,79 +21,63 @@
         </div>
         <div class="col-lg-9">
             <div class="container-fluid">
-                <div class="row sticky-top p-2">
-                    <div class="col-1 mx-2 d-lg-none position-relative">
-                        <div class="position-absolute start-50 top-50 translate-middle">
-                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
-                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
-                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                                aria-controls="offcanvas-navbar"></i>
-                        </div>
-                    </div>
-                    <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient" style="height: 4em;">
-                            <div class="row py-2" th:object="${accountDetails}">
-                                <div class="col">
-                                    <nav class="pt-2" aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                            <li class="breadcrumb-item"><a href="/admin/allUserAccounts">All User
-                                                    Accounts</a></li>
-                                            <li class="breadcrumb-item" aria-current="page"><a
-                                                    th:href="@{/admin/allUserAccounts/view/{id} (id=${accountDetails.id})}"
-                                                    th:text="*{fullName}">User's Profile</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                                <div class="col text-center">
-                                    <h5 class="navbar-text"
-                                        th:text="'Edit ' + *{fullName} + '\'s Profile'"></h5>
-                                </div>
-                                <div class="col-md">
-                                </div>
-                            </div>
-                        </div>
+                <div th:object="${accountDetails}">
+                    <div
+                        th:replace="/fragments/banner :: banner (pageLinks='editUserProfileAsAdmin-links', pageName='Edit ' + *{fullName} + '\'s Profile')">
                     </div>
                 </div>
                 <h2>Update Account Details</h2>
                 <form th:object="${accountDetails}"
                     th:action="@{/admin/allUserAccounts/save/{id} (id=${accountDetails.id})}" method="POST">
-                    <div class="form-floating">
-                        <input type="number" readonly th:field="*{id}" class="form-control-plaintext" id="account-id">
+                    <div class="form-floating my-2">
+                        <input type="number" readonly th:field="*{id}" class="form-control-plaintext" id="account-id"
+                            th:errorclass="is-invalid">
                         <label for="account-id">Account ID</label>
                     </div>
-                    <div class="form-floating">
-                        <input type="text" th:field="*{firstName}" class="form-control" id="first-name">
+                    <div class="form-floating my-2">
+                        <input type="text" th:field="*{userProfile.firstName}" class="form-control" id="first-name"
+                            th:errorclass="is-invalid">
                         <label for="first-name">First name</label>
+                        <div class="invalid-tooltip" role="alert" th:if="${#fields.hasErrors('userProfile.firstName')}"
+                            th:errors="*{userProfile.firstName}" th:errorclass="is-invalid">
+                        </div>
                     </div>
-                    <div class="form-floating">
-                        <input type="text" th:field="*{lastName}" class="form-control" id="last-name">
+                    <div class="form-floating my-2">
+                        <input type="text" th:field="*{userProfile.lastName}" class="form-control" id="last-name"
+                            th:errorclass="is-invalid">
                         <label for="last-name">Last name</label>
+                        <div class="invalid-tooltip" role="alert" th:if="${#fields.hasErrors('userProfile.lastName')}"
+                            th:errors="*{userProfile.lastName}">
+                        </div>
                     </div>
-                    <div class="form-floating">
-                        <input type="email" th:field="*{emailAddress}" class="form-control" id="email-address">
+                    <div class="form-floating my-2">
+                        <input type="text" th:field="*{userProfile.emailAddress}" class="form-control"
+                            id="email-address" th:errorclass="is-invalid">
                         <label for="email-address">Email address</label>
+                        <div class="invalid-tooltip" role="alert"
+                            th:if="${#fields.hasErrors('userProfile.emailAddress')}"
+                            th:errors="*{userProfile.emailAddress}">
+                        </div>
                     </div>
-                    <div class="form-floating">
+                    <div class="form-floating my-2">
                         <select class="form-select" id="team" th:field="*{team}">
                             <option th:each="team : ${allTeams}" th:value="${team}" th:text="${team}"></option>
                         </select>
                         <label for="team">Team</label>
                     </div>
-                    <div class="form-floating">
+                    <div class="form-floating my-2">
                         <select class="form-select" id="team" th:field="*{role}">
                             <option value="Administrator" th:text="'Administrator'"></option>
                             <option value="Manager" th:text="'Manager'"></option>
                             <option value="Developer" th:text="'Developer'"></option>
                             <option value="Tester" th:text="'Tester'"></option>
                             <option value="End-user" th:text="'End-user'"></option>
-                            <option value="none" th:text="'none'"></option>
-                            <option value="owner" th:text="'owner'"></option>
+                            <option value="None" th:text="'None'"></option>
+                            <option value="Owner" th:text="'Owner'"></option>
                         </select>
                         <label for="role">Role</label>
                     </div>
-                    <input class="btn btn-outline-primary" value="Save" type="submit">
+                    <input class="btn btn-outline-primary my-2 mb-5" value="Save" type="submit">
                 </form>
             </div>
         </div>

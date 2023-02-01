@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>A List of Bug Reports!</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
@@ -13,42 +13,16 @@
 <body>
 
     <div class="row g-0">
-        <div class="col p-2 d-none d-lg-block">
+        <div class="col d-none d-lg-block">
             <div th:replace="navigation :: side-navbar"></div>
         </div>
         <div class="col d-block d-lg-none">
             <div th:replace="navigation :: offcanvas-navbar"></div>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-9 mb-3">
             <div class="container-fluid">
-                <div class="row sticky-top p-2">
-                    <div class="col-1 mx-2 d-lg-none position-relative">
-                        <div class="position-absolute start-50 top-50 translate-middle">
-                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
-                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
-                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                                aria-controls="offcanvas-navbar"></i>
-                        </div>
-                    </div>
-                    <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient" style="height: 4em;">
-                            <div class="row py-2">
-                                <div class="col">
-                                    <nav class="pt-2" aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">New Bug Report</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                                <div class="col text-center">
-                                    <h5 class="navbar-text">New Bug Report</h5>
-                                </div>
-                                <div class="col-md">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div
+                    th:replace="/fragments/banner :: banner (pageLinks='newBugReport-links', pageName='New Bug Report')">
                 </div>
                 <form th:action="@{/bugReports/new}" th:object="${newBugReport}" method="POST">
                     <div class="row">
@@ -238,21 +212,14 @@
                     <div class="row">
                         <div class="col-md gy-3">
                             <input class="btn btn-outline-primary" type="submit" value="Save"></input>
+                            <div class="bg-danger text-white rounded-2 ps-2 mt-1" role="alert"
+                                th:if="${#fields.hasErrors('reporter')}" th:errors="*{reporter}"></div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col gy-4"></div>
-                    </div>
-
                 </form>
             </div>
         </div>
     </div>
-
-    <script>
-
-    </script>
-
 
     <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
 </body>

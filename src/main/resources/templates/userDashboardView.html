@@ -2,17 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Dashboard</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/custom-bootstrap.css}">
 </head>
 
-<body class="bg-gray-300">
+<body>
     <div class="row g-0">
-        <div class="col p-2 d-none d-lg-block">
+
+        <div class="col d-none d-lg-block">
             <div th:replace="navigation :: side-navbar"></div>
         </div>
         <div class="col gt-2 d-block d-lg-none">
@@ -21,30 +22,24 @@
 
         <div class="col-lg-9">
             <div class="container-fluid">
-                <div class="row sticky-top p-2">
-                    <div class="col-1 mx-2 d-lg-none position-relative">
-                        <div class="position-absolute start-50 top-50 translate-middle 100vh">
-                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
-                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
-                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                                aria-controls="offcanvas-navbar"></i>
+                <div th:replace="/fragments/banner :: banner (pageLinks='dashboard-links', pageName='Dashboard')"></div>
+                <div class="row justify-content-around mt-4">
+                    <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                        <div class="card border-light justify-content-center h-100">
+                            <div class="card-body">
+                                <h4>Reports By Criticality</h4>
+                                <div class="chart">
+                                    <canvas id="chart-donut-criticality" class="chart-canvas"></canvas>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient">
-                            <div class="row py-2">
-                                <div class="col">
-                                    <nav class="pt-2" aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                                <div class="col text-center">
-                                    <h5 class="navbar-text">Dashboard</h5>
-                                </div>
-                                <div class="col-md">
+                    <div class="col-lg-4 col-md-6 mt-4 mb-4">
+                        <div class="card border-light justify-content-center h-100">
+                            <div class="card-body">
+                                <p class="h4">Reports By Category</p>
+                                <div class="chart">
+                                    <canvas id="chart-bar-category" class="chart-canvas" height="250"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -52,60 +47,22 @@
                 </div>
                 <div class="row justify-content-around mt-4">
                     <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                        <div class="card border-light">
-                            <div class="card-header text-bg-dark bg-gradient px-3 rounded-3">
-                                <div class="">
-                                    <div class="chart">
-                                        <canvas id="chart-donut-criticality" class="chart-canvas"></canvas>
-                                    </div>
+                        <div class="card border-light justify-content-center h-100">
+                            <div class="card-body">
+                                <h4>Reports By Status</h4>
+                                <div class="chart">
+                                    <canvas id="chart-donut-status" class="chart-canvas" height="250"></canvas>
                                 </div>
-                            </div>
-                            <div class="card-body" style="height: 10vh;">
-                                <p class="h3 text-center border rounded-2">Reports By Criticality</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                        <div class="card z-index-2">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-bg-dark bg-gradient ">
-                                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                                    <div class="chart">
-                                        <canvas id="chart-bar-category" class="chart-canvas" height="250"></canvas>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="card border-light justify-content-center h-100">
                             <div class="card-body">
-                                <p class="h3 text-center">Reports By Category</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-around mt-4">
-                    <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                        <div class="card z-index-2">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-bg-dark bg-gradient ">
-                                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                                    <div class="chart">
-                                        <canvas id="chart-donut-status" class="chart-canvas" height="250"></canvas>
-                                    </div>
+                                <h4 class="h3 text-center">Reports By Priority</h4>
+                                <div class="chart">
+                                    <canvas id="chart-donut-priority" class="chart-canvas" height="250"></canvas>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="h3 text-center">Reports By Status</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-4 mb-4">
-                        <div class="card z-index-2">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-bg-dark bg-gradient ">
-                                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                                    <div class="chart">
-                                        <canvas id="chart-donut-priority" class="chart-canvas" height="250"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="h3 text-center">Reports By Priority</p>
                             </div>
                         </div>
                     </div>
@@ -156,11 +113,11 @@
                 },
                 plugins: {
                     legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: "white",
-                        }
+                        position: 'bottom'
                     }
+                },
+                onClick: (e) => {
+                    window.open('./bugReports?report=criticality=' + e.chart.tooltip.title[0])
                 }
             },
         });
@@ -204,11 +161,11 @@
                 },
                 plugins: {
                     legend: {
-                        position: 'top',
-                        labels: {
-                            color: "white",
-                        }
+                        position: 'top'
                     }
+                },
+                onClick: (e) => {
+                    window.open('./bugReports?report=category=' + e.chart.tooltip.title[0])
                 }
             },
         });
@@ -248,11 +205,11 @@
                 },
                 plugins: {
                     legend: {
-                        position: 'top',
-                        labels: {
-                            color: "white",
-                        }
+                        position: 'top'
                     }
+                },
+                onClick: (e) => {
+                    window.open('./bugReports?report=status=' + e.chart.tooltip.title[0])
                 }
             },
         });
@@ -294,11 +251,11 @@
                 },
                 plugins: {
                     legend: {
-                        position: 'top',
-                        labels: {
-                            color: "white",
-                        }
+                        position: 'top'
                     }
+                },
+                onClick: (e) => {
+                    window.open('./bugReports?report=priority=' + e.chart.tooltip.title[0])
                 }
             },
         });

@@ -6,7 +6,7 @@ body {
 
 body::-webkit-scrollbar {
     display: none;
-  }
+}
 
 .display-6 {
     font-family: 'Open Sans';

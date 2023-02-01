@@ -1,6 +1,17 @@
+body{
+    background: var(--bs-gray-300);
+}
 .form-floating > input {
     border: 0;
     border-bottom: 1px solid #212529;
     appearance: none;
     border-radius: 0;
+}
+
+.offcanvas > .btn-close {
+    color: white;
+} 
+
+#banner, .offcanvas, #navbar {
+    background: linear-gradient(to right, #03409c , black);
 }

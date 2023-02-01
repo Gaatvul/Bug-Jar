@@ -1,2 +1,0 @@
-[start]
-cmd = "java -jar -Dspring.profiles.active=production bug-tracker-0.0.1-SNAPSHOT.jar"

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>banner</title>
+</head>
+
+<body>
+
+    <div th:fragment="banner (pageName, pageLinks)">
+        <div class="row sticky-top p-2">
+            <div class="col-1 mx-2 d-lg-none position-relative">
+                <div class="position-absolute start-50 top-50 translate-middle 100vh">
+                    <i class="btn btn-light bi bi-arrow-right-square py-auto"
+                        style="font-size: 3rem; background-color: transparent; border-color: transparent;" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
+                        aria-controls="offcanvas-navbar"></i>
+                </div>
+            </div>
+            <div class="col px-1">
+                <div class="container rounded-3 text-white" id="banner">
+                    <div class="row py-2">
+                        <div class="col">
+                            <nav class="pt-2" aria-label="breadcrumb">
+                                <ol th:replace="this :: ${pageLinks}"></ol>
+                            </nav>
+                        </div>
+                        <div class="col text-center">
+                            <h5 class="navbar-text" th:text="${pageName}"></h5>
+                        </div>
+                        <div class="col-md">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ol class="breadcrumb" th:fragment="dashboard-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="allBugReports-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">All Bug Reports</li>
+    </ol>
+    
+    <ol class="breadcrumb" th:fragment="newBugReport-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">New Bug Report</li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="allUserAccounts-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">All User Accounts</li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="userProfile-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="bugReport-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="/bugReports">All
+                Bug Reports</a></li>
+        <li class="breadcrumb-item active" aria-current="page" th:text="${bugReport.title}">Bug Report</li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="editBugReport-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="/bugReports">All
+                Bug Reports</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a
+                th:href="@{/bugReports/view/{id} (id=${editableBugReport.id})}"
+                th:text="${editableBugReport.title}"></a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="editUserPassword-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="/profile">My
+                Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Update Password</li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="editUserProfile-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="/profile">My
+                Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="userProfileAsAdmin-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/admin/allUserAccounts">All User
+                Accounts</a></li>
+        <li class="breadcrumb-item active" aria-current="page" th:text="*{firstName} + ' ' + *{lastName}">User's Profile
+        </li>
+    </ol>
+
+    <ol class="breadcrumb" th:fragment="editUserProfileAsAdmin-links">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/admin/allUserAccounts">All User
+                Accounts</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a
+                th:href="@{/admin/allUserAccounts/view/{id} (id=${accountDetails.id})}" th:text="*{fullName}">User's
+                Profile</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+    </ol>
+
+
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>A List of Bug Reports!</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
@@ -21,39 +21,8 @@
         </div>
         <div class="col-lg-9">
             <div class="container-fluid">
-                <div class="row sticky-top p-2">
-                    <div class="col-1 mx-2 d-lg-none position-relative">
-                        <div class="position-absolute start-50 top-50 translate-middle">
-                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
-                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
-                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                                aria-controls="offcanvas-navbar"></i>
-                        </div>
-                    </div>
-                    <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient">
-                            <div class="row py-2">
-                                <div class="col">
-                                    <nav class="pt-2" aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                            <li class="breadcrumb-item" aria-current="page"><a href="/bugReports">All
-                                                    Bug Reports</a></li>
-                                            <li class="breadcrumb-item" aria-current="page"><a
-                                                    th:href="@{/bugReports/view/{id} (id=${editableBugReport.id})}"
-                                                    th:text="${editableBugReport.title}"></a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                                <div class="col text-center">
-                                    <h5 class="navbar-text">Edit Bug Report</h5>
-                                </div>
-                                <div class="col-md">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div
+                    th:replace="/fragments/banner :: banner (pageLinks='editBugReport-links', pageName='Edit Bug Report')">
                 </div>
                 <form th:action="@{/bugReports/edit/{id} (id=${editableBugReport.id})}" th:object="${editableBugReport}"
                     method="POST">
@@ -61,7 +30,7 @@
                         <div class="col-md">
                             <div class="row">
                                 <div class="col">
-                                    <h1><span th:text="'#' + *{id}"></span></h1>
+                                    <h1 th:text="'#' + *{id}"></h1>
                                     <div class="form-floating">
                                         <input class="form-control" type="text" th:field="${editableBugReport.title}"
                                             id="newTitle">
@@ -216,12 +185,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md gy-3">
-                            <input class="btn btn-outline-primary" type="submit" value="Save Changes"></input>
+                            <div class="row">
+                                <div class="col-md gy-3">
+                                    <input class="btn btn-outline-primary" type="submit" value="Save Changes"></input>
+                                    <div class="bg-danger text-white rounded-2 ps-2 mt-1" role="alert"
+                                        th:if="${#fields.hasErrors('reporter')}" th:errors="*{reporter}"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

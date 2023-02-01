@@ -21,38 +21,9 @@
         </div>
         <div class="col-lg-9">
             <div class="container-fluid">
-                <div class="row sticky-top p-2">
-                    <div class="col-1 mx-2 d-lg-none position-relative">
-                        <div class="position-absolute start-50 top-50 translate-middle">
-                            <i class="btn btn-light bi bi-arrow-right-square py-auto"
-                                style="font-size: 3rem; background-color: transparent; border-color: transparent;"
-                                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar"
-                                aria-controls="offcanvas-navbar"></i>
-                        </div>
-                    </div>
-                    <div class="col px-1">
-                        <div class="container rounded-3 text-bg-dark bg-gradient">
-                            <div class="row py-2" th:object="${accountDetails}">
-                                <div class="col">
-                                    <nav class="pt-2" aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                            <li class="breadcrumb-item"><a href="/admin/allUserAccounts">All User
-                                                    Accounts</a></li>
-                                            <li class="breadcrumb-item" aria-current="page"><a
-                                                    th:href="@{/admin/allUserAccounts/view/{id} (id=${accountDetails.id})}"
-                                                    th:text="*{fullName}">User's Profile</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                                <div class="col text-center">
-                                    <h5 class="navbar-text" th:text="'Edit ' + *{fullName} + '\'s Profile'"></h5>
-                                </div>
-                                <div class="col-md">
-                                </div>
-                            </div>
-                        </div>
+                <div th:object="${accountDetails}">
+                    <div
+                        th:replace="/fragments/banner :: banner (pageLinks='editUserProfileAsAdmin-links', pageName='Edit ' + *{fullName} + '\'s Profile')">
                     </div>
                 </div>
                 <h2>Update Account Details</h2>
@@ -80,10 +51,11 @@
                         </div>
                     </div>
                     <div class="form-floating my-2">
-                        <input type="text" th:field="*{userProfile.emailAddress}" class="form-control" id="email-address"
-                            th:errorclass="is-invalid">
+                        <input type="text" th:field="*{userProfile.emailAddress}" class="form-control"
+                            id="email-address" th:errorclass="is-invalid">
                         <label for="email-address">Email address</label>
-                        <div class="invalid-tooltip" role="alert" th:if="${#fields.hasErrors('userProfile.emailAddress')}"
+                        <div class="invalid-tooltip" role="alert"
+                            th:if="${#fields.hasErrors('userProfile.emailAddress')}"
                             th:errors="*{userProfile.emailAddress}">
                         </div>
                     </div>

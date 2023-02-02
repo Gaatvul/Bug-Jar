@@ -62,7 +62,7 @@ public class AdminController {
         if ("admin.demo@gmail.com"
                 .equalsIgnoreCase(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress())) {
             bindingResult.addError(new FieldError("accountDetails",
-                    "userProfile.emailAddress", null, false, null,
+                    "userProfile.lastName", null, false, null,
                     null, notEnoughPrivilagesMessage));
         }
 

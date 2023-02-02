@@ -51,15 +51,6 @@
                         </div>
                     </div>
                     <div class="form-floating my-2">
-                        <input type="text" th:field="*{userProfile.emailAddress}" class="form-control"
-                            id="email-address" th:errorclass="is-invalid">
-                        <label for="email-address">Email address</label>
-                        <div class="invalid-tooltip" role="alert"
-                            th:if="${#fields.hasErrors('userProfile.emailAddress')}"
-                            th:errors="*{userProfile.emailAddress}">
-                        </div>
-                    </div>
-                    <div class="form-floating my-2">
                         <select class="form-select" id="team" th:field="*{team}">
                             <option th:each="team : ${allTeams}" th:value="${team}" th:text="${team}"></option>
                         </select>

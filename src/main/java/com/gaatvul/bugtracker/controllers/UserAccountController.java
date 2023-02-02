@@ -92,8 +92,8 @@ public class UserAccountController {
         if ("None".equals(userDetailsService.getLoggedInUserAccountDetails().getRole()) || "admin.demo@gmail.com"
                 .equalsIgnoreCase(userDetailsService.getLoggedInUserAccountDetails().getEmailAddress())) {
             bindingResult.addError(
-                    new FieldError("userDetails", "userProfile.emailAddress", null, false,
-                            null, null, notEnoughPrivilagesMessage));
+                    new FieldError("userDetails", "userProfile.emailAddress", null,
+                            false, null, null, notEnoughPrivilagesMessage));
         }
 
         updatedUserProfile.setId(userDetailsService.getLoggedInUserAccountDetails().getId());

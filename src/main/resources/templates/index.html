@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8" />
@@ -21,9 +21,14 @@
             </h1>
         </div>
         <div class="col-4 mt-4 text-end">
-            <a class="btn btn-outline-primary" href="./login">Demo Account</a>
-            <a class="btn btn-outline-primary mx-4" href="./login">Log in</a>
-            <a class="btn btn-primary me-3" href="./signup">Sign up</a>
+            <div th:if="${userIsLoggedIn}">
+                <a class="btn btn-outline-primary" href="./login">Demo Account</a>
+                <a class="btn btn-outline-primary mx-4" href="./login">Log in</a>
+                <a class="btn btn-primary me-3" href="./signup">Sign up</a>
+            </div>
+            <div th:unless="${userIsLoggedIn}">
+                <a class="btn btn-outline-primary me-3" href="./dashboard">Dashboard</a>
+            </div>
         </div>
     </div>
 

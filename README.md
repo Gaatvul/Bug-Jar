@@ -1,7 +1,3 @@
-# bug-tracker
+# Bug Jar
 
-This is a bug reporting and lifecycle tracking tool.
-
-This tool allows the reporting and managing of issues encountered in a software application.
-
-The lifecycle can be tracked through the 'Changes' section of the tool.
+This project allows for the reporting of issues encountered in a software application in addition to tracking the lifecycle of the issue. The application features the use of user accounts and roles and the ability to assign both a user and an owner to each issue. Users with the administrator role have access to every other account on the application and can modify details such as name, team, and role. The application also features an account management page for changing details such as name, email address and password

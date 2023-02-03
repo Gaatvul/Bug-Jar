@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>A List of Bug Reports!</title>
+    <link rel="icon" type="image/ico" th:href="@{../static/favicon.ico?v=1}">
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link th:href="@{/css/custom-bootstrap.css}" rel="stylesheet">
@@ -46,11 +47,14 @@
                                         <th>Assigned Users</th>
                                         <th class="visually-hidden">Reporter</th>
                                         <th class="visually-hidden">Owner</th>
-                                        <th>Criticality</th>
+                                        <th onclick="sortTableColumn(7)" style="cursor: pointer;" id="Criticality">
+                                            Criticality</th>
                                         <th onclick="sortTableColumn(8)" style="cursor: pointer;" id="Category">Category
                                         </th>
-                                        <th>Priority</th>
-                                        <th>Status</th>
+                                        <th onclick="sortTableColumn(9)" style="cursor: pointer;" id="Priority">Priority
+                                        </th>
+                                        <th onclick="sortTableColumn(10)" style="cursor: pointer;" id="Status">Status
+                                        </th>
                                         <th onclick="sortTableColumn(11)" style="cursor: pointer;" id="Created On">
                                             Created On</th>
                                     </tr>
@@ -108,120 +112,13 @@
         </div>
     </div>
 
+    
+    <script src="/js/searchReports.js"></script>
+    <script src="/js/sortTableColumn.js"></script>
     <script src="/webjars/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script>
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    </script>
-    <script>
-        function searchReports() {
-            const columnNames = new Map();
-
-            columnNames.set('id', 0);
-            columnNames.set('title', 1);
-            columnNames.set('desc', 2);
-            columnNames.set('project', 3);
-            columnNames.set('assignee', 4);
-            columnNames.set('reporter', 5);
-            columnNames.set('owner', 6);
-            columnNames.set('criticality', 7);
-            columnNames.set('category', 8);
-            columnNames.set('priority', 9);
-            columnNames.set('status', 10);
-            columnNames.set('created', 11);
-
-            var searchBarInput, searchFilter, searchKeyword, searchTerm, table, tr, td, txtValue;
-            searchBarInput = document.getElementById("search-bar");
-            searchFilter = searchBarInput.value.toUpperCase();
-            table = document.getElementById("reports");
-            tr = table.getElementsByTagName("tr");
-
-            const splitExp = /\={1}/;
-            searchKeyword = searchFilter.split(splitExp, 2)[0];
-            searchTerm = searchFilter.split(splitExp, 2)[1];
-
-            if (!searchFilter.includes("=") || searchTerm == undefined) {
-                return;
-            } else {
-                for (let i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[columnNames.get(searchKeyword.toLowerCase())];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(searchTerm) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
-                        }
-                    }
-                }
-            }
-        }
-        onload = (event) => searchReports();
-    </script>
-    <script>
-        function sortTableColumn(n) {
-            const columnsId = new Map();
-
-            columnsId.set(1, 'Title');
-            columnsId.set(3, 'Project');
-            columnsId.set(8, 'Category');
-            columnsId.set(11, 'Created On');
-
-            columnsId.forEach(key => {
-                document.getElementById(key).innerHTML = key
-            });
-
-            const sortAZ = "<i class=\"bi bi-caret-down-fill ps-1\"></i>";
-            const sortZA = "<i class=\"bi bi-caret-up-fill ps-1\"></i>";
-
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("reports");
-            switching = true;
-            dir = "asc";
-
-            while (switching) {
-
-                switching = false;
-                rows = table.rows;
-
-                for (i = 1; i < (rows.length - 1); i++) {
-
-                    shouldSwitch = false;
-
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-
-                    if (dir == "asc") {
-                        document.getElementById(columnsId.get(n)).innerHTML = columnsId.get(n) + sortAZ;
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        document.getElementById(columnsId.get(n)).innerHTML = columnsId.get(n) + sortZA;
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-
-                    switchcount++;
-                } else {
-
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                }
-            }
-        }
     </script>
 </body>
 

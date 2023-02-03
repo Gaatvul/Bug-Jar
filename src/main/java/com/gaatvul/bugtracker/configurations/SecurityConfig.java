@@ -21,7 +21,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/signup", "/css/**", "/js/**", "/webjars/**", "/").permitAll()
+                        .antMatchers("/signup", "/css/**", "/js/**", "/webjars/**", "/", "/static/favicon.ico").permitAll()
                         .antMatchers("/admin/**").hasRole("Administrator")
                         .anyRequest().authenticated())
                 .formLogin(form -> form

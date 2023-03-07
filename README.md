@@ -2,6 +2,8 @@
 
 ### A fullstack reporting tool for software defects
 
+[LIVE DEMO](https://bug-jar-production.up.railway.app/)
+
 ![all bug reports](https://user-images.githubusercontent.com/47698459/223418240-cde21c33-317d-4b5f-9bb5-55d532f58fb9.png)
 
 This project allows for the reporting of issues encountered in a software application in addition to tracking the lifecycle of the issue. The application features the use of user accounts and roles and the ability to assign both a user and an owner to each issue. Users with the administrator role have access to every other account on the application and can modify details such as name, team, and role. The application also features an account management page for changing details such as name, email address and password
@@ -35,4 +37,5 @@ This project allows for the reporting of issues encountered in a software applic
 - Webpage structure and styling
 - MVC architecture
 - Authorisation & authentication
-- 
+- Hosting on the cloud (Railway platform)
+- Database schema creation and normalisation
